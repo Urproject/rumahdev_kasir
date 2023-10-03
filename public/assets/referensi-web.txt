@@ -1,0 +1,12 @@
+
+# admin (template with live demo and docs)
+https://iqonic.design/product/admin-templates/posdash-lite-free-html-inventory-admin-template/
+
+# pos website 
+https://github.com/ranajahanzaib/rc-pos.git
+https://github.com/nitinegoro/epos
+
+# another pos system website ci4
+https://github.com/deyan-ardi/sim-pos-ci
+https://github.com/sejator/posci4
+https://github.com/novinaldi/ci4-pos

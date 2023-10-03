@@ -1,0 +1,16 @@
+body { 
+	/*font-family: "Poppins", sans-serif;*/
+	font-family: "Nunito Sans", Arial, sans-serif;
+}
+
+.rumahdev-color {
+  color: transparent;
+  background: linear-gradient(135deg, #005a70 0%, #00a987 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.rumahdev-bg {
+  background: #005a70;
+  background: linear-gradient(135deg, #005a70 0%, #00a987 100%);
+}
