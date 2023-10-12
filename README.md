@@ -1,7 +1,7 @@
 # Rumah Dev App Kasir
 App Sistem Kasir (POS) diperuntukkan ke Cafe/Resto atau usaha sejenis yang lainnya.
 Desain database:
-![Alt text](database-relation.png)
+![Alt text](db-relation2.png)
 
 ## Informations
 - Analysis Requirements System:
