@@ -6,7 +6,6 @@
 </head>
 
 <body>
-<!-- <a href="<?= base_url('home/dashboard') ?>">DASHBOARD</a> -->
 
   <div class="d-flex justify-content-center align-items-center rumahdev-bg" style="width: 100%; height: 100vh;">
 

@@ -16,8 +16,12 @@ class Home extends BaseController {
 	  return view('daftar2');
 	}
 
-	public function dashboard(): string {
-	  return view('dashboard/dashboard');
+	public function dashboard0(): string {
+	  return view('dashboard/dashboard0');
+	}
+
+	public function profil0(): string {
+	  return view('dashboard/profil0');
 	}
 
 }

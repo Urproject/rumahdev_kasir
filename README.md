@@ -2,7 +2,7 @@
 App Sistem Kasir (POS) diperuntukkan ke Cafe/Resto atau usaha sejenis yang lainnya.
 Desain database:
 ![Alt text](db-relation2.png)
-Impor database terlebih dahulu sebelum mengakses.
+<br>Impor database terlebih dahulu sebelum mengakses.
 
 ## Informations
 - Analysis Requirements System:
