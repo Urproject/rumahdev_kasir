@@ -2,6 +2,7 @@
 App Sistem Kasir (POS) diperuntukkan ke Cafe/Resto atau usaha sejenis yang lainnya.
 Desain database:
 ![Alt text](db-relation2.png)
+Impor database terlebih dahulu sebelum mengakses.
 
 ## Informations
 - Analysis Requirements System:
@@ -13,6 +14,7 @@ https://www.figma.com/file/VxRfW1OshdlRHQYvRGoDgQ/Ref-UI-Sistem-Kasir?type=desig
 1. Make sure you have php/xampp installed
 2. Clone repository to C:/xampp/htdocs
 3. Open command, navigate to root project directory
-4. Run `php spark serve`
-5. Open http://localhost:8080/ in browser
+4. Run `composer install`
+5. Run `php spark serve`
+6. Open http://localhost:8080/ in browser
 

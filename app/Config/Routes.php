@@ -9,5 +9,9 @@ $routes->get('/', 'Home::index');
 $routes->get('/kasir', 'Home::index');
 $routes->get('/home', 'Home::index');
 
+$routes->get('/login', 'Home::index');
+$routes->get('/daftar', 'Home::daftar');
+$routes->get('/daftar-next', 'Home::daftar2');
+
 $routes->get('/home/dashboard', 'Home::dashboard');
 $routes->get('/home/riwayat', 'Home::riwayat');

@@ -32,7 +32,10 @@
         </button>
       </div>
 
-      <button class="btn rumahdev-bg text-white" style="width: 200px;">Login</button>
+      <button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Login</button>
+      <br>
+
+      <a href="<?= base_url('daftar') ?>" class="text-center rumahdev-color">Belum punya akun? Daftar</a>
 
     </div>
 

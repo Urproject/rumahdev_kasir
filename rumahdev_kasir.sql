@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Okt 2023 pada 19.04
+-- Waktu pembuatan: 16 Okt 2023 pada 08.44
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.1.17
 
@@ -127,7 +127,8 @@ CREATE TABLE `transaction_sub` (
   `id_transaction` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `subtotal` int(11) NOT NULL
+  `subtotal` int(11) NOT NULL,
+  `diskon` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -165,14 +166,16 @@ ALTER TABLE `merchant`
 --
 ALTER TABLE `merchant_employee`
   ADD PRIMARY KEY (`id_employee`),
-  ADD KEY `id_merchant` (`id_merchant`);
+  ADD KEY `id_merchant` (`id_merchant`),
+  ADD KEY `id_user2` (`id_user`);
 
 --
 -- Indeks untuk tabel `merchant_payment`
 --
 ALTER TABLE `merchant_payment`
   ADD PRIMARY KEY (`id_payment`),
-  ADD KEY `id_method` (`id_method`);
+  ADD KEY `id_method` (`id_method`),
+  ADD KEY `id_merchant2` (`id_merchant`);
 
 --
 -- Indeks untuk tabel `payment_method`
@@ -190,15 +193,18 @@ ALTER TABLE `product`
 -- Indeks untuk tabel `transaction`
 --
 ALTER TABLE `transaction`
-  ADD PRIMARY KEY (`id_transaction`);
+  ADD PRIMARY KEY (`id_transaction`),
+  ADD KEY `id_user3` (`id_user`),
+  ADD KEY `id_merchant3` (`id_merchant`),
+  ADD KEY `id_method2` (`id_method`);
 
 --
 -- Indeks untuk tabel `transaction_sub`
 --
 ALTER TABLE `transaction_sub`
   ADD PRIMARY KEY (`id_sub`),
-  ADD KEY `id_transaction` (`id_transaction`),
-  ADD KEY `id_product` (`id_product`);
+  ADD KEY `id_product` (`id_product`),
+  ADD KEY `id_transaction` (`id_transaction`);
 
 --
 -- Indeks untuk tabel `user`
@@ -269,26 +275,36 @@ ALTER TABLE `user`
 -- Ketidakleluasaan untuk tabel `merchant`
 --
 ALTER TABLE `merchant`
-  ADD CONSTRAINT `id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `merchant_employee`
 --
 ALTER TABLE `merchant_employee`
-  ADD CONSTRAINT `id_merchant` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`);
+  ADD CONSTRAINT `id_merchant` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_user2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `merchant_payment`
 --
 ALTER TABLE `merchant_payment`
-  ADD CONSTRAINT `id_method` FOREIGN KEY (`id_method`) REFERENCES `payment_method` (`id_method`);
+  ADD CONSTRAINT `id_merchant2` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_method` FOREIGN KEY (`id_method`) REFERENCES `payment_method` (`id_method`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `transaction`
+--
+ALTER TABLE `transaction`
+  ADD CONSTRAINT `id_merchant3` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_method2` FOREIGN KEY (`id_method`) REFERENCES `payment_method` (`id_method`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_user3` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `transaction_sub`
 --
 ALTER TABLE `transaction_sub`
-  ADD CONSTRAINT `id_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`),
-  ADD CONSTRAINT `id_transaction` FOREIGN KEY (`id_transaction`) REFERENCES `transaction` (`id_transaction`);
+  ADD CONSTRAINT `id_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_transaction` FOREIGN KEY (`id_transaction`) REFERENCES `transaction` (`id_transaction`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
