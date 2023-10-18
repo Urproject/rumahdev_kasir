@@ -25,20 +25,25 @@
       </div>
 
       <div class="input-group mx-auto my-3" style="width: 80%;">
-        <input class="form-control rounded" type="text" placeholder="Atur Password" aria-label="password">
-        <button class="btn" type="button" style="margin-left: -45px;">
-          <i class="text-secondary fa-solid fa-eye"></i>
-          <!-- <i class="fa-solid fa-eye-slash"></i> -->
-        </button>
+        <div class="input-group mb-3">
+          <input id="password-field" type="password" class="form-control"
+            placeholder="Atur Password" aria-label="password">
+            <button class="btn rounded-end btn btn-secondary" type="button">
+                  <h6 toggle="#password-field" class="fa fa-eye fa-lg show-hide"></h6>
+            </button>
+        </div>
       </div>
 
       <div class="input-group mx-auto my-3" style="width: 80%;">
-        <input class="form-control rounded" type="text" placeholder="Konfirmasi Password" aria-label="password">
-        <button class="btn" type="button" style="margin-left: -45px;">
-          <i class="text-secondary fa-solid fa-eye"></i>
-          <!-- <i class="fa-solid fa-eye-slash"></i> -->
-        </button>
+        <div class="input-group mb-3">
+          <input id="password-field2" type="password" class="form-control"
+            placeholder="Konfirmasi Password" aria-label="password">
+            <button class="btn rounded-end btn btn-secondary" type="button">
+                  <h6 toggle="#password-field2" class="fa fa-eye fa-lg show-hide"></h6>
+            </button>
+        </div>
       </div>
+
 
       <a href="<?= base_url('daftar-next') ?>"><button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Selanjutnya</button></a>
       <br>
@@ -48,6 +53,25 @@
     </div>
 
   </div>
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+    <script>
+        $(".show-hide").click(function () {
+ 
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+        
+    </script>
 
 </body>
 </html>
