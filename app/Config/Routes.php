@@ -23,6 +23,9 @@ $routes->get('/home/profil0', 'Home::profil0');
 // dashboard user superadmin
 $routes->get('/merchant/dashboard', 'Merchant::index');
 $routes->get('/home/dashboard', 'Merchant::index');
+$routes->get('/home/test', 'Merchant::test');
+$routes->get('/home/test2', 'Merchant::test2');
+$routes->get('/home/testing', 'Merchant::testing');
 
 // dashboard user kasir
 $routes->get('/kasir/dashboard', 'Kasir::index');
