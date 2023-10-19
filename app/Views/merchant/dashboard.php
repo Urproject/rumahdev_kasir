@@ -1,344 +1,195 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <?= $this->include('templates/head'); ?>
-  <title>RumahDev - Kasir Dashboard</title>
-</head>
-
-<body>
 
 
-<div class="container-fluid row p-0" style="">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
 
-  <!-- left sidebar -->
-  <div class="col-md-2 bg-white">
-    <div class="d-flex flex-column p-3" style="height: 100vh;">
-      <a href="#" class="mb-3 mb-md-0 me-md-auto text-decoration-none">
-        <img class="me-2" style="height: 40px;" src="<?= base_url('assets/images/logo-rd2.png'); ?>">
-        <br>
-        <span class="fs-5 fw-bold rumahdev-color mt-auto">KASIR APP</span>
-      </a>
-      <hr>
+    <!-- Main content -->
+    <section class="content bg-white">
+        <div class="row">
 
-      <ul class="nav nav-pills flex-column flex-grow-1 mb-auto">
-        <li class="nav-item">
-          <a href="#" class="nav-link link-light rumahdev-bg" aria-current="page">
-            <span class="me-3" style="font-size: 12px;"><i class="fa-solid fa-house"></i></span>
-            Dashboard
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            <span class="me-3" style="font-size: 17px;"><i class="fa-solid fa-file-lines"></i></span>
-            Riwayat
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            <span class="me-3" style="font-size: 15px;"><i class="fa-solid fa-bars"></i></span>
-            Menu
-          </a>
-        </li>
-      </ul>
-      <hr>
+          <div class="col-sm-8 mx-0 py-3">
 
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li>
-          <a href="#" class="nav-link link-dark">
-            <span class="me-3" style="font-size: 14px;"><i class="fa-solid fa-gear"></i></span>
-            Setting
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            <span class="me-3" style="font-size: 14px;"><i class="fa-solid fa-right-from-bracket"></i></span>
-            Logout
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div> <!-- left sidebar -->
+                <div class="container-fluid">
+                  <div class="row mb-2">
+                    <div class="col-sm-12 mb-3">
+                      <div class="input-group" style="width: 50%;">
+                      <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <i class="fas fa-bars rumahdev-color" style="color: darkcyan;"></i>
+                      </a>
+                        <input class="form-control rounded" type="text" placeholder="Search" aria-label="search">
+                        <button class="btn" type="button" style="margin-left: -40px; z-index: 1;">
+                          <i class="text-secondary fas fa-search"></i>
+                        </button>
+                      </div>
+                    </div>
 
-  <!-- content -->
-  <div class="col-md-7 bg-light">
-    <div class="scrollable-content p-3" style="height: 100vh; overflow-y: auto; overflow-x: hidden;"> 
+                    <div class="col-sm-12 mb-3">
+                      <?php
+                        $lastkategori = null;
+                        foreach ($products as $product) {
+                          $currentkategori = $product->kategori;
+                          if ($currentkategori != $lastkategori) {
+                            echo '<button class="btn btn-sm btn-outline-secondary mr-2" style="font-size: 16px;">' . $currentkategori . '</button>';
+                            $lastkategori = $currentkategori;
+                          }
+                        }
+                      ?>
+                    </div>
 
-      <div class="input-group mt-0 mb-3" style="width: 360px;">
-        <input type="text" class="form-control" placeholder="Search" aria-label="search">
-        <span class="input-group-text" id="basic-addon1">
-          <button type="button" class="btn p-0">
-            <i class="text-secondary fa-solid fa-search"></i>
-          </button>
-        </span>
-      </div>
+                    <div class="col-sm-12">
+                      <h5 class="font-weight-bold">Semua Produk</h5>
+                    </div>
+                  </div>
+                </div><!-- /.container-fluid -->
 
-      <div class="mb-4">
-        <a class="btn btn-outline-secondary border me-2">Kategori1</a>
-        <a class="btn btn-outline-secondary border me-2">Kategori2</a>
-        <a class="btn btn-outline-secondary border me-2">Kategori3</a>
-        <a class="btn btn-outline-secondary border me-2">Kategori4</a>
-      </div>
 
-      <h3 class="fw-bold">Semua Produk</h3>
+                <div class="row">
 
-      <!-- products -->
-      <div class="row">
+                <?php if (isset($products) && !empty($products)): ?>
+                  <?php foreach ($products as $product): ?>
 
-        <div class="col-md-3 px-2 mb-3">
-          <div class="card text-center">
-            <img src="<?= base_url('assets/images/gambar4.png'); ?>" class="card-img-top" alt="Foto Produk">
-            <div class="card-body">
-              <span class=" fw-bold card-title">Produk A</span><br>
-              <span class="card-text">Rp 20.000</span>
-              <button href="#" class="btn btn-secondary rumahdev-bg mt-2">
-                Tambahkan
-              </button>
-            </div>
+                    <div class="col-md-4 px-2 mb-3">
+                      <div class="card">
+                        <img src="<?php echo base_url('assets/images/produk/' . $product->gambar); ?>" class="card-img-top rounded-top" alt="Foto Produk" style="height: 200px;">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-10">
+                              <span class="font-weight-bold"><?php echo $product->nama; ?></span><br>
+                              <span>Rp <?php echo $product->harga; ?></span>
+                            </div>
+                            <div class="col-2 my-auto ms-auto">
+                              <button class="btn btn-sm rumahdev-bg text-white rounded-circle my-auto" 
+                              style="">
+                                <i class="fa fa-plus"></i>
+                              </button>
+                            </div> <!-- col-2 -->
+                          </div> <!-- row -->
+                        </div> <!-- card-body -->
+                      </div> <!-- card -->
+                    </div> <!-- col-md-4 -->
+
+                  <?php endforeach; ?>
+                <?php else: ?>
+                  <p>No products found.</p>
+                <?php endif; ?>
+
+                </div> <!-- row -->
+
+
           </div>
-        </div>
+          <!-- /.col -->
 
-        <div class="col-md-3 px-2 mb-3">
-          <div class="card text-center">
-            <img src="<?= base_url('assets/images/gambar4.png'); ?>" class="card-img-top" alt="Foto Produk">
-            <div class="card-body">
-              <span class=" fw-bold card-title">Produk A</span><br>
-              <span class="card-text">Rp 20.000</span>
-              <button href="#" class="btn btn-secondary rumahdev-bg mt-2">
-                Tambahkan
-              </button>
+
+          <div class="col-sm-4 mx-0 shadow">
+            <div class="user-panel mt-2 d-flex">
+              <div class="image my-auto">
+                <img src="<?=base_url('adminLTE/dist/img/user2-160x160.jpg')?>" class="img-circle elevation-2" alt="User Image">
+              </div>
+              <div class="info">
+                <a href="#" class="d-block text-dark">Alexander Pierce</a>
+                <a href="#" class="d-block text-dark">alexanderpierce@gmail.com</a>
+              </div>
             </div>
-          </div>
-        </div>
+            <hr>
+
+            <div class="order-menu flex-grow-1">
+              <h5 class="font-weight-bold">Order Menu</h5>
+              <?php if (isset($products) && !empty($products)): ?>
+                <?php foreach ($products as $product): ?>
+
+              <div class="row">
+                <div class="col-2">
+                  <img class="rounded my-auto" src="<?php echo base_url('assets/images/produk/' . $product->gambar); ?>" style="width: 100%; height: 80%;">
+                </div>
+                <div class="col-md-10">
+                  <span><?php echo $product->nama; ?></span>
+                  <div class="row">
+                    <div class="col-8">
+                      <p><?php echo $product->harga; ?></p>
+                    </div>
+                    <div class="col-1">
+                      <span class="right badge badge-secondary rounded" style="cursor: pointer;">
+                        <i class="fas fa-minus"></i>
+                      </span>
+                    </div>
+                    <div class="col-1">
+                      <p class="text-center">2</p>
+                    </div>
+                    <div class="col-1">
+                      <span class="right badge badge-secondary rounded" style="cursor: pointer;">
+                        <i class="fas fa-plus"></i>
+                      </span>
+                    </div>
+                  </div> <!-- row price+qty -->
+                </div> <!-- col-md-10 produk/price -->
+              </div> <!-- row product -->
+
+                <?php endforeach; ?>
+              <?php else: ?>
+                <p>Belum ada order.</p>
+              <?php endif; ?>
+
+            </div> <!-- order-menu -->
 
 
-        <div class="col-md-3 px-2 mb-3">
-          <div class="card text-center">
-            <img src="<?= base_url('assets/images/gambar4.png'); ?>" class="card-img-top" alt="Foto Produk">
-            <div class="card-body">
-              <span class=" fw-bold card-title">Produk A</span><br>
-              <span class="card-text">Rp 20.000</span>
-              <button href="#" class="btn btn-secondary rumahdev-bg mt-2">
-                Tambahkan
-              </button>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="col-md-3 px-2 mb-3">
-          <div class="card text-center">
-            <img src="<?= base_url('assets/images/gambar4.png'); ?>" class="card-img-top" alt="Foto Produk">
-            <div class="card-body">
-              <span class=" fw-bold card-title">Produk A</span><br>
-              <span class="card-text">Rp 20.000</span>
-              <button href="#" class="btn btn-secondary rumahdev-bg mt-2">
-                Tambahkan
-              </button>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="col-md-3 px-2 mb-3">
-          <div class="card text-center">
-            <img src="<?= base_url('assets/images/gambar4.png'); ?>" class="card-img-top" alt="Foto Produk">
-            <div class="card-body">
-              <span class=" fw-bold card-title">Produk A</span><br>
-              <span class="card-text">Rp 20.000</span>
-              <button href="#" class="btn btn-secondary rumahdev-bg mt-2">
-                Tambahkan
-              </button>
-            </div>
-          </div>
-        </div>
-
-
-
-        <!-- <div class="col-md-6 p-2">
-          <div class="card border">
-
-            <div class="row g-0">
-              <div class="col-md-4 p-1">
-                <img src="<?= base_url('assets/images/gambar2.png'); ?>" class="card-img" alt="">
+            <div class="order-price my-3">
+              <div class="row text-secondary">
+                <div class="col-8">
+                  <span>Subtotal</span>
+                </div>
+                <div class="col-4">
+                  <span>Rp 60.000</span>
+                </div>
+              </div>
+              <div class="row text-secondary">
+                <div class="col-8">
+                  <span>Diskon</span>
+                </div>
+                <div class="col-4">
+                  <span>Rp 60.000</span>
+                </div>
+              </div>
+              <div class="row text-secondary">
+                <div class="col-8">
+                  <span>Pajak</span>
+                </div>
+                <div class="col-4">
+                  <span>Rp 60.000</span>
+                </div>
+              </div>
+              <hr>
+              <div class="row font-weight-bold" style="font-size: 18px;">
+                <div class="col-8">
+                  <span>Total</span>
+                </div>
+                <div class="col-4">
+                  <span>Rp 60.000</span>
+                </div>
               </div>
 
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="fw-bold card-title">Nama Produk</h5>
-                  <p class="card-text">
-                    <span class="fw-bold">Rp 20.000 </span><br>
-                    <span style="font-size: 14px;">Deskripsi Produk Some quick example text to build on the card title and make up the bulk.</span>
-                  </p>
+              <div class="row">
+                <div class="col-12 d-flex justify-content-center" id="processPayment">
+                  <button class="btn btn-sm rumahdev-bg text-white mt-3" style="font-size: 18px; width: 100%;">
+                    Proses Pembayaran
+                  </button>
                 </div>
               </div>
             </div>
 
-            <div class="card-footer d-flex justify-content-end bg-white">
-              <a href="#" class="btn btn-secondary rumahdev-bg">Tambahkan</a>
-            </div>
 
           </div>
-        </div> -->
+          <!-- /.col -->
 
-      </div> <!-- products -->
-
-    </div>
-
-  </div> <!-- content -->
-
-  <!-- right sidebar -->
-  <div class="col-md-3 bg-white">
-    <div class="d-flex flex-column py-3" style="height: 100vh;">
-      <div class="dropdown">
-        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle link-dark" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <span>Username12345</span>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1" style="">
-          <li><a class="dropdown-item" href="#">Profile</a></li>
-          <li><a class="dropdown-item" href="#">Logout</a></li>
-        </ul>
-      </div>
-      <hr>
-
-      <h5 class="fw-bold mb-3">Pembayaran</h5>
-
-      <!-- daftar pesanan -->
-      <div class="flex-grow-1 pe-2" style="height: 100%; overflow-y: auto; overflow-x: hidden;">
-
-        <div class="row">
-          <div class="d-flex justify-content-between">
-            <span class="fw-bold mb-2">Nama Produk Abcde</span>
-            <span class="text-secondary my-auto" style="font-size: 14px;">Rp 20.000</span>
-          </div>
-
-          <div class="d-flex justify-content-between">
-            <span>
-              <button href="#" class="btn btn-secondary btn-sm" style="font-size: 10px;">
-                <i class="text-white fa-solid fa-minus"></i>
-              </button>
-              <span class="px-2">2</span>
-              <button href="#" class="btn btn-secondary btn-sm" style="font-size: 10px;">
-                <i class="text-white fa-solid fa-plus"></i>
-              </button>
-            </span>
-            <span class="">Rp 40.000</span>
-          </div>
         </div>
-        <hr class="my-2">
+        <!-- /.row -->
 
-        <div class="row">
-          <div class="d-flex justify-content-between">
-            <span class="fw-bold mb-2">Nama Produk Abcde</span>
-            <span class="text-secondary my-auto" style="font-size: 14px;">Rp 20.000</span>
-          </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 
-          <div class="d-flex justify-content-between">
-            <span>
-              <button href="#" class="btn btn-secondary btn-sm" style="font-size: 10px;">
-                <i class="text-white fa-solid fa-minus"></i>
-              </button>
-              <span class="px-2">2</span>
-              <button href="#" class="btn btn-secondary btn-sm" style="font-size: 10px;">
-                <i class="text-white fa-solid fa-plus"></i>
-              </button>
-            </span>
-            <span class="">Rp 40.000</span>
-          </div>
-        </div>
-        <hr class="my-2">
-
-        <div class="row">
-          <div class="d-flex justify-content-between">
-            <span class="fw-bold mb-2">Nama Produk Abcde</span>
-            <span class="text-secondary my-auto" style="font-size: 14px;">Rp 20.000</span>
-          </div>
-
-          <div class="d-flex justify-content-between">
-            <span>
-              <button href="#" class="btn btn-secondary btn-sm" style="font-size: 10px;">
-                <i class="text-white fa-solid fa-minus"></i>
-              </button>
-              <span class="px-2">2</span>
-              <button href="#" class="btn btn-secondary btn-sm" style="font-size: 10px;">
-                <i class="text-white fa-solid fa-plus"></i>
-              </button>
-            </span>
-            <span class="">Rp 40.000</span>
-          </div>
-        </div>
-        <hr class="my-2">
-
-        <div class="row">
-          <div class="d-flex justify-content-between">
-            <span class="fw-bold mb-2">Nama Produk Abcde</span>
-            <span class="text-secondary my-auto" style="font-size: 14px;">Rp 20.000</span>
-          </div>
-
-          <div class="d-flex justify-content-between">
-            <span>
-              <button href="#" class="btn btn-secondary btn-sm" style="font-size: 10px;">
-                <i class="text-white fa-solid fa-minus"></i>
-              </button>
-              <span class="px-2">2</span>
-              <button href="#" class="btn btn-secondary btn-sm" style="font-size: 10px;">
-                <i class="text-white fa-solid fa-plus"></i>
-              </button>
-            </span>
-            <span class="">Rp 40.000</span>
-          </div>
-        </div>
-        <hr class="my-2">
-
-        <div class="row">
-          <div class="d-flex justify-content-between">
-            <span class="fw-bold mb-2">Nama Produk Abcde</span>
-            <span class="text-secondary my-auto" style="font-size: 14px;">Rp 20.000</span>
-          </div>
-
-          <div class="d-flex justify-content-between">
-            <span>
-              <button href="#" class="btn btn-secondary btn-sm" style="font-size: 10px;">
-                <i class="text-white fa-solid fa-minus"></i>
-              </button>
-              <span class="px-2">2</span>
-              <button href="#" class="btn btn-secondary btn-sm" style="font-size: 10px;">
-                <i class="text-white fa-solid fa-plus"></i>
-              </button>
-            </span>
-            <span class="">Rp 40.000</span>
-          </div>
-        </div>
-        <hr class="my-2">
-      </div> <!-- daftar pesanan -->
-        
-      <div class="border-top pt-2">
-        <div class="d-flex justify-content-between">
-          <span>Subtotal</span>
-          <span>Rp 60.000</span>
-        </div>
-
-        <div class="d-flex justify-content-between">
-          <span>Diskon/Pajak</span>
-          <span>Rp 0</span>
-        </div>
-        <hr>
-
-        <div class="fw-bold fs-5 d-flex justify-content-between">
-          <span>Total</span>
-          <span>Rp 60.000</span>
-        </div>
-      </div>
-
-      <a href="#" class="btn btn-secondary rumahdev-bg mt-2">Proses Pembayaran</a>
-
-
-
-    </div>
-  </div>  <!-- right sidebar -->
-
-</div>
-
-
-</body>
-</html>
+<script>
+  document.getElementById("processPayment").addEventListener("click", function() {
+    window.location.href = "<?= base_url('home/confirm') ?>"; // Replace with your desired URL
+  });
+</script>

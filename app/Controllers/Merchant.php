@@ -7,9 +7,74 @@ namespace App\Controllers;
 
 class Merchant extends BaseController {
 
-	public function index(): string {
-	  return view('merchant/dashboard');
-	}
+  public function index() {
+    $db = \Config\Database::connect();
+    $query = $db->query('SELECT * FROM product');
+    $data['products'] = $query->getResult();
+
+    $header['titleTab']='RumahDev Kasir App';
+    $header2['titlePage']='Dashboard Merchant';
+    
+    echo view('partial/header', $header);
+    echo view('partial/side_menu');
+    echo view('merchant/dashboard', $data);
+    echo view('partial/footer');
+  }
+
+  public function profil() {
+
+    $header['titleTab']='RumahDev Kasir App';
+    $header2['titlePage']='Profil Merchant';
+    
+    echo view('partial/header', $header);
+    echo view('partial/top_menu', $header2);
+    echo view('partial/side_menu');
+    echo view('merchant/profil');
+    echo view('partial/footer');
+  }
+
+public function confirm() {
+    $db = \Config\Database::connect();
+
+    $builder = $db->table('transaction');
+    $builder->join('transaction_sub', 'transaction.id_transaction = transaction_sub.id_transaction', 'left');
+    $builder->where('transaction.id_transaction', 1);
+
+    $query = $builder->get();
+    $transactions = $query->getResult();
+
+    // Initialize total_harga
+    $total_harga = 0;
+
+    // Retrieve product information and calculate subtotal
+    foreach ($transactions as &$transaction) {
+        $transaction->subtotal = $transaction->jumlah * $transaction->id_product;
+        $total_harga += $transaction->subtotal;
+
+        // Fetch product information in the controller
+        $product_info = $this->getProductInfo($transaction->id_product);
+        $transaction->product_name = $product_info->nama;
+        $transaction->product_price = $product_info->harga;
+    }
+
+    $header['titleTab'] = 'RumahDev Kasir App';
+    $header2['titlePage'] = 'Konfirmasi Pesanan';
+
+    echo view('partial/header', $header);
+    echo view('partial/top_menu', $header2);
+    echo view('partial/side_menu');
+    echo view('merchant/confirm', ['transactions' => $transactions, 'total_harga' => $total_harga]);
+    echo view('partial/footer');
+}
+
+// Create this private function in your controller
+private function getProductInfo($id_product) {
+    $db = \Config\Database::connect();
+    $builder = $db->table('product');
+    $builder->where('id_product', $id_product);
+    $query = $builder->get();
+    return $query->getRow();
+}
 
 	public function test() {
     $db = \Config\Database::connect();
@@ -31,19 +96,14 @@ class Merchant extends BaseController {
 
   public function test2() {
     $db = \Config\Database::connect();
-
-    if ($db->connect(true)) {
-      echo 'Database connection successful.';
-    } else {
-      echo 'Database connection failed.';
-    }
-
     $query = $db->query('SELECT * FROM product');
     $data['products'] = $query->getResult();
 
-    $header['title']='Halaman Testing';
+    $header['titleTab']='Title Tab';
+    $header2['titlePage']='Title Page';
+    
     echo view('partial/header', $header);
-    echo view('partial/top_menu');
+    echo view('partial/top_menu', $header2);
     echo view('partial/side_menu');
     echo view('merchant/testing', $data);
     echo view('partial/footer');

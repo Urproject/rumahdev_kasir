@@ -1,4 +1,3 @@
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -473,13 +472,3 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-<script type="text/javascript">
-$(document).ready( function () {
-  $('#example1').dataTable( {
-    "pageLength": 50
-  } );
-} );
-
-
-</script>
