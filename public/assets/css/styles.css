@@ -1,6 +1,10 @@
 body { 
 	/*font-family: "Poppins", sans-serif;*/
-	font-family: "Nunito Sans", Arial, sans-serif;
+	/*font-family: "Nunito Sans", Arial, sans-serif;*/
+}
+
+.text-rumahdev {
+	color: darkcyan;
 }
 
 .rumahdev-color {
@@ -14,9 +18,3 @@ body {
   background: #005a70;
   background: linear-gradient(135deg, #005a70 0%, #00a987 100%);
 }
-
-.rumahdev-btn { 
-  color: #ffffff; 
-  background-color: #00a987; 
-  border-color: #005a70; 
-} 
