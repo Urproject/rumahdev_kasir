@@ -22,5 +22,31 @@ class MerchantProducts extends BaseController {
     echo view('partial/footer');
 	}
 
+  public function detail($id=1) {
+    $db = \Config\Database::connect();
+    $query = $db->query('SELECT * FROM product WHERE id_product = ?', [$id]);
+    $data['products'] = $query->getResult();
+
+    $header['titleTab'] = 'RumahDev Kasir App';
+    $header2['titlePage'] = 'Detail Produk';
+
+    echo view('partial/header', $header);
+    echo view('partial/top_menu', $header2);
+    echo view('partial/side_menu');
+    echo view('products/detail', $data);
+    echo view('partial/footer');
+  }
+
+  public function addProduct() {
+    $header['titleTab'] = 'RumahDev Kasir App';
+    $header2['titlePage'] = 'Tambah Produk';
+
+    echo view('partial/header', $header);
+    echo view('partial/top_menu', $header2);
+    echo view('partial/side_menu');
+    echo view('products/add_product');
+    echo view('partial/footer');
+  }
+
 
 }

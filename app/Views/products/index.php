@@ -8,9 +8,10 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <button class="btn btn-sm rumahdev-bg text-white" style="font-size: 16px;">
+            <a href="<?= base_url('home/products/add') ?>" class="btn btn-sm rumahdev-bg text-white" 
+              style="font-size: 16px;">
               <i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;Tambah
-            </button>
+            </a>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -51,7 +52,9 @@
                         <td><?php echo $product->kategori; ?></td>
                         <td>
                           <button style="all: unset; cursor: pointer;">
-                            <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
+                            <a href="<?= base_url('home/products/detail?id=1') ?>">
+                              <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
+                            </a>
                           </button>
                           <button style="all: unset; cursor: pointer;">
                           <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>

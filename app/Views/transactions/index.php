@@ -55,7 +55,9 @@
                         <td><?php echo $t->total_harga; ?></td>
                         <td>
                           <button style="all: unset; cursor: pointer;">
-                            <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
+                            <a href="<?= base_url('home/transactions/detail?id=1') ?>">
+                              <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
+                            </a>
                           </button>
                           <button style="all: unset; cursor: pointer;">
                           <span class="right badge badge-warning"><i class="fas fa-print"></i></span>
