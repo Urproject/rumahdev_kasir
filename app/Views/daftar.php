@@ -45,7 +45,7 @@
       </div>
 
 
-      <a href="<?= base_url('daftar-next') ?>"><button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Selanjutnya</button></a>
+      <a href="<?= base_url('daftar/akun') ?>"><button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Selanjutnya</button></a>
       <br>
 
       <a href="<?= base_url('login') ?>" class="text-center rumahdev-color">Sudah mendaftar? Login</a>

@@ -12,8 +12,12 @@ class Home extends BaseController {
 	  return view('daftar');
 	}
 
-	public function daftar2(): string {
-	  return view('daftar2');
+	public function daftarAkun(): string {
+	  return view('daftar_akun');
+	}
+
+	public function daftarMerchant(): string {
+	  return view('daftar_merchant');
 	}
 
 	public function dashboard0(): string {

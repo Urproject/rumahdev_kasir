@@ -6,7 +6,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">      
-        <a href="<?= base_url('home/products') ?>" class="btn btn-sm text-white rumahdev-bg border-0 my-3">Kembali</a>
+        <a href="<?= base_url('kasir/products') ?>" class="btn btn-sm text-white rumahdev-bg border-0 my-3">Kembali</a>
      
         <div class="row">
 

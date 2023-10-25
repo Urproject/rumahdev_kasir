@@ -12,7 +12,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="<?= base_url('home/dashboard') ?>">Dashboard </a></li>
+              <li class="breadcrumb-item"><a href="<?= base_url('kasir/dashboard') ?>">Dashboard </a></li>
               <li class="breadcrumb-item active">Transaksi</li>
             </ol>
           </div>
@@ -55,7 +55,7 @@
                         <td><?php echo $t->total_harga; ?></td>
                         <td>
                           <button style="all: unset; cursor: pointer;">
-                            <a href="<?= base_url('home/transactions/detail?id=1') ?>">
+                            <a href="<?= base_url('kasir/transactions/detail?id=1') ?>">
                               <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
                             </a>
                           </button>

@@ -8,7 +8,7 @@
 
 			<div class="container-fluid">
 				<div class="order-info">
-						<a href="<?= base_url('home/transactions') ?>" class="btn btn-sm text-white rumahdev-bg border-0 my-3">Kembali</a>
+						<a href="<?= base_url('kasir/transactions') ?>" class="btn btn-sm text-white rumahdev-bg border-0 my-3">Kembali</a>
 				    <p>Waktu, Tanggal: <?= $transactions[0]->waktu ?>, <?= $transactions[0]->tanggal ?></p>
 						<p class="mb-1">Jenis Pembayaran: <?= $transactions[0]->id_method ?> Cash</p>
 						<p class="mb-1">Jenis Pesanan: <?= $transactions[0]->jenis_pesanan ?></p>

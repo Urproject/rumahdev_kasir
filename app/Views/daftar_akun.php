@@ -38,7 +38,7 @@
         <input class="form-control rounded" type="text" placeholder="Nomor Handphone" aria-label="no_hp">
       </div>
 
-      <a href="<?= base_url('home/dashboard0') ?>"><button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Daftar</button></a>
+      <a href="<?= base_url('daftar/merchant') ?>"><button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Daftar</button></a>
       <br>
 
     </div>

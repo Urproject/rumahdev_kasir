@@ -61,7 +61,7 @@
             </div>
 
             <button class="btn text-white rumahdev-bg border-0 my-4 mr-2">Verifikasi</button>
-            <a href="<?= base_url('home/users') ?>" class="btn btn-danger border-0">Batalkan</a>
+            <a href="<?= base_url('kasir/users') ?>" class="btn btn-danger border-0">Batalkan</a>
           </div>
 
         </div>
