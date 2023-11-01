@@ -16,8 +16,12 @@ class Home extends BaseController {
 	  return view('daftar_akun');
 	}
 
-	public function daftarMerchant(): string {
-	  return view('daftar_merchant');
+	public function daftarMerchant() {
+		$header['titleTab']='RumahDev Kasir App';
+		$header2['titlePage']='Profil Merchant';
+		
+		echo view('partial/header', $header);
+		echo view('daftar_merchant');
 	}
 
 	public function dashboard0(): string {
