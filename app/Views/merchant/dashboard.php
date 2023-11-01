@@ -92,7 +92,7 @@
         </div> -->
 
 
-          <div class="nav-item dropdown">
+          <div class="nav-item dropdown mr-3">
             <div class="user-panel d-flex mt-2" data-toggle="dropdown" style="cursor: pointer;">
               <div class="image my-auto mr-2">
                 <img src="<?php echo base_url('assets/images/user/' . 'iqbal.jpg'); ?>" 
@@ -102,13 +102,17 @@
                 <span class="d-block text-dark">Iqbal Ramadhan</span>
                 <span class="d-block text-dark">iqbal123@gmail.com</span>
               </div>
-              <div class="my-auto ml-auto mr-3">
-                <i class="fas fa-angle-down"></i>
+              <div class="my-auto ml-auto">
+                <i class="fas fa-ellipsis-v"></i>
               </div>
+
+              <!-- <div class="menu my-auto">
+                <i class="fas fa-ellipsis-v ml-5"></i>
+              </div> -->
             </div>
 
 
-            <div class="dropdown-menu dropdown-menu-md">
+            <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
               <a href="<?= base_url('kasir/profil/user') ?>" class="dropdown-item">
                 <i class="mr-2 fas fa-user"></i> Profil Akun
               </a>

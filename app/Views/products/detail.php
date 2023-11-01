@@ -22,10 +22,6 @@
               <input type="text" class="form-control" disabled value="Rp <?php echo $product->harga; ?>" style="width: 80%;">
             </div>
             <div class="form-group">
-              <label>Sisa Stok</label>
-              <input type="text" class="form-control" disabled value="<?php echo $product->stok; ?>" style="width: 80%;">
-            </div>
-            <div class="form-group">
               <label for="exampleInputPassword1">Kategori</label>
               <input type="text" class="form-control" disabled value="<?php echo $product->kategori; ?>" style="width: 80%;">
             </div>

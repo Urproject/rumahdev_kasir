@@ -54,8 +54,8 @@
               </div>
             </div>
 
-            <button class="btn text-white rumahdev-bg border-0 my-4">Tambah</button>
-            <a href="<?= base_url('kasir/products') ?>" class="btn btn-danger border-0">Batalkan</a>
+            <button class="btn btn-sm text-white rumahdev-bg border-0 my-4">Tambah</button>
+            <a href="<?= base_url('kasir/products') ?>" class="btn btn-sm btn-danger border-0">Batalkan</a>
           </div>
 
         </div>

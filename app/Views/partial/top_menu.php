@@ -22,7 +22,7 @@
     <ul class="navbar-nav ml-auto">
 
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown mr-4">
         <div class="user-panel d-flex" data-toggle="dropdown" style="cursor: pointer;">
           <div class="image my-auto">
             <img src="<?php echo base_url('assets/images/user/' . 'iqbal.jpg'); ?>" 
@@ -32,9 +32,12 @@
             <span class="d-block text-dark">Iqbal Ramadhan</span>
             <span class="d-block text-dark">iqbal123@gmail.com</span>
           </div>
+          <div class="menu my-auto">
+            <i class="fas fa-ellipsis-v ml-5"></i>
+          </div>
         </div>
 
-        <div class="dropdown-menu dropdown-menu-md">
+        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
           <a href="<?= base_url('kasir/profil/user?id=' . 1) ?>" class="dropdown-item">
             <i class="mr-2 fas fa-user"></i> Profil Akun
           </a>

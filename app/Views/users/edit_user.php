@@ -59,8 +59,8 @@
             </div>
 
 
-            <button class="btn rumahdev-bg border-0 text-white mr-2">Simpan</button>
-            <a href="<?= base_url('kasir/users') ?>" class="btn btn-danger border-0">Batalkan</a>
+            <button class="btn btn-sm rumahdev-bg border-0 text-white mr-2">Simpan</button>
+            <a href="<?= base_url('kasir/users') ?>" class="btn btn-sm btn-danger border-0">Batalkan</a>
 
           </div>
 

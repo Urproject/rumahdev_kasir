@@ -4,27 +4,43 @@ namespace App\Controllers;
 
 class MerchantTransactions extends BaseController {
 
-	public function index() {
+  public function index() {
     $db = \Config\Database::connect();
-    $query = $db->query('SELECT * FROM transaction');
+
+    $query = $db->query('
+        SELECT *
+        FROM transaction AS t
+        LEFT JOIN user AS u ON t.id_user = u.id_user
+        LEFT JOIN payment_method AS pm ON t.id_method = pm.id_method
+        ORDER BY t.tanggal DESC, t.waktu DESC
+    ');
+
     $data['transactions'] = $query->getResult();
 
-    $header['titleTab']='RumahDev Kasir App';
-    $header2['titlePage']='Data Transaksi';
-    
+    $header['titleTab'] = 'RumahDev Kasir App';
+    $header2['titlePage'] = 'Data Transaksi';
+
     echo view('partial/header', $header);
     echo view('partial/top_menu', $header2);
     echo view('partial/side_menu');
     echo view('transactions/index', $data);
     echo view('partial/footer');
-	}
 
-  public function detail($id=1) {
+  }
+
+  public function detail($id = null) { // Provide a default value of null
+    $id = $this->request->getGet('id');
+    if ($id === null) {
+        // Handle the case where no ID is provided, e.g., display an error message or redirect
+        // For example, you can redirect to a 404 page or display a message
+        return redirect()->to('/error-page');
+    }
+
     $db = \Config\Database::connect();
 
     $builder = $db->table('transaction');
     $builder->join('transaction_sub', 'transaction.id_transaction = transaction_sub.id_transaction', 'left');
-    $builder->where('transaction.id_transaction', $id);
+    $builder->where('transaction.id_transaction', $id); // Use the $id from the URL
 
     $query = $builder->get();
     $transactions = $query->getResult();
@@ -51,7 +67,6 @@ class MerchantTransactions extends BaseController {
     echo view('partial/side_menu');
     echo view('transactions/detail', ['transactions' => $transactions, 'total_harga' => $total_harga]);
     echo view('partial/footer');
-
   }
 
 // Create this private function in your controller

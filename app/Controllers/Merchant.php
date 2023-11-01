@@ -58,7 +58,7 @@ public function confirm() {
 
 	$builder = $db->table('transaction');
 	$builder->join('transaction_sub', 'transaction.id_transaction = transaction_sub.id_transaction', 'left');
-	$builder->where('transaction.id_transaction', 1);
+	$builder->where('transaction.id_transaction', 3);
 
 	$query = $builder->get();
 	$transactions = $query->getResult();

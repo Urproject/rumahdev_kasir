@@ -35,7 +35,7 @@
                   <thead>
                   <tr>
                     <th>#</th>
-                    <th>Tanggal</th>
+                    <th>Waktu, Tanggal</th>
                     <th>Kasir</th>
                     <th>Jenis Pesanan</th>
                     <th>Pembayaran</th>
@@ -43,21 +43,33 @@
                     <th>Action</th>
                   </tr>
                   </thead>
+
                   <tbody>
-                    <?php if (isset($transactions) && !empty($transactions)): ?>
+                    <?php if (!empty($transactions)): ?>
+                      <?php $counter = 1; ?>
                       <?php foreach ($transactions as $t): ?>
                         <tr>
-                          <td><?php echo $t->id_transaction; ?></td>
-                          <td><?php echo $t->tanggal; ?>&nbsp;<?php echo $t->waktu; ?></td>
-                          <td><?php echo $t->id_user; ?></td>
+                          <td><?php echo $counter; ?></td>
+                          <td>
+                            <?php
+                            setlocale(LC_TIME, 'id_ID');
+                            $timeTimestamp = strtotime($t->waktu);
+                            $dateTimestamp = strtotime($t->tanggal);
+                            $formattedTime = strftime('%H.%M', $timeTimestamp);
+                            $formattedDate = strftime('%d %B %Y', $dateTimestamp);
+                            echo $formattedTime . ', ' . $formattedDate;
+                            ?>
+                          </td>
+
+                          <td><?php echo $t->nama; ?></td>
                           <td><?php echo $t->jenis_pesanan; ?></td>
-                          <td><?php echo $t->id_method; ?></td>
+                          <td><?php echo $t->payment_type; ?></td>
                           <td><?php echo $t->total_harga; ?></td>
                           <td>
-                            <?php if ($t->id_transaction == 1): ?>
+                            <?php if ($t->status_pesanan == 1): ?>
                               <button style="all: unset; cursor: pointer;">
-                                <a href="<?= base_url('kasir/transactions/detail?id=' . $t->id_transaction) ?>">
-                                  <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
+                                <a href="<?= base_url('kasir/confirm') ?>">
+                                  <span class="right badge badge-primary rumahdev-bg"><i class="fas fa-hourglass-half"></i></span>
                                 </a>
                               </button>
                               <button style="all: unset; cursor: pointer;">
@@ -71,7 +83,8 @@
                             <?php else: ?>
                               <button style="all: unset; cursor: pointer;">
                                 <a href="<?= base_url('kasir/transactions/detail?id=' . $t->id_transaction) ?>">
-                                  <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
+                                  <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i>
+                                  </span>
                                 </a>
                               </button>
                               <button style="all: unset; cursor: pointer;">
@@ -80,11 +93,14 @@
                             <?php endif; ?>
                           </td>
                         </tr>
+                        <?php $counter++; ?>
                       <?php endforeach; ?>
                     <?php else: ?>
                       <td colspan="6">Belum ada transaksi.</td>
                     <?php endif; ?>
                   </tbody>
+
+
                   <tfoot>
                   <tr>
                     <th>#</th>

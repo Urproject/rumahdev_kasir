@@ -16,7 +16,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
             <a href="<?= base_url('kasir/order') ?>" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-shopping-basket"></i>
               <p>Order</p>
             </a>
           </li>

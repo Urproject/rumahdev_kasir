@@ -6,7 +6,7 @@
       <div class="container-fluid">  
         <!-- <div class="row">
           <div class="col-sm-1 d-flex align-items-center justify-content-center">
-            <button class="btn btn-outline-secondary rounded-circle" style="width: 50%;">1</button>
+            <button class="btn btn-sm btn-outline-secondary rounded-circle" style="width: 50%;">1</button>
           </div>
           <p class="col m-0 p-0">
             <span class="font-weight-bold">Permintaan Karyawan </span>
@@ -64,8 +64,8 @@
               </div>
             </div>
 
-            <button class="btn text-white rumahdev-bg border-0 my-4 mr-2">Simpan</button>
-            <a href="<?= base_url('kasir/users') ?>" class="btn btn-danger border-0">Batalkan</a>
+            <button class="btn btn-sm text-white rumahdev-bg border-0 my-4 mr-2">Simpan</button>
+            <a href="<?= base_url('kasir/users') ?>" class="btn btn-sm btn-danger border-0">Batalkan</a>
           </div>
 
         </div>
