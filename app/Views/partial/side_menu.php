@@ -3,7 +3,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-light-primary shadow">
     <!-- Brand Logo -->
-    <a href="<?= base_url('kasir/order') ?>" class="brand-link">
+    <a href="<?= base_url('kasir/order') ?>" class="brand-link pt-4">
       <img src="<?= base_url('assets/images/logo-rd2.png'); ?>" alt="AdminLTE Logo" class="brand-image">
       <span class="brand-text font-weight-bold text-rumahdev">KASIR APP</span>
     </a>

@@ -7,23 +7,44 @@ body {
 	color: darkcyan;
 }
 
+.rumahdev-color-biru {
+  color: #005A70;
+}
+
+.rumahdev-color-hijau {
+  color: #008F87;
+}
+
 .rumahdev-color {
   color: transparent;
-  background: linear-gradient(135deg, #005a70 0%, #00a987 100%);
+  background: linear-gradient(135deg, #005a70 0%, #008F87 100%);
   -webkit-background-clip: text;
   background-clip: text;
 }
 
+.rumahdev-bg-biru {
+  background: #005A70;
+}
+
+.rumahdev-bg-hijau {
+  background: #008F87;
+}
+
 .rumahdev-bg {
   background: #005a70;
-  background: linear-gradient(135deg, #005a70 0%, #00a987 100%);
+  background: linear-gradient(135deg, #005a70 0%, #008F87 100%);
 }
+
+.rumahdev-bg:hover {
+  background: #005a70;
+  background: linear-gradient(135deg, #005A56 0%, #00736C 100%); /* Slightly darker gradient */
+}
+
 
 .rumahdev-btn { 
   color: #ffffff; 
-  background-color: #00a987;  
+  background-color: #008F87;  
 } 
-
 
 .switch {
   position: relative;
@@ -63,11 +84,11 @@ body {
 }
 
 input:checked + .slider {
-  background-color: #00a987;
+  background-color: #008F87;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #00a987;
+  box-shadow: 0 0 1px #008F87;
 }
 
 input:checked + .slider:before {
@@ -125,11 +146,11 @@ input:checked + .slider:before {
 }
 
 input:checked + .slider-payment {
-  background-color: #00a987;
+  background-color: #008F87;
 }
 
 input:focus + .slider-payment {
-  box-shadow: 0 0 1px #00a987;
+  box-shadow: 0 0 1px #008F87;
 }
 
 input:checked + .slider-payment:before {

@@ -44,30 +44,46 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <?php if (isset($transactions) && !empty($transactions)): ?>
-                    <?php foreach ($transactions as $t): ?>
-                      <tr>
-                        <td><?php echo $t->id_transaction; ?></td>
-                        <td><?php echo $t->tanggal; ?>&nbsp;<?php echo $t->waktu; ?></td>
-                        <td><?php echo $t->id_user; ?></td>
-                        <td><?php echo $t->jenis_pesanan; ?></td>
-                        <td><?php echo $t->id_method; ?></td>
-                        <td><?php echo $t->total_harga; ?></td>
-                        <td>
-                          <button style="all: unset; cursor: pointer;">
-                            <a href="<?= base_url('kasir/transactions/detail?id=1') ?>">
-                              <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
-                            </a>
-                          </button>
-                          <button style="all: unset; cursor: pointer;">
-                          <span class="right badge badge-warning"><i class="fas fa-print"></i></span>
-                          </button>
-                        </td>
-                      </tr>
-                    <?php endforeach; ?>
-                  <?php else: ?>
-                    <td colspan="6">Belum ada transaksi.</p>
-                  <?php endif; ?>
+                    <?php if (isset($transactions) && !empty($transactions)): ?>
+                      <?php foreach ($transactions as $t): ?>
+                        <tr>
+                          <td><?php echo $t->id_transaction; ?></td>
+                          <td><?php echo $t->tanggal; ?>&nbsp;<?php echo $t->waktu; ?></td>
+                          <td><?php echo $t->id_user; ?></td>
+                          <td><?php echo $t->jenis_pesanan; ?></td>
+                          <td><?php echo $t->id_method; ?></td>
+                          <td><?php echo $t->total_harga; ?></td>
+                          <td>
+                            <?php if ($t->id_transaction == 1): ?>
+                              <button style="all: unset; cursor: pointer;">
+                                <a href="<?= base_url('kasir/transactions/detail?id=' . $t->id_transaction) ?>">
+                                  <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
+                                </a>
+                              </button>
+                              <button style="all: unset; cursor: pointer;">
+                                <a href="<?= base_url('kasir/transactions/edit?id=' . $t->id_transaction) ?>">
+                                  <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
+                                </a>
+                              </button>
+                              <button style="all: unset; cursor: pointer;" class="deleteButton">
+                                <span class="right badge badge-danger"><i class="fas fa-trash"></i></span>
+                              </button>
+                            <?php else: ?>
+                              <button style="all: unset; cursor: pointer;">
+                                <a href="<?= base_url('kasir/transactions/detail?id=' . $t->id_transaction) ?>">
+                                  <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
+                                </a>
+                              </button>
+                              <button style="all: unset; cursor: pointer;">
+                                <span class="right badge badge-success"><i class="fas fa-print"></i></span>
+                              </button>
+                            <?php endif; ?>
+                          </td>
+                        </tr>
+                      <?php endforeach; ?>
+                    <?php else: ?>
+                      <td colspan="6">Belum ada transaksi.</td>
+                    <?php endif; ?>
                   </tbody>
                   <tfoot>
                   <tr>

@@ -38,10 +38,12 @@ $routes->get('/kasir/testing', 'Merchant::testing');
 $routes->get('/kasir/products', 'MerchantProducts::index');
 $routes->get('/kasir/products/detail', 'MerchantProducts::detail');
 $routes->get('/kasir/products/add', 'MerchantProducts::addProduct');
+$routes->get('/kasir/products/edit', 'MerchantProducts::editProduct');
 
 $routes->get('/kasir/users', 'MerchantUsers::index');
 $routes->get('/kasir/users/detail', 'MerchantUsers::detail');
 $routes->get('/kasir/users/add', 'MerchantUsers::addUser');
+$routes->get('/kasir/users/edit', 'MerchantUsers::editUser');
 
 $routes->get('/kasir/transactions', 'MerchantTransactions::index');
 $routes->get('/kasir/transactions/detail', 'MerchantTransactions::detail');

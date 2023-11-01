@@ -39,6 +39,29 @@
 
 <!-- Page specific script -->
 <script>
+
+  const deleteButtons = document.querySelectorAll('.deleteButton');
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      Swal.fire({
+        text: "Apakah kamu yakin ingin menghapus?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Delete'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            '',
+            'Berhasil menghapus',
+            'success'
+          )
+        }
+      });
+    });
+  });
+
   $(document).ready(function () {
       $('#example1').DataTable({
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
@@ -61,6 +84,62 @@
   //   });
   // });
 </script>
+
+
+
+<!-- <script type="text/javascript">
+  const deleteButtons = document.querySelectorAll('.deleteButton');
+
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const productId = button.getAttribute('data-product-id');
+      Swal.fire({
+        text: "Apakah kamu yakin ingin menghapus?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Delete'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch('/delete-product.php', {
+            method: 'POST',
+            body: JSON.stringify({ product_id: productId }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              Swal.fire(
+                '',
+                'Berhasil menghapus',
+                'success'
+              );
+            } else {
+              Swal.fire(
+                '',
+                'Gagal menghapus',
+                'error'
+              );
+            }
+          })
+          .catch(error => {
+            console.error(error);
+            Swal.fire(
+              '',
+              'Terjadi kesalahan',
+              'error'
+            );
+          });
+        }
+      });
+    });
+  });
+</script> -->
+
+
 
 </body>
 </html>

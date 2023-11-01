@@ -8,17 +8,21 @@ namespace App\Controllers;
 class Merchant extends BaseController {
 
   public function index() {
-	$db = \Config\Database::connect();
-	$query = $db->query('SELECT * FROM product');
-	$data['products'] = $query->getResult();
+    $db = \Config\Database::connect();
+    $builder = $db->table('product');
+    $builder->orderBy('nama', 'asc'); // Order by 'nama' in ascending order
+    $query = $builder->get();
 
-	$header['titleTab']='RumahDev Kasir App';
-	$header2['titlePage']='Dashboard Merchant';
-	
-	echo view('partial/header', $header);
-	echo view('partial/side_menu');
-	echo view('merchant/dashboard', $data);
-	echo view('partial/footer');
+    $data['products'] = $query->getResult();
+
+    $header['titleTab'] = 'RumahDev Kasir App';
+    $header2['titlePage'] = 'Dashboard Merchant';
+
+    echo view('partial/header', $header);
+    echo view('partial/wrapper', $header2);
+    echo view('partial/side_menu');
+    echo view('merchant/dashboard', $data);
+    echo view('partial/footer');
   }
 
   public function profil() {
@@ -33,16 +37,20 @@ class Merchant extends BaseController {
 	echo view('partial/footer');
   }
 
-  public function profilUser() {
+  public function profilUser($id=1) {
 
-	$header['titleTab']='RumahDev Kasir App';
-	$header2['titlePage']='Profil Akun';
+    $db = \Config\Database::connect();
+    $query = $db->query('SELECT * FROM user WHERE id_user = ?', [$id]);
+    $data['user'] = $query->getRow();
+
+		$header['titleTab']='RumahDev Kasir App';
+		$header2['titlePage']='Profil Akun';
 	
-	echo view('partial/header', $header);
-	echo view('partial/top_menu', $header2);
-	echo view('partial/side_menu');
-	echo view('merchant/profil_user');
-	echo view('partial/footer');
+		echo view('partial/header', $header);
+		echo view('partial/top_menu', $header2);
+		echo view('partial/side_menu');
+		echo view('merchant/profil_user', $data);
+		echo view('partial/footer');
   }
 
 public function confirm() {
@@ -70,7 +78,7 @@ public function confirm() {
 	}
 
 	$header['titleTab'] = 'RumahDev Kasir App';
-	$header2['titlePage'] = 'Konfirmasi Pesanan';
+	$header2['titlePage'] = 'Konfirmasi Pembayaran';
 
 	echo view('partial/header', $header);
 	echo view('partial/top_menu', $header2);

@@ -61,9 +61,11 @@
                             </a>
                           </button>
                           <button style="all: unset; cursor: pointer;">
-                          <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
+                            <a href="<?= base_url('kasir/users/edit?id=1') ?>">
+                              <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
+                            </a>
                           </button>
-                          <button style="all: unset; cursor: pointer;">
+                          <button style="all: unset; cursor: pointer;" class="deleteButton">
                           <span class="right badge badge-danger"><i class="fas fa-trash"></i></span>
                           </button>
                         </td>

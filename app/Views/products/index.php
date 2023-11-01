@@ -15,7 +15,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="<?= base_url('kasir/dashboard') ?>">Dashboard </a></li>
+              <li class="breadcrumb-item"><a href="<?= base_url('kasir/order') ?>">Kasir </a></li>
               <li class="breadcrumb-item active">Produk</li>
             </ol>
           </div>
@@ -36,7 +36,6 @@
                     <th>#</th>
                     <th>Nama Produk</th>
                     <th>Harga</th>
-                    <th>Stok</th>
                     <th>Kategori</th>
                     <th>Action</th>
                   </tr>
@@ -48,7 +47,6 @@
                         <td><?php echo $product->id_product; ?></td>
                         <td><?php echo $product->nama; ?></td>
                         <td><?php echo $product->harga; ?></td>
-                        <td><?php echo $product->stok; ?></td>
                         <td><?php echo $product->kategori; ?></td>
                         <td>
                           <button style="all: unset; cursor: pointer;">
@@ -57,10 +55,12 @@
                             </a>
                           </button>
                           <button style="all: unset; cursor: pointer;">
-                          <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
+                            <a href="<?= base_url('kasir/products/edit?id=1') ?>">
+                              <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
+                            </a>
                           </button>
-                          <button style="all: unset; cursor: pointer;">
-                          <span class="right badge badge-danger"><i class="fas fa-trash"></i></span>
+                          <button style="all: unset; cursor: pointer;" class="deleteButton">
+                            <span class="right badge badge-danger"><i class="fas fa-trash"></i></span>
                           </button>
                         </td>
                       </tr>
@@ -74,7 +74,6 @@
                     <th>#</th>
                     <th>Nama Produk</th>
                     <th>Harga</th>
-                    <th>Stok</th>
                     <th>Kategori</th>
                     <th>Action</th>
                   </tr>

@@ -6,7 +6,7 @@
     <!-- Main content -->
     <section class="content bg-white">
 		
-    <div class="row">
+    <div class="container-fluid row mt-3">
       <div class="col-sm-5">
       <b><h4> Informasi Usaha</b></h4>
       <p class="lh-sm"><b> Nama Usaha (Merk/Brand)</b></p>

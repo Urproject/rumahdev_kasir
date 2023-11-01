@@ -47,8 +47,10 @@
               src="<?php echo base_url('assets/images/user/' . $user->foto); ?>">
             </div>
 
-            <button class="btn btn-warning mt-3 mr-2">Edit</button>
-            <button class="btn btn-danger mt-3">Hapus</button>
+            <button class="btn btn-warning mt-3 mr-2">
+              <a href="<?= base_url('kasir/users/edit?id=1') ?>" class="text-white">Edit</a>
+            </button>
+            <button class="btn btn-danger mt-3 deleteButton">Hapus</button>
 
           </div>
 

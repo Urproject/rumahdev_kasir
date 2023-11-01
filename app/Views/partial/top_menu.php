@@ -1,7 +1,7 @@
 
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light shadow-sm">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -24,25 +24,26 @@
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <div class="user-panel d-flex" data-toggle="dropdown" style="cursor: pointer;">
-          <div class="image my-auto mr-2">
-            <img src="<?=base_url('adminLTE/dist/img/user2-160x160.jpg')?>" class="img-circle elevation-2" alt="User Image">
+          <div class="image my-auto">
+            <img src="<?php echo base_url('assets/images/user/' . 'iqbal.jpg'); ?>" 
+            class="img-circle border" alt="User Image">
           </div>
           <div class="info my-auto">
             <span class="d-block text-dark">Iqbal Ramadhan</span>
-            <span class="d-block text-dark">iqbalramadhan@gmail.com</span>
+            <span class="d-block text-dark">iqbal123@gmail.com</span>
           </div>
         </div>
 
-        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-          <a href="<?= base_url('kasir/profil/user') ?>" class="dropdown-item">
+        <div class="dropdown-menu dropdown-menu-md">
+          <a href="<?= base_url('kasir/profil/user?id=' . 1) ?>" class="dropdown-item">
             <i class="mr-2 fas fa-user"></i> Profil Akun
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          <a href="<?= base_url('kasir/profil/merchant') ?>" class="dropdown-item">
             <i class="mr-2 fas fa-users"></i> Profil Merchant
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          <a href="<?= base_url('login') ?>" class="dropdown-item">
             <i class="mr-2 fas fa-sign-out-alt"></i> Logout
           </a>
         </div>

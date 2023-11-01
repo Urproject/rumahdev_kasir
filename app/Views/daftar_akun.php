@@ -34,10 +34,6 @@
         </select>
       </div>
 
-      <div class="input-group mx-auto my-3" style="width: 80%;">
-        <input class="form-control rounded" type="text" placeholder="Nomor Handphone" aria-label="no_hp">
-      </div>
-
       <a href="<?= base_url('daftar/merchant') ?>"><button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Daftar</button></a>
       <br>
 

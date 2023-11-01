@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">  
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-sm-1 d-flex align-items-center justify-content-center">
             <button class="btn btn-outline-secondary rounded-circle" style="width: 50%;">1</button>
           </div>
@@ -14,7 +14,7 @@
           </p>
         </div>
 
-        <h5 class="font-weight-bold mt-3">Tambahkan Manual</h5>
+        <h5 class="font-weight-bold mt-3">Tambahkan Manual</h5> -->
         
         <div class="row">
           <div class="col-md-6">
@@ -25,6 +25,10 @@
             </div>
             <div class="form-group">
               <label>Username</label>
+              <input type="text" class="form-control" style="width: 80%;">
+            </div>
+            <div class="form-group">
+              <label>Password</label>
               <input type="text" class="form-control" style="width: 80%;">
             </div>
             <div class="form-group">
@@ -54,13 +58,13 @@
             <div>
               <label>Foto Profil</label><br>
               <div class="custom-file" style="width: 80%;">
-                <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                <input type="file" class="custom-file-input" id="validatedCustomFile">
                 <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
                 <div class="invalid-feedback">Example invalid custom file feedback</div>
               </div>
             </div>
 
-            <button class="btn text-white rumahdev-bg border-0 my-4 mr-2">Verifikasi</button>
+            <button class="btn text-white rumahdev-bg border-0 my-4 mr-2">Simpan</button>
             <a href="<?= base_url('kasir/users') ?>" class="btn btn-danger border-0">Batalkan</a>
           </div>
 

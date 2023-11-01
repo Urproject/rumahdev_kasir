@@ -48,5 +48,19 @@ class MerchantProducts extends BaseController {
     echo view('partial/footer');
   }
 
+  public function editProduct($id=2) {
+    $db = \Config\Database::connect();
+    $query = $db->query('SELECT * FROM product WHERE id_product = ?', [$id]);
+    $data['products'] = $query->getResult();
+
+    $header['titleTab'] = 'RumahDev Kasir App';
+    $header2['titlePage'] = 'Edit Produk';
+
+    echo view('partial/header', $header);
+    echo view('partial/top_menu', $header2);
+    echo view('partial/side_menu');
+    echo view('products/edit_product', $data);
+    echo view('partial/footer');
+  }
 
 }
