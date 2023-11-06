@@ -155,7 +155,7 @@ public function confirm() {
   public function settingDiscount() {
 
 		$header['titleTab']='RumahDev Kasir App';
-		$header2['titlePage']='Setting Diskon dan Pajak';
+		$header2['titlePage']='Setting Diskon, Pajak, dan Meja';
 		
 		echo view('partial/header', $header);
 		echo view('partial/top_menu', $header2);

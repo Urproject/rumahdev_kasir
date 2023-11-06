@@ -50,7 +50,7 @@
               <li class="nav-item">
                 <a href="<?= base_url('kasir/settings/discount') ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Diskon & Pajak</p>
+                  <p>General</p>
                 </a>
               </li>
               <li class="nav-item">
