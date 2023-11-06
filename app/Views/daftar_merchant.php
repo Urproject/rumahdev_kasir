@@ -103,7 +103,7 @@
     </div>
 
     <div class="text-center">
-      <a href="<?= base_url('daftar/merchant') ?>"><button class="btn rumahdev-bg text-white text-center" style="width: 200px; position:center;"> Ajukan Usaha</button></a>
+      <a href="<?= base_url('/kasir') ?>"><button class="btn rumahdev-bg text-white text-center" style="width: 200px; position:center;"> Ajukan Usaha</button></a>
       <br>
     </div>
       

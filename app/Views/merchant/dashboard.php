@@ -6,11 +6,11 @@
       <div class="row">
 
         <!-- CONTENT -->
-        <div class="col-sm-8 mx-0 py-3">
+        <div class="col-md-8 mx-0 py-3">
 
             <div class="container-fluid">
               <div class="row mb-2">
-                <div class="col-sm-12 mb-3">
+                <div class="col-md-12 mb-3">
                   <div class="input-group">
                   <a class="nav-link" data-widget="pushmenu" href="#" role="button">
                     <i class="fas fa-bars rumahdev-color" style="color: darkcyan;"></i>
@@ -20,9 +20,9 @@
                       <i class="text-secondary fas fa-search"></i>
                     </button>
                   </div>
-                </div> <!-- col-sm-12 side menu icon dan search -->
+                </div> <!-- col-md-12 side menu icon dan search -->
 
-                <div class="col-sm-12 mb-3">
+                <div class="col-md-12 mb-3">
                   <select id="categoryDropdown" class="form-control" style="font-size: 16px;">
                     <option value="">-- Semua Kategori --</option>
                     <?php
@@ -36,10 +36,10 @@
                     }
                     ?>
                   </select>
-                </div> <!-- col-sm-12 dropdown kategori -->
+                </div> <!-- col-md-12 dropdown kategori -->
 
 
-                <div class="col-sm-12">
+                <div class="col-md-12">
                   <h5 class="font-weight-bold">Semua Produk</h5>
                 </div>
               </div>
@@ -49,7 +49,7 @@
 
             <?php if (isset($products) && !empty($products)): ?>
               <?php foreach ($products as $product): ?>
-                <div class="col-md-4 mb-3">
+                <div class="col-sm-4 mb-3">
                     <div class="card h-100">
                         <div class="row h-100">
                             <div class="col-3 h-100">
@@ -78,7 +78,7 @@
 
 
         <!-- RIGHT SIDE -->
-        <div class="col-sm-4 mx-0 shadow">
+        <div class="col-md-4 mx-0 shadow">
 
         <!-- <div class="user-panel d-flex" data-toggle="dropdown" style="cursor: pointer;">
           <div class="image my-auto">
