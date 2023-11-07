@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Nov 2023 pada 02.56
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.1.17
+-- Generation Time: Oct 16, 2023 at 10:35 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `merchant`
+-- Table structure for table `merchant`
 --
 
 CREATE TABLE `merchant` (
@@ -41,17 +41,16 @@ CREATE TABLE `merchant` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `merchant`
+-- Dumping data for table `merchant`
 --
 
 INSERT INTO `merchant` (`id_merchant`, `nama_usaha`, `jenis_usaha`, `alamat`, `npwp`, `no_ktp`, `foto_ktp`, `diskon`, `pajak`, `id_user`) VALUES
-(1, 'Iqbal Cafe', 'Kafe', 'Jl. Medan', 0, '0', 'ktp.jpg', 0, 0, 1),
-(2, 'Restoran Indah', 'Restoran', 'Jl. Indah', 0, '', '', 0, 0, 4);
+(1, 'Iqbal Cafe', 'Kafe', 'Jl. Medan', 0, '0', 'ktp.jpg', 0, 0, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `merchant_employee`
+-- Table structure for table `merchant_employee`
 --
 
 CREATE TABLE `merchant_employee` (
@@ -62,18 +61,17 @@ CREATE TABLE `merchant_employee` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `merchant_employee`
+-- Dumping data for table `merchant_employee`
 --
 
 INSERT INTO `merchant_employee` (`id_employee`, `id_user`, `id_merchant`, `level`) VALUES
 (1, 1, 1, 1),
-(2, 3, 1, 2),
-(3, 4, 2, 1);
+(2, 3, 1, 2);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `merchant_payment`
+-- Table structure for table `merchant_payment`
 --
 
 CREATE TABLE `merchant_payment` (
@@ -86,7 +84,7 @@ CREATE TABLE `merchant_payment` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `payment_method`
+-- Table structure for table `payment_method`
 --
 
 CREATE TABLE `payment_method` (
@@ -95,7 +93,7 @@ CREATE TABLE `payment_method` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `payment_method`
+-- Dumping data for table `payment_method`
 --
 
 INSERT INTO `payment_method` (`id_method`, `payment_type`) VALUES
@@ -107,7 +105,7 @@ INSERT INTO `payment_method` (`id_method`, `payment_type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `product`
+-- Table structure for table `product`
 --
 
 CREATE TABLE `product` (
@@ -124,7 +122,7 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `product`
+-- Dumping data for table `product`
 --
 
 INSERT INTO `product` (`id_product`, `id_merchant`, `nama`, `harga`, `stok`, `kategori`, `deskripsi`, `gambar`, `jenis_diskon`, `nilai_diskon`) VALUES
@@ -134,13 +132,12 @@ INSERT INTO `product` (`id_product`, `id_merchant`, `nama`, `harga`, `stok`, `ka
 (5, 1, 'Frappe', 30000, 9, 'Kopi', 'Frappé adalah minuman es kopi khas Yunani yang bersalut buih, terbuat dari kopi instan, gula, air dan es. Frappé pertama kali diciptakan pada September 1957. Kopi ini pertama kali dibuat oleh Dimitrios Vakondios secara tidak disengaja. Dimitrios pada waktu itu adalah seorang penjual dari produk Nestlé.', 'frappe.jpg', 'price', 0),
 (6, 1, 'Teh Manis Panas', 8000, 20, 'Teh', 'Teh manis adalah minuman yang terbuat dari larutan teh yang biasanya diberi gula tebu atau pemanis. Variasi rasa manis pada minuman yang khas ini sangat merakyat di Amerika Serikat dan Indonesia.', 'teh_manis.jpg', 'price', 0),
 (7, 1, 'Teh Manis Dingin', 9000, 20, 'Teh', 'Teh manis adalah minuman yang terbuat dari larutan teh yang biasanya diberi gula tebu atau pemanis. Variasi rasa manis pada minuman yang khas ini sangat merakyat di Amerika Serikat dan Indonesia. Dalam budaya Indonesia, teh manis yang diberi es biasa disebut es teh.', 'teh_manis_dingin.jpg', 'price', 0),
-(8, 1, 'Teh Melati', 8000, 5, 'Teh', 'Teh melati adalah minuman teh yang diramu dengan bunga melati. Minuman ini berasal dari zaman Dinasti Song. Biasanya teh melati dibuat dengan bahan dasar teh hijau atau teh putih.', 'teh_melati.jpg', 'price', 0),
-(9, 2, 'Coffee Latte Indah', 24000, 12, 'Kopi', 'Kopi latte indah', 'latte.jpg', 'price', 0);
+(8, 1, 'Teh Melati', 8000, 5, 'Teh', 'Teh melati adalah minuman teh yang diramu dengan bunga melati. Minuman ini berasal dari zaman Dinasti Song. Biasanya teh melati dibuat dengan bahan dasar teh hijau atau teh putih.', 'teh_melati.jpg', 'price', 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaction`
+-- Table structure for table `transaction`
 --
 
 CREATE TABLE `transaction` (
@@ -153,26 +150,15 @@ CREATE TABLE `transaction` (
   `total_harga` int(11) NOT NULL,
   `total_diskon` int(11) NOT NULL,
   `no_meja` int(11) NOT NULL,
-  `jenis_pesanan` enum('dine-in','take-away') NOT NULL,
-  `status_pesanan` int(1) NOT NULL,
+  `jenis_pesanan` varchar(255) NOT NULL,
   `keterangan` text NOT NULL,
   `bukti_bayar` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `transaction`
---
-
-INSERT INTO `transaction` (`id_transaction`, `id_user`, `id_merchant`, `id_method`, `tanggal`, `waktu`, `total_harga`, `total_diskon`, `no_meja`, `jenis_pesanan`, `status_pesanan`, `keterangan`, `bukti_bayar`) VALUES
-(1, 1, 1, 1, '2023-10-17', '06:43:34', 40000, 0, 1, 'dine-in', 2, '-', '-'),
-(2, 1, 1, 1, '2023-10-17', '06:49:34', 30000, 0, 1, 'dine-in', 2, '-', '-'),
-(3, 1, 1, 1, '2023-11-01', '13:50:25', 60000, 0, 2, 'dine-in', 1, '-', '-'),
-(4, 1, 1, 1, '2023-11-01', '13:35:08', 50000, 0, 2, 'dine-in', 1, '-', '-');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaction_sub`
+-- Table structure for table `transaction_sub`
 --
 
 CREATE TABLE `transaction_sub` (
@@ -184,23 +170,10 @@ CREATE TABLE `transaction_sub` (
   `diskon` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `transaction_sub`
---
-
-INSERT INTO `transaction_sub` (`id_sub`, `id_transaction`, `id_product`, `jumlah`, `subtotal`, `diskon`) VALUES
-(1, 1, 2, 1, 22000, 0),
-(2, 1, 3, 1, 18000, 0),
-(3, 2, 5, 1, 30000, 0),
-(4, 3, 7, 1, 15000, 0),
-(5, 3, 6, 2, 30000, 0),
-(6, 4, 1, 2, 48000, 0),
-(7, 4, 8, 2, 16000, 0);
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -217,27 +190,26 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id_user`, `nama`, `username`, `email`, `no_hp`, `password`, `gender`, `alamat`, `foto`, `google_id`) VALUES
 (1, 'Iqbal Ramadhan', 'iqbal123', 'iqbal123@gmail.com', '081282838475', 'iqbal123', 'pria', 'Jl. Medan', 'iqbal.jpg', '0'),
-(3, 'Angga Yunanda', 'angga12', 'angga12@gmail.com', '082175793376', 'angga12', 'pria', 'Jl. Perkantoran', 'angga.jpg', '1'),
-(4, 'Indah', 'indah123', 'indah@gmail.com', '081234567890', 'indah123', 'wanita', 'Gg. Indah', 'indah.jpg', '');
+(3, 'Angga Yunanda', 'angga12', 'angga12@gmail.com', '082175793376', 'angga12', 'pria', 'Jl. Perkantoran', 'angga.jpg', '1');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `merchant`
+-- Indexes for table `merchant`
 --
 ALTER TABLE `merchant`
   ADD PRIMARY KEY (`id_merchant`),
   ADD KEY `id_user` (`id_user`);
 
 --
--- Indeks untuk tabel `merchant_employee`
+-- Indexes for table `merchant_employee`
 --
 ALTER TABLE `merchant_employee`
   ADD PRIMARY KEY (`id_employee`),
@@ -245,7 +217,7 @@ ALTER TABLE `merchant_employee`
   ADD KEY `id_user2` (`id_user`);
 
 --
--- Indeks untuk tabel `merchant_payment`
+-- Indexes for table `merchant_payment`
 --
 ALTER TABLE `merchant_payment`
   ADD PRIMARY KEY (`id_payment`),
@@ -253,20 +225,20 @@ ALTER TABLE `merchant_payment`
   ADD KEY `id_merchant2` (`id_merchant`);
 
 --
--- Indeks untuk tabel `payment_method`
+-- Indexes for table `payment_method`
 --
 ALTER TABLE `payment_method`
   ADD PRIMARY KEY (`id_method`);
 
 --
--- Indeks untuk tabel `product`
+-- Indexes for table `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id_product`),
   ADD KEY `id_merchant4` (`id_merchant`);
 
 --
--- Indeks untuk tabel `transaction`
+-- Indexes for table `transaction`
 --
 ALTER TABLE `transaction`
   ADD PRIMARY KEY (`id_transaction`),
@@ -275,7 +247,7 @@ ALTER TABLE `transaction`
   ADD KEY `id_method2` (`id_method`);
 
 --
--- Indeks untuk tabel `transaction_sub`
+-- Indexes for table `transaction_sub`
 --
 ALTER TABLE `transaction_sub`
   ADD PRIMARY KEY (`id_sub`),
@@ -283,7 +255,7 @@ ALTER TABLE `transaction_sub`
   ADD KEY `id_transaction` (`id_transaction`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
@@ -292,89 +264,89 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `google_id` (`google_id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `merchant`
+-- AUTO_INCREMENT for table `merchant`
 --
 ALTER TABLE `merchant`
-  MODIFY `id_merchant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_merchant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `merchant_employee`
+-- AUTO_INCREMENT for table `merchant_employee`
 --
 ALTER TABLE `merchant_employee`
-  MODIFY `id_employee` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_employee` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `merchant_payment`
+-- AUTO_INCREMENT for table `merchant_payment`
 --
 ALTER TABLE `merchant_payment`
   MODIFY `id_payment` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `payment_method`
+-- AUTO_INCREMENT for table `payment_method`
 --
 ALTER TABLE `payment_method`
   MODIFY `id_method` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `product`
+-- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `transaction`
+-- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `transaction_sub`
+-- AUTO_INCREMENT for table `transaction_sub`
 --
 ALTER TABLE `transaction_sub`
-  MODIFY `id_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_sub` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `merchant`
+-- Constraints for table `merchant`
 --
 ALTER TABLE `merchant`
   ADD CONSTRAINT `id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `merchant_employee`
+-- Constraints for table `merchant_employee`
 --
 ALTER TABLE `merchant_employee`
   ADD CONSTRAINT `id_merchant` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `id_user2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `merchant_payment`
+-- Constraints for table `merchant_payment`
 --
 ALTER TABLE `merchant_payment`
   ADD CONSTRAINT `id_merchant2` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `id_method` FOREIGN KEY (`id_method`) REFERENCES `payment_method` (`id_method`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `product`
+-- Constraints for table `product`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `id_merchant4` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `transaction`
+-- Constraints for table `transaction`
 --
 ALTER TABLE `transaction`
   ADD CONSTRAINT `id_merchant3` FOREIGN KEY (`id_merchant`) REFERENCES `merchant` (`id_merchant`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -382,7 +354,7 @@ ALTER TABLE `transaction`
   ADD CONSTRAINT `id_user3` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `transaction_sub`
+-- Constraints for table `transaction_sub`
 --
 ALTER TABLE `transaction_sub`
   ADD CONSTRAINT `id_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE CASCADE ON UPDATE CASCADE,

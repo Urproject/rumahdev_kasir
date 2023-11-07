@@ -2,18 +2,16 @@
 
 namespace App\Controllers;
 
-// use App\Models\ProductModel;
+use App\Models\ProductModel;
 // use CodeIgniter\Controller;
 
 class Merchant extends BaseController {
 
   public function index() {
-    $db = \Config\Database::connect();
-    $builder = $db->table('product');
-    $builder->orderBy('nama', 'asc'); // Order by 'nama' in ascending order
-    $query = $builder->get();
-
-    $data['products'] = $query->getResult();
+	  $modelProduct = new ProductModel();
+	  // Replace the hardcoded merchant ID (1) with the actual merchant ID from your session
+	  $merchantId = 1;
+	  $data['products'] = $modelProduct->getProductsByMerchant($merchantId);
 
     $header['titleTab'] = 'RumahDev Kasir App';
     $header2['titlePage'] = 'Dashboard Merchant';
@@ -21,23 +19,23 @@ class Merchant extends BaseController {
     echo view('partial/header', $header);
     echo view('partial/wrapper', $header2);
     echo view('partial/side_menu');
-    echo view('merchant/dashboard', $data);
+    echo view('merchant/order', $data);
     echo view('partial/footer');
   }
 
   public function profil() {
 
-	$header['titleTab']='RumahDev Kasir App';
-	$header2['titlePage']='Profil Merchant';
-	
-	echo view('partial/header', $header);
-	echo view('partial/top_menu', $header2);
-	echo view('partial/side_menu');
-	echo view('merchant/profil');
-	echo view('partial/footer');
+		$header['titleTab']='RumahDev Kasir App';
+		$header2['titlePage']='Profil Merchant';
+		
+		echo view('partial/header', $header);
+		echo view('partial/top_menu', $header2);
+		echo view('partial/side_menu');
+		echo view('merchant/profil');
+		echo view('partial/footer');
   }
 
-  public function profilUser($id=1) {
+  public function profilUser($id=0) {
 
     $db = \Config\Database::connect();
     $query = $db->query('SELECT * FROM user WHERE id_user = ?', [$id]);
@@ -95,50 +93,6 @@ public function confirm() {
 		$query = $builder->get();
 		return $query->getRow();
 	}
-
-	public function test() {
-	$db = \Config\Database::connect();
-
-	if ($db->connect(true)) {
-	  echo 'Database connection successful.';
-	} else {
-	  echo 'Database connection failed.';
-	}
-
-	$query = $db->query('SELECT * FROM product');
-	$data['products'] = $query->getResult();
-
-	// $model = new \App\Models\ProductModel();
-	// $data['products'] = $model->findAll();
-
-	return view('merchant/test', $data);
-	}  
-
-  public function test2() {
-		$db = \Config\Database::connect();
-		$query = $db->query('SELECT * FROM product');
-		$data['products'] = $query->getResult();
-
-		$header['titleTab']='Title Tab';
-		$header2['titlePage']='Title Page';
-		
-		echo view('partial/header', $header);
-		echo view('partial/top_menu', $header2);
-		echo view('partial/side_menu');
-		echo view('merchant/testing', $data);
-		echo view('partial/footer');
-		// return view('merchant/testing', $data);
-  }
-
-  public function testing() {
-		$header['title']='Halaman Testing';
-		echo view('partial/header',$header);
-		echo view('partial/top_menu');
-		echo view('partial/side_menu');
-		echo view('testing');
-		echo view('partial/footer');
-		// return view('testing');
-  }
 
   public function settingPayment() {
 

@@ -40,35 +40,39 @@
                     <th>Action</th>
                   </tr>
                   </thead>
+                  
                   <tbody>
                   <?php if (isset($products) && !empty($products)): ?>
-                    <?php foreach ($products as $product): ?>
-                      <tr>
-                        <td><?php echo $product->id_product; ?></td>
-                        <td><?php echo $product->nama; ?></td>
-                        <td><?php echo $product->harga; ?></td>
-                        <td><?php echo $product->kategori; ?></td>
-                        <td>
-                          <button style="all: unset; cursor: pointer;">
-                            <a href="<?= base_url('kasir/products/detail?id=1') ?>">
-                              <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
-                            </a>
-                          </button>
-                          <button style="all: unset; cursor: pointer;">
-                            <a href="<?= base_url('kasir/products/edit?id=1') ?>">
-                              <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
-                            </a>
-                          </button>
-                          <button style="all: unset; cursor: pointer;" class="deleteButton">
-                            <span class="right badge badge-danger"><i class="fas fa-trash"></i></span>
-                          </button>
-                        </td>
-                      </tr>
-                    <?php endforeach; ?>
+                      <?php $productNumber = 1; // Initialize the counter ?>
+                      <?php foreach ($products as $product): ?>
+                          <tr>
+                              <td><?php echo $productNumber; ?></td>
+                              <td><?php echo $product->nama; ?></td>
+                              <td><?php echo $product->harga; ?></td>
+                              <td><?php echo $product->kategori; ?></td>
+                              <td>
+                                  <button style="all: unset; cursor: pointer;">
+                                      <a href="<?= base_url('kasir/products/detail?id=' . $product->id_product) ?>">
+                                          <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
+                                      </a>
+                                  </button>
+<!--                                   <button style="all: unset; cursor: pointer;">
+                                      <a href="<?= base_url('kasir/products/edit?id=' . $product->id_product) ?>">
+                                          <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
+                                      </a>
+                                  </button>
+                                  <button style="all: unset; cursor: pointer;" class="deleteButton">
+                                      <span class="right badge badge-danger"><i class="fas fa-trash"></i></span>
+                                  </button> -->
+                              </td>
+                          </tr>
+                          <?php $productNumber++; // Increment the counter for the next product ?>
+                      <?php endforeach; ?>
                   <?php else: ?>
-                    <td colspan="6">No products found.</p>
+                      <td colspan="6">No products found.</td>
                   <?php endif; ?>
                   </tbody>
+
                   <tfoot>
                   <tr>
                     <th>#</th>

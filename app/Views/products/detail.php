@@ -4,13 +4,12 @@
   <div class="content-wrapper bg-white">
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content py-3">
       <div class="container-fluid">      
-        <a href="<?= base_url('kasir/products') ?>" class="btn btn-sm text-white rumahdev-bg border-0 my-3">Kembali</a>
+        <a href="<?= base_url('kasir/products') ?>" class="btn btn-sm text-white rumahdev-bg border-0 mb-3">Kembali</a>
      
         <div class="row">
 
-				<?php foreach ($products as $product) { ?>
 
           <div class="col-md-6">
             <div class="form-group">
@@ -52,12 +51,13 @@
 							<img class="rounded mb-3" src="<?php echo base_url('assets/images/produk/' . $product->gambar); ?>">
             </div>
 
-				<?php } ?>
 
           </div>
 
-					<a href="<?= base_url('kasir/products/edit') ?>" class="btn btn-sm btn-warning mr-2">Edit</a>
-					<button class="btn btn-sm btn-danger deleteButton">Hapus</button>
+          <div class="action">
+  					<a href="<?= base_url('kasir/products/edit') ?>" class="btn btn-sm btn-warning mr-2">Edit</a>
+  					<button class="btn btn-sm btn-danger deleteButton">Hapus</button>
+          </div>
 
         </div>
       </div>
