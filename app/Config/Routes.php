@@ -31,10 +31,6 @@ $routes->get('/kasir/profil/user', 'Merchant::profilUser');
 $routes->get('/kasir/settings/discount', 'Merchant::settingDiscount');
 $routes->get('/kasir/settings/payment', 'Merchant::settingPayment');
 
-$routes->get('/kasir/test', 'Merchant::test');
-$routes->get('/kasir/test2', 'Merchant::test2');
-$routes->get('/kasir/testing', 'Merchant::testing');
-
 // tabel superadmin 
 $routes->get('/kasir/products', 'MerchantProducts::index');
 $routes->get('/kasir/products/detail', 'MerchantProducts::detail');
