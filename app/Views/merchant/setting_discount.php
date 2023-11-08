@@ -19,6 +19,12 @@
         <span class="slider round"></span>
       </label>
 
+      <b><h5 class="m-3"> Atur Jumlah Meja Yang Tersedia</b></h5>
+        <input class="ml-3" id="jumlah-meja" type="number" name="meja" min="0" max="999" style="border-color: #005a70; background-color: #d3d3d3; border-radius: 7px;">
+      <br>
+
+      <a href="#" class="btn btn-secondary rumahdev-bg m-3">Simpan</a>
+
 
 
 			</div>

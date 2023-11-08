@@ -11,6 +11,7 @@ $routes->get('/', 'Home::index');
 
 // login, daftar
 $routes->get('/login', 'Home::index');
+$routes->get('/login/lupa_password', 'Home::lupa_password');
 $routes->get('/daftar', 'Home::daftar');
 $routes->get('/daftar/akun', 'Home::daftarAkun');
 $routes->get('/daftar/merchant', 'Home::daftarMerchant');

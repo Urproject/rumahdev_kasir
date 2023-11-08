@@ -35,10 +35,10 @@ body {
   background: linear-gradient(135deg, #005a70 0%, #008F87 100%);
 }
 
-.rumahdev-bg:hover {
+/* .rumahdev-bg:hover {
   background: #005a70;
-  background: linear-gradient(135deg, #005A56 0%, #00736C 100%); /* Slightly darker gradient */
-}
+  background: linear-gradient(135deg, #005A56 0%, #00736C 100%); /* Slightly darker gradient
+} */
 
 
 .rumahdev-btn { 

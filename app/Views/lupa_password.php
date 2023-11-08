@@ -13,35 +13,25 @@
 
       <img style="width: 50%;" src="<?= base_url('assets/images/logo-rd2.png'); ?>">
       <h3 class="fw-normal mt-4">
-        Login <span class="fw-bold text-uppercase">RumahDev</span> Kasir
+        Reset Password
       </h3>
 
+    <p class="ml-0">Masukkan Email anda untuk reset password</p>
+
+    <p class="m-3"style="border: solid 1px #aaa; background: #ffc0cb; padding: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; -webkit-border-radius: 15px; 
+    border-radius: 15px; margin: 0; text-align: justify; line-height: 23px; color: black; font-size: 15px; height: 80px; width: 423px;">Kami sudah mengirim surel yang berisi tautan untuk mereset kata sandi Anda!</p>
+
       <div class="input-group mx-auto my-3" style="width: 80%;">
-        <input class="form-control rounded" type="text" placeholder="Masukkan Username" aria-label="username">
+        <input class="form-control rounded" type="text" placeholder="Masukkan E-mail" aria-label="username">
         <button class="btn" type="button" style="margin-left: -40px;">
-          <i class="text-secondary fa-solid fa-user"></i>
+            <i class="text-secondary fa-solid fa-envelope" style="color: #000000;"></i>
         </button>
       </div>
 
-      <div class="input-group mx-auto my-3" style="width: 80%;">
-        <div class="input-group mb-3">
-          <input id="password-field" type="password" class="form-control"
-            placeholder="Masukkan Password">
-            <button class="btn rounded-end btn-secondary" type="button">
-                  <h6 toggle="#password-field" class="fa fa-eye fa-lg show-hide rounded-end"></h6>
-            </button>
-        
-        </div>
-      </div>
-      
-
-      <button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Login</button>
+      <button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Kirim</button>
       <br>
 
-      <a href="<?= base_url('login/lupa_password') ?>" class="text-center rumahdev-color"> Lupa password?</a>
-      <br>
-
-      <a href="<?= base_url('daftar') ?>" class="text-center rumahdev-color">Belum punya akun? Daftar</a>
+      <a href="<?= base_url('login') ?>" class="text-center rumahdev-color"><i class="fa-solid fa-arrow-left" style="color: #008F87;"></i> Kembali Ke Halaman Login</a>
 
       
 

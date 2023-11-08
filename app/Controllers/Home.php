@@ -32,4 +32,8 @@ class Home extends BaseController {
 	  return view('dashboard/profil0');
 	}
 
+	public function lupa_password(): string {
+		return view('lupa_password');
+	  }
+
 }
