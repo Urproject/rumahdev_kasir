@@ -9,41 +9,52 @@
 
   <div class="d-flex justify-content-center align-items-center rumahdev-bg" style="width: 100%; height: 100vh;">
 
-    <div class="col-md-4 text-center bg-light pt-4 pb-5 rounded">
+    <div class="col-md-4 text-center bg-light py-3 rounded">
 
-      <img style="width: 50%;" src="<?= base_url('assets/images/logo-rd2.png'); ?>">
-      <h3 class="fw-normal mt-4">
-        Login <span class="fw-bold text-uppercase">RumahDev</span> Kasir
+      <img style="width: 25%;" src="<?= base_url('assets/images/logo-rd2.png'); ?>">
+      <h3 class="fw-normal mt-3">
+        Login <span class="fw-bold text-uppercase rumahdev-color">RumahDev</span> Kasir
       </h3>
 
-      <div class="input-group mx-auto my-3" style="width: 80%;">
-        <input class="form-control rounded" type="text" placeholder="Masukkan Username" aria-label="username">
-        <button class="btn" type="button" style="margin-left: -40px;">
-          <i class="text-secondary fa-solid fa-user"></i>
-        </button>
-      </div>
 
-      <div class="input-group mx-auto my-3" style="width: 80%;">
-        <div class="input-group mb-3">
-          <input id="password-field" type="password" class="form-control"
-            placeholder="Masukkan Password">
-            <button class="btn rounded-end btn-secondary" type="button">
-                  <h6 toggle="#password-field" class="fa fa-eye fa-lg show-hide rounded-end"></h6>
-            </button>
-        
+      <p>
+         <?php if (!empty(session()->getFlashdata('gagal'))) { ?>
+            <div class="alert alert-warning mx-auto p-1" style="width: 80%;">
+               <?php echo session()->getFlashdata('gagal') ?>
+            </div>
+         <?php } ?>
+      </p>
+
+
+      <form method="POST" action="<?= base_url('login/action'); ?>">
+
+        <div class="input-group mx-auto mb-2" style="width: 80%;">
+          <label for="username" hidden>Username</label>
+          <input type="text" name="username" id="username" class="form-control rounded" placeholder="Masukkan Username" aria-label="username">
+          <!-- <button class="btn" type="button" style="margin-left: -40px;">
+            <i class="text-secondary fa-solid fa-user"></i>
+          </button> -->
         </div>
-      </div>
-      
 
-      <button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Login</button>
+        <div class="input-group mx-auto mb-4" style="width: 80%;">
+          <div class="input-group">
+            <label for="password" hidden>Password</label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan Password" aria-label="password">
+            <button class="btn rounded-end btn-secondary" type="button">
+              <h6 toggle="#password-field" class="fa fa-eye fa-lg show-hide rounded-end"></h6>
+            </button>
+          
+          </div>
+        </div>
+        
+        <button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Login</button>
+      <form>
+
       <br>
-
-      <a href="<?= base_url('login/lupa_password') ?>" class="text-center rumahdev-color"> Lupa password?</a>
+      <a href="<?= base_url('login/lupa_password') ?>" class="text-center rumahdev-color mt-3"> Lupa password?</a>
       <br>
 
       <a href="<?= base_url('daftar') ?>" class="text-center rumahdev-color">Belum punya akun? Daftar</a>
-
-      
 
     </div>
 

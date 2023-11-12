@@ -9,7 +9,7 @@ class TransactionModel extends Model {
 	protected $primaryKey = 'id_transaction'; // Primary key column
 	protected $returnType     = 'object';
 
-	protected $allowedFields = ['id_transaction', 'id_user', 'id_merchant', 'tanggal', 'waktu', 'total_harga', 'total_diskon', 'no_meja', 'jenis_pesanan', 'keterangan', 'bukti_bayar']; // Fields that can be inserted/updated
+	protected $allowedFields = ['id_transaction', 'id_user', 'id_merchant', 'tanggal', 'waktu', 'total_harga', 'total_diskon', 'no_meja', 'jenis_pesanan', 'status_pesanan', 'keterangan', 'bukti_bayar']; // Fields that can be inserted/updated
 	
   public function getTransactions() {
     return $this->select('transaction.*, user.nama, payment_method.payment_type')
@@ -18,4 +18,11 @@ class TransactionModel extends Model {
       ->orderBy('transaction.tanggal DESC, transaction.waktu DESC')
       ->findAll();
   }
+
+  // Add a method to insert a new transaction and return its ID
+  public function insertTransaction($data) {
+      $this->insert($data);
+      return $this->insertID();
+  }
 }
+
