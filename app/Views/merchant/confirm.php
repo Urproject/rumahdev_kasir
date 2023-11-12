@@ -79,7 +79,7 @@
 						<div class="col-8 font-weight-bold">Total Harga</div>
 						<div class="col-4 font-weight-bold">Rp <?= $total_harga ?></div>
 						<div class="col-8 font-weight-bold">Nominal Bayar </div>
-						<div class="col-4 font-weight-bold">Rp 40000</div>
+						<div class="col-4 font-weight-bold">Rp 0</div>
 						<div class="col-8 font-weight-bold">Kembalian </div>
 						<div class="col-4 font-weight-bold">Rp 0</div>
 				  </div>

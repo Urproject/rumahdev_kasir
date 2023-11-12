@@ -53,6 +53,7 @@ $routes->get('/kasir/users/edit', 'MerchantUsers::editUser');
 $routes->get('/kasir/transactions', 'MerchantTransactions::index');
 $routes->get('/kasir/transactions/detail', 'MerchantTransactions::detail');
 $routes->get('/kasir/transactions/detail/(:num)', 'MerchantTransactions::detail/$1');
+$routes->get('/kasir/transactions/confirm', 'MerchantTransactions::confirm');
 
 // dashboard user kasir
 $routes->get('/kasir/dashboard', 'Kasir::index');

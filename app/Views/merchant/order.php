@@ -299,7 +299,16 @@ $(document).ready(function () {
           contentType: 'application/json',
           success: function (response) {
               console.log('Ajax Success:', response);
-              window.location.href = baseUrl + 'kasir/confirm';
+
+            // Check if the response contains id_transaction
+            if (response.id_transaction) {
+                // Redirect to the confirmation page with id_transaction
+                window.location.href = baseUrl + 'kasir/transactions/confirm?id=' + response.id_transaction;
+            } else {
+                console.error('id_transaction not found in the response');
+            }
+
+
           },
           error: function (error) {
               console.error(error);

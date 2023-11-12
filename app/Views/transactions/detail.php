@@ -15,8 +15,15 @@
 				</div>
 
 				<div class="order-details">
-					<h5 class="font-weight-bold">Pesanan</h5><hr class="m-1">
+					<h5 class="font-weight-bold">Pesanan</h5>
+					<hr class="m-1">
+					
 			    <div class="row">
+
+			        <div class="col-1 d-none mb-2 font-weight-bold">Jumlah</div>
+			        <div class="col-5 d-none mb-2 font-weight-bold">Nama Produk</div> 
+			        <div class="col-2 d-none mb-2 font-weight-bold">Harga Satuan</div> 
+			        <div class="col-4 d-none mb-2 font-weight-bold">Subtotal</div> 
 
 						<?php 
 					    $total_harga = 0; // Initialize total_harga
@@ -27,26 +34,36 @@
 				        $total_harga += $subtotal;
 						?>
 		        
-		        <div class="col-md-1">x<?= $transaction->jumlah ?></div>
-		        <div class="col-md-7"><?= $transaction->product_name ?></div> 
-		        <div class="col-md-4">Rp <?= $subtotal ?></div> 
+		        <div class="col-1">x<?= $transaction->jumlah ?></div>
+		        <div class="col-5"><?= $transaction->product_name ?></div>
+		        <div class="col-sm-2 text-secondary font-italic">Rp <?= $transaction->product_price ?></div>
+		        <div class="col-sm-4">Rp <?= $subtotal ?></div> 
+		        <!-- <div class="col-8"></div>   -->
+		        <!-- <div class="col-4 text-secondary"><i>-diskon</i></div>  -->
 
 						<?php endforeach; ?>
 
-						<div class="col-sm-8 text-secondary mt-3">Subtotal</div>
-						<div class="col-sm-4 text-secondary mt-3">Rp 40.000</div>
-						<div class="col-sm-8 text-secondary">Diskon</div>
-						<div class="col-sm-4 text-secondary">Rp 0</div>
-						<div class="col-sm-8 text-secondary">Pajak</div>
-						<div class="col-sm-4 text-secondary">Rp 0</div>
+						<div class="col-8 text-secondary mt-3">Subtotal</div>
+						<div class="col-4 text-secondary mt-3">Rp <?= $total_harga ?></div>
 
-						<div class="col-sm-12">
-							<hr class="m-1">
+						<div class="col-8 text-secondary">Diskon</div>
+						<div class="col-4 text-secondary">Rp 0</div>
+
+						<div class="col-8 text-secondary">Pajak</div>
+						<div class="col-4 text-secondary">Rp 0</div>
+
+						<div class="col-12">
+							<hr class="my-1">
 						</div>
 
-						<div class="col-sm-8 font-weight-bold">Total Harga</div>
-						<div class="col-sm-4 font-weight-bold">Rp <?= $total_harga ?></div>
+						<div class="col-8 font-weight-bold">Total Harga</div>
+						<div class="col-4 font-weight-bold">Rp <?= $total_harga ?></div>
+						<div class="col-8 font-weight-bold">Nominal Bayar </div>
+						<div class="col-4 font-weight-bold">Rp 0</div>
+						<div class="col-8 font-weight-bold">Kembalian </div>
+						<div class="col-4 font-weight-bold">Rp 0</div>
 				  </div>
+				</div> 
 
 				</div>
 

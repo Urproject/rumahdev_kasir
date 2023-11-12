@@ -141,7 +141,22 @@ class Merchant extends BaseController {
     }
 
     // Redirect to the confirmation page
-    return redirect()->to(base_url('kasir/confirm'));
+    // return redirect()->to(base_url('kasir/confirm'));
+    // Redirect to the confirmation page with the id_transaction parameter
+    // return redirect()->to(base_url('kasir/transactions/confirm?id=' . $id_transaction));
+
+
+    // Prepare the response
+    $response = [
+        'id_transaction' => $id_transaction,
+        'message' => 'Order added successfully',
+        // Add any other data you want to send back to the client
+    ];
+
+    // Return the response
+    return $this->response->setJSON($response);
+    
+
 	}
 
 
