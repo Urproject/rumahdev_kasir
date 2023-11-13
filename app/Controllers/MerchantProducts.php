@@ -6,13 +6,54 @@ use App\Models\ProductModel;
 use CodeIgniter\Controller;
 
 class MerchantProducts extends BaseController {
+  private $userData;
 
+  public function __construct() {
+    if (empty(session()->get('username'))) {
+      session()->setFlashdata('gagal', 'Anda belum login');
+      return redirect()->to(base_url('login'));
+    }
+    $this->fetchUserData();
+  }
+
+  private function fetchUserData() {
+    $this->userData = [
+      'username' => session()->get('username'),
+      'nama' => session()->get('nama'),
+      'email' => session()->get('email'),
+      'foto' => session()->get('foto'),
+      'id_user' => session()->get('id_user'),
+      // Add other user data as needed
+    ];
+  }
+
+
+  public function index() {
+    $modelProduct = new ProductModel();
+
+    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+    $data['products'] = $modelProduct->getProductsByMerchant($merchantId);
+
+    $header['titleTab'] = 'RumahDev Kasir App';
+    $header2['titlePage'] = 'Data Produk';
+    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
+
+    echo view('partial/header', $header);
+    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/side_menu');
+    echo view('products/index', $data);
+    echo view('partial/footer');
+  }
+
+
+  
   public function addProduct() {
     $header['titleTab'] = 'RumahDev Kasir App';
     $header2['titlePage'] = 'Tambah Produk';
+    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
 
     echo view('partial/header', $header);
-    echo view('partial/top_menu', $header2);
+    echo view('partial/top_menu', $topMenuData);
     echo view('partial/side_menu');
     echo view('products/add_product');
     echo view('partial/footer');
@@ -41,23 +82,6 @@ class MerchantProducts extends BaseController {
   }
 
 
-  public function index() {
-
-    $modelProduct = new ProductModel();
-    // Replace the hardcoded merchant ID (1) with the actual merchant ID from your session
-    $merchantId = 1;
-    $data['products'] = $modelProduct->getProductsByMerchant($merchantId);
-
-    $header['titleTab'] = 'RumahDev Kasir App';
-    $header2['titlePage'] = 'Data Produk';
-
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $header2);
-    echo view('partial/side_menu');
-    echo view('products/index', $data);
-    echo view('partial/footer');
-  }
-
   public function detail($id = 1) {
     $id = $this->request->getGet('id');
     if ($id === null) {
@@ -75,9 +99,10 @@ class MerchantProducts extends BaseController {
 
     $header['titleTab'] = 'RumahDev Kasir App';
     $header2['titlePage'] = 'Detail Produk';
+    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
 
     echo view('partial/header', $header);
-    echo view('partial/top_menu', $header2);
+    echo view('partial/top_menu', $topMenuData);
     echo view('partial/side_menu');
     echo view('products/detail', $data);
     echo view('partial/footer');
@@ -91,9 +116,10 @@ class MerchantProducts extends BaseController {
 
     $header['titleTab'] = 'RumahDev Kasir App';
     $header2['titlePage'] = 'Edit Produk';
+    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
 
     echo view('partial/header', $header);
-    echo view('partial/top_menu', $header2);
+    echo view('partial/top_menu', $topMenuData);
     echo view('partial/side_menu');
     echo view('products/edit_product', $data);
     echo view('partial/footer');

@@ -40,9 +40,9 @@
                     <th>#</th>
                     <th>Nama</th>
                     <th>Username</th>
-                    <th>Email</th>
+                    <!-- <th>Email</th>
                     <th>Alamat</th>
-                    <th>Action</th>
+ -->                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -52,8 +52,8 @@
                         <td><?php echo $product->id_user; ?></td>
                         <td><?php echo $product->nama; ?></td>
                         <td><?php echo $product->username; ?></td>
-                        <td><?php echo $product->email; ?></td>
-                        <td><?php echo $product->alamat; ?></td> 
+                        <!-- <td><?php echo $product->email; ?></td>
+                        <td><?php echo $product->alamat; ?></td>  -->
                         <td>
                           <button style="all: unset; cursor: pointer;">
                             <a href="<?= base_url('kasir/users/detail?id=1') ?>">
@@ -65,9 +65,9 @@
                               <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
                             </a>
                           </button>
-                          <button style="all: unset; cursor: pointer;" class="deleteButton">
-                          <span class="right badge badge-danger"><i class="fas fa-trash"></i></span>
-                          </button>
+                          <!-- <button style="all: unset; cursor: pointer;" class="deleteButton">
+                            <span class="right badge badge-danger"><i class="fas fa-trash"></i></span>
+                          </button>  -->
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -80,8 +80,8 @@
                     <th>#</th>
                     <th>Nama</th>
                     <th>Username</th>
-                    <th>Email</th>
-                    <th>Alamat</th>
+                    <!-- <th>Email</th>
+                    <th>Alamat</th> -->
                     <th>Action</th>
                   </tr>
                   </tfoot>

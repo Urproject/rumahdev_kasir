@@ -87,12 +87,12 @@
       <div class="col-md-4 mx-0 shadow d-flex flex-column" style="min-height: 100vh;">
         <div class="nav-item dropdown mr-3">
           <div class="user-panel d-flex mt-2" data-toggle="dropdown" style="cursor: pointer;">
-            <div class="image my-auto mr-2">
+            <div class="image my-auto">
               <img src="<?php echo base_url('assets/images/user/' . esc($userData['foto'])); ?>" class="img-circle border" alt="User Image">
             </div>
             <div class="info my-auto">
-              <span class="d-block text-dark"><?= esc($userData['nama']); ?></span>
-              <span class="d-block text-dark"><?= esc($userData['email']); ?></span>
+              <span class="d-block text-dark"><?= esc($merchantData->nama_usaha); ?></span>
+              <span class="d-block text-dark"><?= esc($userData['username']); ?></span>
             </div>
             <div class="my-auto ml-auto">
               <i class="fas fa-ellipsis-v"></i>

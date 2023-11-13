@@ -27,7 +27,6 @@ $routes->get('/home/profil0', 'Home::profil0');
 // merchant/superadmin
 $routes->get('/kasir', 'Merchant::index');
 $routes->get('/kasir/order', 'Merchant::index');
-$routes->get('/kasir/confirm', 'Merchant::confirm');
 
 $routes->get('/kasir/profil/merchant', 'Merchant::profil');
 $routes->get('/kasir/profil/user', 'Merchant::profilUser');
@@ -47,7 +46,10 @@ $routes->get('/kasir/products/edit', 'MerchantProducts::editProduct');
 
 $routes->get('/kasir/users', 'MerchantUsers::index');
 $routes->get('/kasir/users/detail', 'MerchantUsers::detail');
+
 $routes->get('/kasir/users/add', 'MerchantUsers::addUser');
+$routes->post('/kasir/users/action', 'MerchantUsers::addUserAction');
+
 $routes->get('/kasir/users/edit', 'MerchantUsers::editUser');
 
 $routes->get('/kasir/transactions', 'MerchantTransactions::index');

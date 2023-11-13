@@ -5,22 +5,21 @@ namespace App\Controllers;
 use App\Models\ProductModel;
 use App\Models\TransactionModel;
 use App\Models\TransactionSubModel;
+use App\Models\M_Merchant;
 // use CodeIgniter\Controller;
 
 class Merchant extends BaseController {
-
   private $userData;
 
   public function __construct() {
-    // Ensure that the parent constructor is not explicitly called
-
-    // Check if the user is not logged in
     if (empty(session()->get('username'))) {
       session()->setFlashdata('gagal', 'Anda belum login');
       return redirect()->to(base_url('login'));
     }
+    $this->fetchUserData();
+  }
 
-    // Set user data to the private variable
+  private function fetchUserData() {
     $this->userData = [
       'username' => session()->get('username'),
       'nama' => session()->get('nama'),
@@ -31,20 +30,21 @@ class Merchant extends BaseController {
     ];
   }
 
+
   public function index() {
-
     if (session()->get('username') == '') {
-       session()->setFlashdata('gagal', 'Anda belum login');
-       return redirect()->to(base_url('login'));
-    }
-    else {
+      session()->setFlashdata('gagal', 'Anda belum login');
+      return redirect()->to(base_url('login'));
+    } else {
       $modelProduct = new ProductModel();
-      // Replace the hardcoded merchant ID (1) with the actual merchant ID from your session
-      $merchantId = 1;
-      $data['products'] = $modelProduct->getProductsByMerchant($merchantId);
+      $merchantModel = new M_Merchant();
 
-        // Pass user data to the view
-        $data['userData'] = $this->userData;
+      $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+      $merchantData = $merchantModel->find($merchantId);
+
+      $data['products'] = $modelProduct->getProductsByMerchant($merchantId);
+      $data['merchantData'] = $merchantData;
+      $data['userData'] = $this->userData;
 
       $header['titleTab'] = 'RumahDev Kasir App';
       $header2['titlePage'] = 'Dashboard Merchant';
@@ -55,12 +55,10 @@ class Merchant extends BaseController {
       echo view('merchant/order', $data);
       echo view('partial/footer');
     }
-
   }
 
 
 	public function addOrderToDB() {
-    log_message('error', 'Debug: Inside addOrderToDB'); // Add this line for debugging
 
     // Load the necessary models
     $transactionModel = new TransactionModel();
@@ -181,9 +179,10 @@ class Merchant extends BaseController {
 
 		$header['titleTab']='RumahDev Kasir App';
 		$header2['titlePage']='Profil Akun';
-	
-		echo view('partial/header', $header);
-		echo view('partial/top_menu', $header2);
+    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
+
+    echo view('partial/header', $header);
+    echo view('partial/top_menu', $topMenuData);
 		echo view('partial/side_menu');
 		echo view('merchant/profil_user', $data);
 		echo view('partial/footer');
