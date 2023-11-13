@@ -18,17 +18,17 @@
 
       <div class="input-group mx-auto my-3" style="width: 80%;">
         <input class="form-control rounded" type="text" placeholder="Masukkan Username" aria-label="username">
-        <!-- <button class="btn" type="button" style="margin-left: -40px;"> -->
-          <!-- <i class="text-secondary fa-solid fa-user"></i> -->
-        <!-- </button> -->
+        <button class="btn" type="button" style="margin-left: -40px;">
+          <i class="text-secondary fa-solid fa-user"></i>
+        </button>
       </div>
 
       <div class="input-group mx-auto my-3" style="width: 80%;">
         <div class="input-group mb-3">
           <input id="password-field" type="password" class="form-control"
             placeholder="Masukkan Password">
-            <button class="btn rounded-end btn-secondary" type="button" style="border-left: none; border-color: #d3d3d3; background-color: white;">
-                  <h6 toggle="#password-field" class="fa fa-eye fa-lg show-hide rounded-end" style="color: #808080;"></h6>
+            <button class="btn rounded-end btn-secondary" type="button">
+                  <h6 toggle="#password-field" class="fa fa-eye fa-lg show-hide rounded-end"></h6>
             </button>
           
           </div>
