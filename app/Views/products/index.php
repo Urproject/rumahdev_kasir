@@ -6,6 +6,15 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
+
+<?php
+$successNotification = session()->getFlashdata('success');
+if ($successNotification) {
+  echo '<div class="alert alert-success">' . $successNotification . '</div>';
+}
+?>
+
+
         <div class="row mb-2">
           <div class="col-sm-6">
             <a href="<?= base_url('kasir/products/add') ?>" class="btn btn-sm rumahdev-bg text-white" 

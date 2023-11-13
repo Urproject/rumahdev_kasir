@@ -68,7 +68,7 @@
                           <td>
                             <?php if ($t->status_pesanan == 1): ?>
                               <button style="all: unset; cursor: pointer;">
-                                <a href="<?= base_url('kasir/confirm') ?>">
+                                <a href="<?= base_url('kasir/transactions/confirm?id=' . $t->id_transaction) ?>">
                                   <span class="right badge badge-primary rumahdev-bg"><i class="fas fa-check"></i></span>
                                 </a>
                               </button>

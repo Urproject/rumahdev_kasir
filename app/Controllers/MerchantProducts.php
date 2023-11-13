@@ -6,6 +6,41 @@ use App\Models\ProductModel;
 use CodeIgniter\Controller;
 
 class MerchantProducts extends BaseController {
+
+  public function addProduct() {
+    $header['titleTab'] = 'RumahDev Kasir App';
+    $header2['titlePage'] = 'Tambah Produk';
+
+    echo view('partial/header', $header);
+    echo view('partial/top_menu', $header2);
+    echo view('partial/side_menu');
+    echo view('products/add_product');
+    echo view('partial/footer');
+  }
+
+  public function addProductToDB() {
+    $modelProduct = new ProductModel();
+
+    // Get data from the form
+    $productData = [
+      'id_merchant' => $this->request->getPost('id_merchant'),
+      'nama' => $this->request->getPost('product_name'),
+      'harga' => $this->request->getPost('product_price'),
+      'stok' => $this->request->getPost('product_stock'),
+      'kategori' => $this->request->getPost('product_category'),
+      'deskripsi' => $this->request->getPost('product_description'),
+      // ... (other fields)
+    ];
+
+    // Insert the product data into the database
+    $modelProduct->insert($productData);
+
+    // Redirect with a success notification
+    $notification = $this->request->getPost('notification');
+    return redirect()->to(base_url('kasir/products'))->with('success', 'Product added successfully');
+  }
+
+
   public function index() {
 
     $modelProduct = new ProductModel();
@@ -48,17 +83,6 @@ class MerchantProducts extends BaseController {
     echo view('partial/footer');
   }
 
-
-  public function addProduct() {
-    $header['titleTab'] = 'RumahDev Kasir App';
-    $header2['titlePage'] = 'Tambah Produk';
-
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $header2);
-    echo view('partial/side_menu');
-    echo view('products/add_product');
-    echo view('partial/footer');
-  }
 
   public function editProduct($id=2) {
     $db = \Config\Database::connect();

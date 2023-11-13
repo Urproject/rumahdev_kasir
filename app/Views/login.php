@@ -9,41 +9,39 @@
 
   <div class="d-flex justify-content-center align-items-center rumahdev-bg" style="width: 100%; height: 100vh;">
 
-    <div class="col-md-4 text-center bg-light pt-4 pb-5 rounded">
+    <div class="col-md-4 text-center bg-light py-3 rounded">
 
-      <img style="width: 50%;" src="<?= base_url('assets/images/logo-rd2.png'); ?>">
-      <h3 class="fw-normal mt-4">
-        Login <span class="fw-bold text-uppercase">RumahDev</span> Kasir
+      <img style="width: 25%;" src="<?= base_url('assets/images/logo-rd2.png'); ?>">
+      <h3 class="fw-normal mt-3">
+        Login <span class="fw-bold text-uppercase rumahdev-color">RumahDev</span> Kasir
       </h3>
 
       <div class="input-group mx-auto my-3" style="width: 80%;">
         <input class="form-control rounded" type="text" placeholder="Masukkan Username" aria-label="username">
-        <!-- <button class="btn" type="button" style="margin-left: -40px;"> 
+        <button class="btn" type="button" style="margin-left: -40px;">
           <i class="text-secondary fa-solid fa-user"></i>
-        </button> -->
+        </button>
       </div>
 
       <div class="input-group mx-auto my-3" style="width: 80%;">
         <div class="input-group mb-3">
           <input id="password-field" type="password" class="form-control"
             placeholder="Masukkan Password">
-            <button class="btn rounded-end btn-secondary" type="button" style="border-left: none; border-color: #d3d3d3; background-color: white;">
-                  <h6 toggle="#password-field" class="fa fa-eye fa-lg show-hide rounded-end" style="color: #808080;"></h6>
+            <button class="btn rounded-end btn-secondary" type="button">
+                  <h6 toggle="#password-field" class="fa fa-eye fa-lg show-hide rounded-end"></h6>
             </button>
-        
+          
+          </div>
         </div>
-      </div>
-      
+        
+        <button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Login</button>
+      <form>
 
-      <button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Login</button>
       <br>
-
-      <a href="<?= base_url('login/lupa_password') ?>" class="text-center rumahdev-color"> Lupa password?</a>
+      <a href="<?= base_url('login/lupa_password') ?>" class="text-center rumahdev-color mt-3"> Lupa password?</a>
       <br>
 
       <a href="<?= base_url('daftar') ?>" class="text-center rumahdev-color">Belum punya akun? Daftar</a>
-
-      
 
     </div>
 

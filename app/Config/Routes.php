@@ -12,6 +12,10 @@ $routes->get('/', 'Home::index');
 // login, daftar
 $routes->get('/login', 'Home::index');
 $routes->get('/login/lupa_password', 'Home::lupa_password');
+$routes->post('/login/action', 'Home::loginAction');
+
+$routes->get('/logout', 'Home::logout');
+
 $routes->get('/daftar', 'Home::daftar');
 $routes->get('/daftar/akun', 'Home::daftarAkun');
 $routes->get('/daftar/merchant', 'Home::daftarMerchant');
@@ -31,6 +35,10 @@ $routes->get('/kasir/profil/user', 'Merchant::profilUser');
 $routes->get('/kasir/settings/discount', 'Merchant::settingDiscount');
 $routes->get('/kasir/settings/payment', 'Merchant::settingPayment');
 
+// merchant/superadmin
+$routes->post('/kasir/order/add', 'Merchant::addOrderToDB');
+
+
 // tabel superadmin 
 $routes->get('/kasir/products', 'MerchantProducts::index');
 $routes->get('/kasir/products/detail', 'MerchantProducts::detail');
@@ -45,6 +53,7 @@ $routes->get('/kasir/users/edit', 'MerchantUsers::editUser');
 $routes->get('/kasir/transactions', 'MerchantTransactions::index');
 $routes->get('/kasir/transactions/detail', 'MerchantTransactions::detail');
 $routes->get('/kasir/transactions/detail/(:num)', 'MerchantTransactions::detail/$1');
+$routes->get('/kasir/transactions/confirm', 'MerchantTransactions::confirm');
 
 // dashboard user kasir
 $routes->get('/kasir/dashboard', 'Kasir::index');
