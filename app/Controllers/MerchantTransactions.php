@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\TransactionModel;
 use App\Models\ProductModel;
 use App\Models\TransactionSubModel;
+use App\Models\M_PaymentMethod;
 use CodeIgniter\Controller;
 
 class MerchantTransactions extends BaseController {
@@ -38,19 +39,24 @@ class MerchantTransactions extends BaseController {
   }
 
 
+
   public function detail($id = null) {
     $id = $this->request->getGet('id');
     if ($id === null) {
-      return redirect()->to('/error-page');
+        return redirect()->to('/error-page');
     }
 
     $transactions = $this->fetchTransactionDetails($id);
 
     if (empty($transactions)) {
-      return redirect()->to('/error-page');
+        return redirect()->to('/error-page');
     }
 
     $total_harga = $this->calculateTotals($transactions);
+
+    // Fetch payment method information
+    $modelPaymentMethod = new M_PaymentMethod();
+    $paymentMethod = $modelPaymentMethod->find($transactions[0]->id_method);
 
     $header['titleTab'] = 'RumahDev Kasir App';
     $header2['titlePage'] = 'Detail Transaksi';
@@ -59,9 +65,14 @@ class MerchantTransactions extends BaseController {
     echo view('partial/header', $header);
     echo view('partial/top_menu', $topMenuData);
     echo view('partial/side_menu');
-    echo view('transactions/detail', ['transactions' => $transactions, 'total_harga' => $total_harga]);
+    echo view('transactions/detail', [
+        'transactions' => $transactions,
+        'total_harga' => $total_harga,
+        'paymentMethod' => $paymentMethod,
+    ]);
     echo view('partial/footer');
   }
+
 
   public function confirm($id = null) {
     $id = $this->request->getGet('id');
@@ -132,6 +143,9 @@ class MerchantTransactions extends BaseController {
 
     return $total_harga;
   }
+
+
+
 
 
 
