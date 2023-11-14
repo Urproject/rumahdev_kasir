@@ -2,6 +2,8 @@
 $merchantModel = new \App\Models\M_Merchant();
 $merchantId = model('M_Employee')->getMerchantIdByUserId($userData['id_user']);
 $merchantData = $merchantModel->find($merchantId);
+$discountEnabled = $merchantData->diskon == 1;
+$taxEnabled = $merchantData->pajak == 1;
 ?>
 
 <div class="content-wrapper bg-white">
@@ -13,7 +15,7 @@ $merchantData = $merchantModel->find($merchantId);
         <div class="col-md-6">
           <p>
             <b><?= esc($merchantData->nama_usaha); ?></b> <br>
-            Kasir : <?= esc($userData['nama']); ?> <br>
+            Kasir: <?= esc($userData['nama']); ?> <br>
             Waktu, Tanggal: <?= $transactions[0]->waktu ?>, <?= $transactions[0]->tanggal ?>
           </p>
         </div>
@@ -37,62 +39,144 @@ $merchantData = $merchantModel->find($merchantId);
           <span id="errorSpan" style="color: red; font-size: 14px; font-style: italic; display: none;">Nominal bayar tidak boleh lebih kecil dari total harga.</span>
         </div>
 
-      </div> 
+      </div>
 
       <div class="order-details mb-5">
         <h5 class="font-weight-bold">Pesanan</h5>
         <hr class="my-1">
 
         <div class="row">
-          <div class="col-1 d-none mb-2 font-weight-bold">Jumlah</div>
-          <div class="col-5 d-none mb-2 font-weight-bold">Nama Produk</div> 
-          <div class="col-2 d-none mb-2 font-weight-bold">Harga Satuan</div> 
-          <div class="col-4 d-none mb-2 font-weight-bold">Subtotal</div> 
+          <span class="col-sm-1 mb-2 font-weight-bold">Jumlah</span>
+          <span class="col-sm-5 mb-2 font-weight-bold">Nama Produk</span>
+          <span class="col-sm-2 mb-2 font-weight-bold">Harga Satuan</span>
+          <span class="col-sm-4 mb-2 font-weight-bold">Subtotal</span>
 
-          <?php 
+          <?php
           $total_harga = 0; // Initialize total_harga
+          $discountedTotal = 0; // Initialize discounted total
 
-          foreach ($transactions as $transaction) : 
+          foreach ($transactions as $transaction) :
             // Calculate subtotal
             $subtotal = $transaction->jumlah * $transaction->product_price;
             $total_harga += $subtotal;
+
+            // Calculate discount
+            $discount = 0; // Initialize discount variable
+
+            // Retrieve discount information from product_info
+            if ($transaction->product_info->jenis_diskon == 'percent') {
+              $discount = ($transaction->product_info->nilai_diskon / 100) * $subtotal;
+            } elseif ($transaction->product_info->jenis_diskon == 'price') {
+              $discount = $transaction->product_info->nilai_diskon * $transaction->jumlah;
+            }
+
+            // Calculate discounted price for each product
+            $discountedPrice = $subtotal - $discount;
+
+            // Add discounted price to the discounted total
+            $discountedTotal += $discountedPrice;
           ?>
-          <div class="col-1">x<?= $transaction->jumlah ?></div>
-          <div class="col-5"><?= $transaction->product_name ?></div>
-          <div class="col-sm-2 text-secondary font-italic">Rp <?= $transaction->product_price ?></div>
-          <div class="col-sm-4">Rp <?= $subtotal ?></div> 
+            <div class="col-1">x<?= $transaction->jumlah ?></div>
+            <div class="col-5"><?= $transaction->product_name ?></div>
+
+            <!-- <div class="col-sm-2 text-secondary font-italic">
+              Rp <?= $transaction->product_price ?><br>
+              <?php if ($discount > 0): ?>
+                Rp -<?= $discount ?> 
+              <?php endif; ?>
+            </div> -->
+
+            <div class="col-sm-2 text-secondary font-italic">
+              Rp <?= $transaction->product_price ?><br>
+              <?php if ($discount > 0 && $discountEnabled): ?>
+                Rp -<?= $discount ?> 
+              <?php endif; ?>
+            </div>
+
+            <div class="col-sm-4">
+              <span class="font-italic">
+                <?php if ($discountEnabled): ?>
+                  Rp <?= $discountedPrice ?>
+                <?php else: ?>
+                  Rp <?= $subtotal ?> <!-- Show the actual price if discount is off -->
+                <?php endif; ?>
+              </span>
+            </div>
           <?php endforeach; ?>
 
           <div class="col-8 text-secondary mt-3">Subtotal</div>
-          <div class="col-4 text-secondary mt-3">Rp <?= $total_harga ?></div>
+          <div class="col-4 text-secondary mt-3">
+            <?php if ($discountEnabled): ?>
+              Rp <?= $total_harga - ($total_harga - $discountedTotal) ?>
+            <?php else: ?>
+              Rp <?= $total_harga ?> <!-- Set to total_harga if discount is off -->
+            <?php endif; ?>
+          </div>
 
-          <div class="col-8 text-secondary">Diskon</div>
-          <div class="col-4 text-secondary">Rp 0</div>
-
-          <div class="col-8 text-secondary">Pajak</div>
-          <div class="col-4 text-secondary">Rp 0</div>
+          <?php if ($taxEnabled): ?>
+            <div class="col-8 text-secondary">Pajak</div>
+            <div class="col-4 text-secondary">Rp <?= ($total_harga - ($total_harga - $discountedTotal)) * 11/100 ?></div>
+          <?php endif; ?>
 
           <div class="col-12">
             <hr class="my-1">
           </div>
 
           <div class="col-8 font-weight-bold">Total Harga</div>
-          <div class="col-4 font-weight-bold">Rp <?= $total_harga ?></div>
-	        <div class="col-8 font-weight-bold">Nominal Bayar </div>
-	        <div class="col-4 font-weight-bold" id="nominalDisplay">Rp 0</div>
-	        <div class="col-8 font-weight-bold">Kembalian </div>
-	        <div class="col-4 font-weight-bold" id="kembalianDisplay">Rp 0</div>
+          <!-- <div class="col-4 font-weight-bold">Rp <?= ($total_harga - ($total_harga - $discountedTotal)) - (($total_harga - ($total_harga - $discountedTotal)) * 11/100) ?></div> -->
+
+          <div class="col-4 font-weight-bold">
+            <?php if ($discountEnabled): ?>
+              <?php
+              $discountedTotal = 0; // Initialize discounted total
+
+              // Loop through transactions to calculate total harga with discount
+              foreach ($transactions as $transaction) {
+                // Calculate subtotal
+                $subtotal = $transaction->jumlah * $transaction->product_price;
+
+                // Calculate discount
+                $discount = 0; // Initialize discount variable
+
+                // Retrieve discount information from product_info
+                if ($transaction->product_info->jenis_diskon == 'percent') {
+                  $discount = ($transaction->product_info->nilai_diskon / 100) * $subtotal;
+                } elseif ($transaction->product_info->jenis_diskon == 'price') {
+                  $discount = $transaction->product_info->nilai_diskon * $transaction->jumlah;
+                }
+
+                // Calculate discounted price for each product
+                $discountedPrice = $subtotal - $discount;
+
+                // Add discounted price to the discounted total
+                $discountedTotal += $discountedPrice;
+              }
+              ?>
+
+              <?php if ($taxEnabled): ?>
+                Rp <?= $discountedTotal + ($discountedTotal * 11/100) ?>
+              <?php else: ?>
+                Rp <?= $discountedTotal ?>
+              <?php endif; ?>
+
+            <?php else: ?>
+              <?php if ($taxEnabled): ?>
+                Rp <?= $total_harga + ($total_harga * 11/100) ?> <!-- Include tax if discount is off and tax is on -->
+              <?php else: ?>
+                Rp <?= $total_harga ?> <!-- No discount and tax, show the original total -->
+              <?php endif; ?>
+            <?php endif; ?>
+          </div>
+
+          <div class="col-8 font-weight-bold">Nominal Bayar</div>
+          <div class="col-4 font-weight-bold" id="nominalDisplay">Rp 0</div>
+          <div class="col-8 font-weight-bold">Kembalian</div>
+          <div class="col-4 font-weight-bold" id="kembalianDisplay">Rp 0</div>
         </div>
-      </div> 
+      </div>
 
       <div class="actions row">
         <br>
-        <!-- <form>
-          <div class="form-group">
-            <label for="buktiBayar">Bukti Bayar</label>
-            <input type="file" class="form-control-file" id="buktiBayar">
-          </div>
-        </form> -->
         <div class="col-md-8 my-3">
           <a href="<?= base_url('kasir/order') ?>">
             <button class="btn btn-sm text-white rumahdev-bg-hijau border-0">
@@ -107,30 +191,34 @@ $merchantData = $merchantModel->find($merchantId);
           </a>
           <button class="btn btn-sm text-white rumahdev-bg-biru border-0">Selesaikan</button>
         </div>
-      </div> 
+      </div>
 
     </div>
   </section>
 </div>
 
-
 <script>
-function toggleErrorSpan(show) {
-  var errorSpan = document.getElementById('errorSpan');
-  errorSpan.style.display = show ? 'inline' : 'none';
-}
+  function toggleErrorSpan(show) {
+    var errorSpan = document.getElementById('errorSpan');
+    errorSpan.style.display = show ? 'inline' : 'none';
+  }
 
-function calculateChange() {
-  var nominalInput = document.getElementById('nominalInput').value;
-  var nominalValue = parseInt(nominalInput.replace('Rp ', '').replace(',', ''), 10) || 0;
-  var totalHarga = parseInt('<?= $total_harga ?>', 10) || 0;
-  if (nominalValue < totalHarga) {
-    toggleErrorSpan(true);
-    return; }
-  toggleErrorSpan(false); 
+  function calculateChange() {
+    var nominalInput = document.getElementById('nominalInput').value;
+    var nominalValue = parseInt(nominalInput.replace('Rp ', '').replace(',', ''), 10) || 0;
 
-  var kembalian = nominalValue - totalHarga;
-  document.getElementById('nominalDisplay').innerText = 'Rp ' + nominalValue;
-  document.getElementById('kembalianDisplay').innerText = 'Rp ' + kembalian;
-}
+    // Calculate the final total harga after applying discount and tax
+    var totalHarga = <?php echo $discountEnabled ? $discountedTotal : $total_harga; ?>;
+    totalHarga += <?php echo $taxEnabled ? ($discountedTotal * 11/100) : 0; ?>;
+
+    if (nominalValue < totalHarga) {
+      toggleErrorSpan(true);
+      return;
+    }
+    toggleErrorSpan(false);
+
+    var kembalian = nominalValue - totalHarga;
+    document.getElementById('nominalDisplay').innerText = 'Rp ' + nominalValue;
+    document.getElementById('kembalianDisplay').innerText = 'Rp ' + kembalian;
+  }
 </script>

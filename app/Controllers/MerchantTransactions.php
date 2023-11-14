@@ -38,18 +38,16 @@ class MerchantTransactions extends BaseController {
     echo view('partial/footer');
   }
 
-
-
   public function detail($id = null) {
     $id = $this->request->getGet('id');
     if ($id === null) {
-        return redirect()->to('/error-page');
+      return redirect()->to('/error-page');
     }
 
     $transactions = $this->fetchTransactionDetails($id);
 
     if (empty($transactions)) {
-        return redirect()->to('/error-page');
+      return redirect()->to('/error-page');
     }
 
     $total_harga = $this->calculateTotals($transactions);
@@ -72,7 +70,6 @@ class MerchantTransactions extends BaseController {
     ]);
     echo view('partial/footer');
   }
-
 
   public function confirm($id = null) {
     $id = $this->request->getGet('id');
@@ -99,7 +96,6 @@ class MerchantTransactions extends BaseController {
     echo view('partial/footer');
   }
 
-
   private function fetchUserData() {
     $this->userData = [
       'username' => session()->get('username'),
@@ -111,23 +107,30 @@ class MerchantTransactions extends BaseController {
     ];
   }
 
-  private function getProductInfo($id_product) {
-    $db = \Config\Database::connect();
-    $builder = $db->table('product');
-    $builder->where('id_product', $id_product);
-    $query = $builder->get();
-    return $query->getRow();
-  }
-
-  private function fetchTransactionDetails($id) {
+private function fetchTransactionDetails($id) {
     $db = \Config\Database::connect();
     $builder = $db->table('transaction');
     $builder->join('transaction_sub', 'transaction.id_transaction = transaction_sub.id_transaction', 'left');
     $builder->where('transaction.id_transaction', $id);
 
     $query = $builder->get();
-    return $query->getResult();
-  }
+    $transactions = $query->getResult();
+
+    // Fetch product details for each transaction
+    foreach ($transactions as &$transaction) {
+        $transaction->product_info = $this->getProductInfo($transaction->id_product);
+    }
+
+    return $transactions;
+}
+
+private function getProductInfo($id_product) {
+    $db = \Config\Database::connect();
+    $builder = $db->table('product');
+    $builder->where('id_product', $id_product);
+    $query = $builder->get();
+    return $query->getRow();
+}
 
   private function calculateTotals(array &$transactions) {
     $total_harga = 0;
@@ -143,10 +146,4 @@ class MerchantTransactions extends BaseController {
 
     return $total_harga;
   }
-
-
-
-
-
-
 }
