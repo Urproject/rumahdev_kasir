@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\M_user;
+use CodeIgniter\Controller;
+
 class MerchantUsers extends BaseController {
   private $userData;
   private $userModel;
@@ -48,7 +51,12 @@ class MerchantUsers extends BaseController {
 
 
   public function detail($id = 1) {
-    $data['user'] = $this->userModel->find($id);
+    $id = $this->request->getGet('id');
+    if ($id === null) {
+        return redirect()->to('/error-page');
+    }
+
+    $data['user'] = $this->userModel ->find($id);
 
     $header['titleTab'] = 'RumahDev Kasir App';
     $header2['titlePage'] = 'Detail Akun';

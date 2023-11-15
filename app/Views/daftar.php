@@ -29,8 +29,8 @@
           <div class="input-group">
             <input id="password-field" type="password" class="form-control"
               placeholder="Atur Password" aria-label="password">
-              <button class="btn rounded-end btn btn-secondary" type="button">
-                    <h6 toggle="#password-field" class="fa fa-eye fa-lg show-hide"></h6>
+              <button class="btn rounded-end btn btn-secondary" type="button" style="border-left: none; border-color: #d3d3d3; background-color: white;">
+                    <h6 toggle="#password-field" class="fa fa-eye fa-lg show-hide" style="color: #808080;"></h6>
               </button>
           </div>
         </div>
@@ -39,8 +39,8 @@
           <div class="input-group">
             <input id="password-field2" type="password" class="form-control"
               placeholder="Konfirmasi Password" aria-label="password">
-              <button class="btn rounded-end btn btn-secondary" type="button">
-                    <h6 toggle="#password-field2" class="fa fa-eye fa-lg show-hide"></h6>
+              <button class="btn rounded-end btn btn-secondary" type="button" style="border-left: none; border-color: #d3d3d3; background-color: white;">
+                    <h6 toggle="#password-field2" class="fa fa-eye fa-lg show-hide" style="color: #808080;"></h6>
               </button>
           </div>
         </div>

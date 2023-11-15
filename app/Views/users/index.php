@@ -47,16 +47,16 @@
                   </thead>
                   <tbody>
                   <?php if (isset($users) && !empty($users)): ?>
-                    <?php foreach ($users as $product): ?>
+                    <?php foreach ($users as $user): ?>
                       <tr>
-                        <td><?php echo $product->id_user; ?></td>
-                        <td><?php echo $product->nama; ?></td>
-                        <td><?php echo $product->username; ?></td>
-                        <!-- <td><?php echo $product->email; ?></td>
-                        <td><?php echo $product->alamat; ?></td>  -->
+                        <td><?php echo $user->id_user; ?></td>
+                        <td><?php echo $user->nama; ?></td>
+                        <td><?php echo $user->username; ?></td>
+                        <!-- <td><?php echo $user->email; ?></td>
+                        <td><?php echo $user->alamat; ?></td>  -->
                         <td>
                           <button style="all: unset; cursor: pointer;">
-                            <a href="<?= base_url('kasir/users/detail?id=1') ?>">
+                            <a href="<?= base_url('kasir/users/detail?id=' . $user->id_user); ?>">
                               <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
                             </a>
                           </button>
