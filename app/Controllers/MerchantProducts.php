@@ -59,28 +59,33 @@ class MerchantProducts extends BaseController {
     echo view('partial/footer');
   }
 
-  public function addProductToDB() {
+  public function addProductAction() {
     $modelProduct = new ProductModel();
+    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
 
-    // Get data from the form
     $productData = [
-      'id_merchant' => $this->request->getPost('id_merchant'),
+      'id_merchant' => $merchantId,
       'nama' => $this->request->getPost('product_name'),
       'harga' => $this->request->getPost('product_price'),
-      'stok' => $this->request->getPost('product_stock'),
+      'stok' => 0, 
       'kategori' => $this->request->getPost('product_category'),
       'deskripsi' => $this->request->getPost('product_description'),
-      // ... (other fields)
+      'jenis_diskon' => $this->request->getPost('discount_type'),
+      'nilai_diskon' => $this->request->getPost('discount_amount'),
     ];
 
-    // Insert the product data into the database
-    $modelProduct->insert($productData);
+    // Handle file upload
+    $file = $this->request->getFile('product_image');
+    if ($file && $file->isValid() && !$file->hasMoved()) {
+      $newName = 'p-' . date('dmY-His') . '.' . $file->getClientExtension();
+      $file->move(ROOTPATH . 'public/assets/images/produk/', $newName);
+      $productData['gambar'] = $newName;
+    }
 
-    // Redirect with a success notification
+    $modelProduct->insert($productData);
     $notification = $this->request->getPost('notification');
     return redirect()->to(base_url('kasir/products'))->with('success', 'Product added successfully');
   }
-
 
   public function detail($id = 1) {
     $id = $this->request->getGet('id');
@@ -123,6 +128,28 @@ class MerchantProducts extends BaseController {
     echo view('partial/side_menu');
     echo view('products/edit_product', $data);
     echo view('partial/footer');
+  }
+
+  
+  public function deleteProduct(){
+    $id = $this->request->getGet('id');
+    if ($id === null) {
+      return redirect()->to(base_url('kasir/products'))->with('error', 'Product ID not provided');
+    }
+
+    $modelProduct = new ProductModel();
+
+    $product = $modelProduct->find($id);
+    if ($product === null) {
+      return redirect()->to(base_url('kasir/products'))->with('error', 'Product not found');
+    }
+
+    try {
+      $modelProduct->delete($product->id_product);
+      return redirect()->to(base_url('kasir/products'))->with('success', 'Product deleted successfully');
+    } catch (\Exception $e) {
+      return redirect()->to(base_url('kasir/products'))->with('error', 'Error deleting product: ' . $e->getMessage());
+    }
   }
 
 }

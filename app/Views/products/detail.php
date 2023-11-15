@@ -48,16 +48,16 @@
 
             <div>
               <label>Gambar Produk</label><br>
-							<img class="rounded mb-3" src="<?php echo base_url('assets/images/produk/' . $product->gambar); ?>">
+							<img class="rounded mb-3" src="<?php echo base_url('assets/images/produk/' . $product->gambar); ?>" style="width: 50%;">
             </div>
 
 
           </div>
 
-          <div class="action">
+<!--           <div class="action">
   					<a href="<?= base_url('kasir/products/edit') ?>" class="btn btn-sm btn-warning mr-2">Edit</a>
   					<button class="btn btn-sm btn-danger deleteButton">Hapus</button>
-          </div>
+          </div> -->
 
         </div>
       </div>
