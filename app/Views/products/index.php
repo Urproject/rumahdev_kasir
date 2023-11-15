@@ -65,14 +65,15 @@ if ($successNotification) {
                                           <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
                                       </a>
                                   </button>
-<!--                                   <button style="all: unset; cursor: pointer;">
+                                   <!-- <button style="all: unset; cursor: pointer;">
                                       <a href="<?= base_url('kasir/products/edit?id=' . $product->id_product) ?>">
                                           <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
                                       </a>
-                                  </button>
-                                  <button style="all: unset; cursor: pointer;" class="deleteButton">
-                                      <span class="right badge badge-danger"><i class="fas fa-trash"></i></span>
                                   </button> -->
+                                  <!-- <button style="all: unset; cursor: pointer;" class="deleteProductButton" data-delete-url="<?= base_url('kasir/products/delete?id=' . $product->id_product) ?>">
+                                    <span class="right badge badge-danger"><i class="fas fa-trash"></i></span>
+                                  </button>  -->
+
                               </td>
                           </tr>
                           <?php $productNumber++; // Increment the counter for the next product ?>
@@ -106,3 +107,30 @@ if ($successNotification) {
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+
+
+
+<script type="text/javascript">
+  const deleteButtons = document.querySelectorAll('.deleteProductButton');
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default link behavior
+
+      const deleteUrl = button.getAttribute('data-delete-url');
+
+      Swal.fire({
+        text: "Apakah kamu yakin ingin menghapus?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Delete'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = deleteUrl; // Redirect only when confirmed
+        }
+      });
+    });
+  });
+</script>

@@ -42,7 +42,10 @@ $routes->post('/kasir/order/add', 'Merchant::addOrderToDB');
 $routes->get('/kasir/products', 'MerchantProducts::index');
 $routes->get('/kasir/products/detail', 'MerchantProducts::detail');
 $routes->get('/kasir/products/add', 'MerchantProducts::addProduct');
+$routes->post('/kasir/products/action', 'MerchantProducts::addProductAction');
+
 $routes->get('/kasir/products/edit', 'MerchantProducts::editProduct');
+$routes->get('/kasir/products/delete', 'MerchantProducts::deleteProduct');
 
 $routes->get('/kasir/users', 'MerchantUsers::index');
 $routes->get('/kasir/users/detail', 'MerchantUsers::detail');

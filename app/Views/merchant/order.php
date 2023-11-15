@@ -87,9 +87,22 @@
       <div class="col-md-4 mx-0 shadow d-flex flex-column" style="min-height: 100vh;">
         <div class="nav-item dropdown mr-3">
           <div class="user-panel d-flex mt-2" data-toggle="dropdown" style="cursor: pointer;">
-            <div class="image my-auto">
-              <img src="<?php echo base_url('assets/images/user/' . esc($userData['foto'])); ?>" class="img-circle border" alt="User Image">
+
+            <div class="image my-auto mr-2">
+              <?php
+              $profilePicture = 'assets/images/user/' . esc($userData['foto']);
+              $defaultPicture = 'assets/images/user/default-profile.jpg'; // Change the extension if needed
+
+              // Check if the profile picture exists, if not, use the default picture
+              if (file_exists($profilePicture)) {
+                  $imgSrc = base_url($profilePicture);
+              } else {
+                  $imgSrc = base_url($defaultPicture);
+              }
+              ?>
+              <img src="<?= $imgSrc ?>" class="img-circle border" alt="User Image">
             </div>
+
             <div class="info my-auto">
               <span class="d-block text-dark"><?= esc($merchantData->nama_usaha); ?></span>
               <span class="d-block text-dark"><?= esc($userData['username']); ?></span>
