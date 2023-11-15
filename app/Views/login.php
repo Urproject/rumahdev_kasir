@@ -36,16 +36,18 @@
           </button> -->
         </div>
 
-        <div class="input-group mx-auto mb-4" style="width: 80%;">
+        <div class="input-group mx-auto my-3" style="width: 80%;">
           <div class="input-group">
             <label for="password" hidden>Password</label>
-            <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan Password" aria-label="password">
-            <button class="btn rounded-end btn-secondary" type="button">
-              <h6 toggle="#password-field" class="fa fa-eye fa-lg show-hide rounded-end"></h6>
-            </button>
-          
+            <input name="password" id="password" type="password" class="form-control"
+              placeholder="Masukkan Password" aria-label="password">
+              <button class="btn rounded-end btn btn-secondary" type="button" style="border-left: none; border-color: #d3d3d3; background-color: white;">
+                    <h6 toggle="#password" class="fa fa-eye fa-lg show-hide rounded-end" style="color: #808080;"></h6>
+              </button>
           </div>
         </div>
+
+       
         
         <button class="btn rumahdev-bg text-white mb-3" style="width: 200px;">Login</button>
       <form>

@@ -48,7 +48,7 @@
             </div>
 
             <button class="btn btn-sm btn-warning my-3 mr-2">
-              <a href="<?= base_url('kasir/users/edit?id=1') ?>" class="text-white">Edit</a>
+              <a href="<?= base_url('kasir/users/edit') ?>" class="text-white">Edit</a>
             </button>
             <button class="btn btn-sm btn-danger my-3 deleteButton">Hapus</button>
 
