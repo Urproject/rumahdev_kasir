@@ -164,8 +164,10 @@ class Merchant extends BaseController {
 		$header['titleTab']='RumahDev Kasir App';
 		$header2['titlePage']='Profil Merchant';
 		
-		echo view('partial/header', $header);
-		echo view('partial/top_menu', $header2);
+    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
+
+    echo view('partial/header', $header);
+    echo view('partial/top_menu', $topMenuData);
 		echo view('partial/side_menu');
 		echo view('merchant/profil');
 		echo view('partial/footer');
@@ -236,8 +238,10 @@ public function confirm() {
 		$header['titleTab']='RumahDev Kasir App';
 		$header2['titlePage']='Setting Payment';
 		
-		echo view('partial/header', $header);
-		echo view('partial/top_menu', $header2);
+    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
+
+    echo view('partial/header', $header);
+    echo view('partial/top_menu', $topMenuData);
 		echo view('partial/side_menu');
 		echo view('merchant/setting_payment');
 		echo view('partial/footer');
@@ -248,8 +252,10 @@ public function confirm() {
 		$header['titleTab']='RumahDev Kasir App';
 		$header2['titlePage']='Setting Diskon, Pajak, dan Meja';
 		
-		echo view('partial/header', $header);
-		echo view('partial/top_menu', $header2);
+    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
+
+    echo view('partial/header', $header);
+    echo view('partial/top_menu', $topMenuData);
 		echo view('partial/side_menu');
 		echo view('merchant/setting_discount');
 		echo view('partial/footer');
