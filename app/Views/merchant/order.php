@@ -8,7 +8,6 @@
       <!-- MIDDLE-->
       <div class="col-md-8 mx-0 py-3" style="min-height: 100vh;">
 
-
         <div class="container-fluid">
           <div class="row mb-2">
 
@@ -112,7 +111,6 @@
             </div>
           </div>
 
-
           <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
             <a href="<?= base_url('kasir/profil/user') ?>" class="dropdown-item">
               <i class="mr-2 fas fa-user"></i> Profil Akun
@@ -133,22 +131,22 @@
           <h5 class="font-weight-bold">Order Menu</h5>
 
           <div class="row">
-            <div class=" col-8 form-jenis-pesanan mb-3">
-              <label for="paymentDropdown" hidden>Jenis Pesanan</label>
+            <div class="col-8 form-jenis-pesanan mb-3">
+              <label for="paymentDropdown mb-0">Jenis Pesanan</label>
               <select id="paymentDropdown" class="form-control">
                 <option value="dine-in">Dine In</option>
                 <option value="take-away">Take Away</option>
               </select>
-            </div> <!-- form-jenis-pesanan -->
+            </div>
 
-            <div class=" col-4 form-jenis-pesanan mb-3">
-              <label for="noMejaDropdown" hidden>No. Meja</label>
+            <div class="col-4 form-jenis-pesanan mb-3" id="noMejaDropdownContainer">
+              <label for="noMejaDropdown mb-0">No. Meja</label>
               <select id="noMejaDropdown" class="form-control">
                 <option value="No. Meja">No. Meja</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
               </select>
-            </div> <!-- form-jenis-pesanan -->
+            </div>
           </div>
 
           <div id="order-list"> <!-- Add an ID to the order list div -->
@@ -171,10 +169,19 @@
   </section> <!-- /.content -->
 </div> <!-- /.content-wrapper -->
 
-
-
 <script type="text/javascript">
-  
+  $(document).ready(function () {
+    $("#noMejaDropdownContainer").show();
+    $("#paymentDropdown").change(function () {
+      var selectedValue = $(this).val();
+        if (selectedValue === "take-away") {
+        $("#noMejaDropdownContainer").hide();
+      } else {
+        $("#noMejaDropdownContainer").show();
+      }
+    });
+  });
+
 var baseUrl = "<?php echo base_url(); ?>";
 
 $(document).ready(function () {
@@ -294,8 +301,6 @@ $(document).ready(function () {
     }
   }
 
-
-
   function sendOrderDataToController(selectedProducts) {
       var formData = {
           jenis_pesanan: $("#paymentDropdown").val(),
@@ -329,12 +334,5 @@ $(document).ready(function () {
       });
   }
 
-
-
-
-
 });
-
-
-
 </script>
