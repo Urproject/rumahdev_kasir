@@ -27,12 +27,15 @@ class MerchantTransactions extends BaseController {
     $transactionModel = new TransactionModel();
     $transactions = $transactionModel->getTransactionsByMerchantId($merchantId);
 
-    $header['titleTab'] = 'RumahDev Kasir App';
-    $header2['titlePage'] = 'Data Transaksi';
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Data Transaksi',
+      'userData' => $this->userData,
+    ];
 
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
     echo view('partial/side_menu');
     echo view('transactions/index', ['transactions' => $transactions]);
     echo view('partial/footer');
@@ -56,12 +59,15 @@ class MerchantTransactions extends BaseController {
     $modelPaymentMethod = new M_PaymentMethod();
     $paymentMethod = $modelPaymentMethod->find($transactions[0]->id_method);
 
-    $header['titleTab'] = 'RumahDev Kasir App';
-    $header2['titlePage'] = 'Detail Transaksi';
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Detail Transaksi',
+      'userData' => $this->userData,
+    ];
 
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
     echo view('partial/side_menu');
     echo view('transactions/detail', [
         'transactions' => $transactions,
@@ -84,13 +90,15 @@ class MerchantTransactions extends BaseController {
     }
 
     $total_harga = $this->calculateTotals($transactions);
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Konfirmasi Pembayaran',
+      'userData' => $this->userData,
+    ];
 
-    $header['titleTab'] = 'RumahDev Kasir App';
-    $header2['titlePage'] = 'Konfirmasi Pembayaran';
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
-
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
     echo view('partial/side_menu');
     echo view('merchant/confirm', ['transactions' => $transactions, 'total_harga' => $total_harga, 'userData' => $this->userData]);
     echo view('partial/footer');
