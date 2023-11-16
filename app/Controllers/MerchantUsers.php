@@ -32,66 +32,74 @@ class MerchantUsers extends BaseController {
   }
 
   public function index() {
-    // Get the merchant ID for the active user from the Employee model
     $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+    $user['users'] = $this->userModel->getUsersByMerchant($merchantId);
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Data Akun',
+      'userData' => $this->userData,
+    ];
 
-    // Fetch users based on the merchant ID
-    $data['users'] = $this->userModel->getUsersByMerchant($merchantId);
-
-    $header['titleTab'] = 'RumahDev Kasir App';
-    $header2['titlePage'] = 'Data Akun';
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
-
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
     echo view('partial/side_menu');
-    echo view('users/index', $data);
+    echo view('users/index', $user);
     echo view('partial/footer');
   }
 
 
-  public function detail($id = 1) {
+  public function detail($id = null) {
     $id = $this->request->getGet('id');
     if ($id === null) {
         return redirect()->to('/error-page');
     }
 
-    $data['user'] = $this->userModel ->find($id);
+    $user['user'] = $this->userModel ->find($id);
 
-    $header['titleTab'] = 'RumahDev Kasir App';
-    $header2['titlePage'] = 'Detail Akun';
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Detail Akun',
+      'userData' => $this->userData,
+    ];
 
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
     echo view('partial/side_menu');
-    echo view('users/detail', $data);
+    echo view('users/detail', $user);
     echo view('partial/footer');
   }
 
   public function addUser() {
-    $header['titleTab'] = 'RumahDev Kasir App';
-    $header2['titlePage'] = 'Tambah Akun';
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Tambah Akun',
+      'userData' => $this->userData,
+    ];
 
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
     echo view('partial/side_menu');
     echo view('users/add_user');
     echo view('partial/footer');
   }
 
-  public function editUser($id = 1) {
-    $data['user'] = $this->userModel->find($id);
+  public function editUser($id = null) {
+    $id = $this->request->getGet('id');
+    $user['user'] = $this->userModel->find($id);
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Edit Akun',
+      'userData' => $this->userData,
+    ];
 
-    $header['titleTab'] = 'RumahDev Kasir App';
-    $header2['titlePage'] = 'Edit Akun';
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
-
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
     echo view('partial/side_menu');
-    echo view('users/edit_user', $data);
+    echo view('users/edit_user', $user);
     echo view('partial/footer');
   }
 
