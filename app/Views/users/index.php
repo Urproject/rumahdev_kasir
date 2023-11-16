@@ -61,7 +61,7 @@
                             </a>
                           </button>
                           <button style="all: unset; cursor: pointer;">
-                            <a href="<?= base_url('kasir/users/edit?id=1') ?>">
+                            <a href="<?= base_url('kasir/users/edit?id=' . $user->id_user); ?>">
                               <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
                             </a>
                           </button>

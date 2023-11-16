@@ -56,7 +56,7 @@ class MerchantUsers extends BaseController {
         return redirect()->to('/error-page');
     }
 
-    $data['user'] = $this->userModel ->find($id);
+    $data['user'] = $this->userModel->find($id);
 
     $header['titleTab'] = 'RumahDev Kasir App';
     $header2['titlePage'] = 'Detail Akun';
@@ -82,7 +82,13 @@ class MerchantUsers extends BaseController {
   }
 
   public function editUser($id = 1) {
+    $id = $this->request->getGet('id');
+    if ($id === null) {
+        return redirect()->to('/error-page');
+    }
+
     $data['user'] = $this->userModel->find($id);
+   
 
     $header['titleTab'] = 'RumahDev Kasir App';
     $header2['titlePage'] = 'Edit Akun';
@@ -94,6 +100,7 @@ class MerchantUsers extends BaseController {
     echo view('users/edit_user', $data);
     echo view('partial/footer');
   }
+
 
   public function addUserAction() {
     $nama = $this->request->getPost('nama');
