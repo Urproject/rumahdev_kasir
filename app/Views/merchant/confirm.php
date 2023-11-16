@@ -185,11 +185,18 @@ $taxEnabled = $merchantData->pajak == 1;
           </a>
         </div>
         <div class="col-md-4 mb-3">
-          <a href="<?= base_url('kasir/order') ?>" class="btn btn-sm btn-warning text-white border-0 mr-2">
+          <button class="btn btn-sm text-white rumahdev-bg-biru border-0 mr-2">
+            <i class="fas fa-check"></i>
+            Selesaikan
+          </button>
+          <a href="<?= base_url('kasir/order') ?>" class="btn btn-sm btn-warning text-white border-0">
             <i class="fas fa-edit"></i>
             Ubah
           </a>
-          <button class="btn btn-sm text-white rumahdev-bg-biru border-0">Selesaikan</button>
+          <a href="<?= base_url('kasir/order') ?>" class="btn btn-sm btn-danger text-white border-0">
+            <i class="fas fa-trash-alt"></i>
+            Batalkan
+          </a>
         </div>
       </div>
 
