@@ -65,14 +65,14 @@ if ($successNotification) {
                                           <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
                                       </a>
                                   </button>
-                                   <!-- <button style="all: unset; cursor: pointer;">
+                                  <!-- <button style="all: unset; cursor: pointer;">
                                       <a href="<?= base_url('kasir/products/edit?id=' . $product->id_product) ?>">
                                           <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
                                       </a>
                                   </button> -->
                                   <!-- <button style="all: unset; cursor: pointer;" class="deleteProductButton" data-delete-url="<?= base_url('kasir/products/delete?id=' . $product->id_product) ?>">
                                     <span class="right badge badge-danger"><i class="fas fa-trash"></i></span>
-                                  </button>  -->
+                                  </button> -->
 
                               </td>
                           </tr>

@@ -7,6 +7,7 @@
     <div class="container-fluid">  
       <?php if (!empty($user)) { ?>
 
+        <from>
         <div class="row mt-3">
           <div class="col-md-6">
 
@@ -58,13 +59,13 @@
               </div>
             </div>
 
-
-            <button class="btn btn-sm rumahdev-bg border-0 text-white mr-2">Simpan</button>
+            <button  type="submit" class="btn btn-sm rumahdev-bg border-0 text-white mr-2">Update</button>
             <a href="<?= base_url('kasir/users') ?>" class="btn btn-sm btn-danger border-0">Batalkan</a>
 
           </div>
-
+          
         </div>
+        </form>
 
         <?php } else { ?>
           <p>User not found.</p>
