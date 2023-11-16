@@ -55,11 +55,7 @@ class MerchantUsers extends BaseController {
         return redirect()->to('/error-page');
     }
 
-<<<<<<< HEAD
-    $data['user'] = $this->userModel->find($id);
-=======
     $user['user'] = $this->userModel ->find($id);
->>>>>>> 8eaa135438bc523dc73b41d4a28073daa67ba8db
 
     $data = [
       'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
@@ -90,16 +86,6 @@ class MerchantUsers extends BaseController {
     echo view('partial/footer');
   }
 
-<<<<<<< HEAD
-  public function editUser($id = 1) {
-    $id = $this->request->getGet('id');
-    if ($id === null) {
-        return redirect()->to('/error-page');
-    }
-
-    $data['user'] = $this->userModel->find($id);
-   
-=======
   public function editUser($id = null) {
     $id = $this->request->getGet('id');
     $user['user'] = $this->userModel->find($id);
@@ -109,7 +95,6 @@ class MerchantUsers extends BaseController {
       'titlePage' => 'Edit Akun',
       'userData' => $this->userData,
     ];
->>>>>>> 8eaa135438bc523dc73b41d4a28073daa67ba8db
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
@@ -117,7 +102,6 @@ class MerchantUsers extends BaseController {
     echo view('users/edit_user', $user);
     echo view('partial/footer');
   }
-
 
   public function addUserAction() {
     $nama = $this->request->getPost('nama');
