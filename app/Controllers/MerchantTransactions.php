@@ -115,7 +115,7 @@ class MerchantTransactions extends BaseController {
     ];
   }
 
-private function fetchTransactionDetails($id) {
+  private function fetchTransactionDetails($id) {
     $db = \Config\Database::connect();
     $builder = $db->table('transaction');
     $builder->join('transaction_sub', 'transaction.id_transaction = transaction_sub.id_transaction', 'left');
@@ -130,15 +130,15 @@ private function fetchTransactionDetails($id) {
     }
 
     return $transactions;
-}
+  }
 
-private function getProductInfo($id_product) {
+  private function getProductInfo($id_product) {
     $db = \Config\Database::connect();
     $builder = $db->table('product');
     $builder->where('id_product', $id_product);
     $query = $builder->get();
     return $query->getRow();
-}
+  }
 
   private function calculateTotals(array &$transactions) {
     $total_harga = 0;

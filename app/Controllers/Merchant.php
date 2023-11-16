@@ -46,11 +46,15 @@ class Merchant extends BaseController {
       $data['merchantData'] = $merchantData;
       $data['userData'] = $this->userData;
 
-      $header['titleTab'] = 'RumahDev Kasir App';
-      $header2['titlePage'] = 'Dashboard Merchant';
+      $data2 = [
+        'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+        'titleTab' => 'RumahDev Kasir App',
+        'titlePage' => 'Dashboard Merchant',
+        'userData' => $this->userData,
+      ];
 
-      echo view('partial/header', $header);
-      echo view('partial/wrapper', $header2);
+      echo view('partial/header', $data2);
+      echo view('partial/wrapper', $data2);
       echo view('partial/side_menu');
       echo view('merchant/order', $data);
       echo view('partial/footer');
@@ -161,30 +165,34 @@ class Merchant extends BaseController {
 
   public function profil() {
 
-		$header['titleTab']='RumahDev Kasir App';
-		$header2['titlePage']='Profil Merchant';
-		
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Profil Merchant',
+      'userData' => $this->userData,
+    ];
 
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
 		echo view('partial/side_menu');
 		echo view('merchant/profil');
 		echo view('partial/footer');
   }
 
-  public function profilUser($id=0) {
-
+  public function profilUser($id=1) {
+    // $id = $this->request->getGet('id');
     $db = \Config\Database::connect();
     $query = $db->query('SELECT * FROM user WHERE id_user = ?', [$id]);
     $data['user'] = $query->getRow();
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Profil Akun',
+      'userData' => $this->userData,
+    ];
 
-		$header['titleTab']='RumahDev Kasir App';
-		$header2['titlePage']='Profil Akun';
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
-
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
 		echo view('partial/side_menu');
 		echo view('merchant/profil_user', $data);
 		echo view('partial/footer');
@@ -214,11 +222,15 @@ public function confirm() {
 		$transaction->product_price = $product_info->harga;
 	}
 
-	$header['titleTab'] = 'RumahDev Kasir App';
-	$header2['titlePage'] = 'Konfirmasi Pembayaran';
+  $data = [
+    'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+    'titleTab' => 'RumahDev Kasir App',
+    'titlePage' => 'Konfirmasi Pembayaran',
+    'userData' => $this->userData,
+  ];
 
-	echo view('partial/header', $header);
-	echo view('partial/top_menu', $header2);
+  echo view('partial/header', $data);
+  echo view('partial/top_menu', $data);
 	echo view('partial/side_menu');
 	echo view('merchant/confirm', ['transactions' => $transactions, 'total_harga' => $total_harga]);
 	echo view('partial/footer');
@@ -235,27 +247,30 @@ public function confirm() {
 
   public function settingPayment() {
 
-		$header['titleTab']='RumahDev Kasir App';
-		$header2['titlePage']='Setting Payment';
-		
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Setting Payment',
+      'userData' => $this->userData,
+    ];
 
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
 		echo view('partial/side_menu');
 		echo view('merchant/setting_payment');
 		echo view('partial/footer');
   }
 
   public function settingDiscount() {
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Setting Diskon, Pajak, dan Meja',
+      'userData' => $this->userData,
+    ];
 
-		$header['titleTab']='RumahDev Kasir App';
-		$header2['titlePage']='Setting Diskon, Pajak, dan Meja';
-		
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
-
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
 		echo view('partial/side_menu');
 		echo view('merchant/setting_discount');
 		echo view('partial/footer');
