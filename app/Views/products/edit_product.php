@@ -9,8 +9,6 @@
 
         <div class="row">
 
-				<?php foreach ($products as $product) { ?>
-
           <div class="col-md-6">
             <div class="form-group">
               <label>Nama Produk</label>
@@ -60,7 +58,6 @@
               </div>
             </div>
 
-				<?php } ?>
 
           </div>
 

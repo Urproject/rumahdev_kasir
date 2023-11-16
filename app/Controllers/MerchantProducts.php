@@ -27,33 +27,36 @@ class MerchantProducts extends BaseController {
     ];
   }
 
-
   public function index() {
     $modelProduct = new ProductModel();
 
     $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
-    $data['products'] = $modelProduct->getProductsByMerchant($merchantId);
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'products' => $modelProduct->getProductsByMerchant($merchantId),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Data Produk',
+      'userData' => $this->userData,
+    ];
 
-    $header['titleTab'] = 'RumahDev Kasir App';
-    $header2['titlePage'] = 'Data Produk';
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
-
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
     echo view('partial/side_menu');
     echo view('products/index', $data);
     echo view('partial/footer');
   }
 
-
   
   public function addProduct() {
-    $header['titleTab'] = 'RumahDev Kasir App';
-    $header2['titlePage'] = 'Tambah Produk';
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Tambah Produk',
+      'userData' => $this->userData,
+    ];
 
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
     echo view('partial/side_menu');
     echo view('products/add_product');
     echo view('partial/footer');
@@ -100,31 +103,44 @@ class MerchantProducts extends BaseController {
         return redirect()->to('/error-page');
     }
 
-    $data['product'] = $product;
+    $data = [
+      'product' => $product,
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Detail Produk',
+      'userData' => $this->userData,
+    ];
 
-    $header['titleTab'] = 'RumahDev Kasir App';
-    $header2['titlePage'] = 'Detail Produk';
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
-
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
     echo view('partial/side_menu');
     echo view('products/detail', $data);
     echo view('partial/footer');
   }
 
 
-  public function editProduct($id=2) {
-    $db = \Config\Database::connect();
-    $query = $db->query('SELECT * FROM product WHERE id_product = ?', [$id]);
-    $data['products'] = $query->getResult();
+  public function editProduct($id=null) {
+    $id = $this->request->getGet('id');
+    if ($id === null) {
+        return redirect()->to('/error-page');
+    }
 
-    $header['titleTab'] = 'RumahDev Kasir App';
-    $header2['titlePage'] = 'Edit Produk';
-    $topMenuData = array_merge($header2, ['userData' => $this->userData]);
+    $modelProduct = new ProductModel();
+    $product = $modelProduct->find($id);
+    if ($product === null) {
+        return redirect()->to('/error-page');
+    }
 
-    echo view('partial/header', $header);
-    echo view('partial/top_menu', $topMenuData);
+    $data = [
+      'product' => $product,
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Edit Produk',
+      'userData' => $this->userData,
+    ];
+
+    echo view('partial/header', $data);
+    echo view('partial/top_menu', $data);
     echo view('partial/side_menu');
     echo view('products/edit_product', $data);
     echo view('partial/footer');

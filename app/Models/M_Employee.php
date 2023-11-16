@@ -17,4 +17,10 @@ class M_Employee extends Model {
 	    ->getRow('id_merchant');
   }
 
+   public function getLevelByUserId($userId) {
+    return $this->where('id_user', $userId)
+	    ->get()
+	    ->getRow('level');
+  }
+
 }
