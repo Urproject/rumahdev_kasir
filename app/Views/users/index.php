@@ -61,7 +61,11 @@
                             </a>
                           </button>
                           <button style="all: unset; cursor: pointer;">
+<<<<<<< HEAD
                             <a href="<?= base_url('kasir/users/edit?id=' . $user->id_user); ?>">
+=======
+                            <a href="<?= base_url('kasir/users/edit?id=' . $user->id_user) ?>">
+>>>>>>> 8eaa135438bc523dc73b41d4a28073daa67ba8db
                               <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
                             </a>
                           </button>
