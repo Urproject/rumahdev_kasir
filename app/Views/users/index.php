@@ -45,36 +45,40 @@
  -->                    <th>Action</th>
                   </tr>
                   </thead>
+                  
                   <tbody>
-                  <?php if (isset($users) && !empty($users)): ?>
-                    <?php foreach ($users as $user): ?>
-                      <tr>
-                        <td><?php echo $user->id_user; ?></td>
-                        <td><?php echo $user->nama; ?></td>
-                        <td><?php echo $user->username; ?></td>
-                        <!-- <td><?php echo $user->email; ?></td>
-                        <td><?php echo $user->alamat; ?></td>  -->
-                        <td>
-                          <button style="all: unset; cursor: pointer;">
-                            <a href="<?= base_url('kasir/users/detail?id=' . $user->id_user); ?>">
-                              <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
-                            </a>
-                          </button>
-                          <button style="all: unset; cursor: pointer;">
-                            <a href="<?= base_url('kasir/users/edit?id=' . $user->id_user) ?>">
-                              <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
-                            </a>
-                          </button>
-                          <!-- <button style="all: unset; cursor: pointer;" class="deleteButton">
-                            <span class="right badge badge-danger"><i class="fas fa-trash"></i></span>
-                          </button>  -->
-                        </td>
-                      </tr>
-                    <?php endforeach; ?>
-                  <?php else: ?>
-                    <td colspan="6">No users found.</p>
-                  <?php endif; ?>
+                    <?php if (isset($users) && !empty($users)): ?>
+                      <?php $rowNumber = 1; ?>
+                      <?php foreach ($users as $user): ?>
+                        <tr>
+                          <td><?= $rowNumber++; ?></td>
+                          <td><?= $user->nama; ?></td>
+                          <td><?= $user->username; ?></td>
+                          <!-- <td><?= $user->email; ?></td>
+                          <td><?= $user->alamat; ?></td>  -->
+                          <td>
+                            <button style="all: unset; cursor: pointer;">
+                              <a href="<?= base_url('kasir/users/detail?id=' . $user->id_user); ?>">
+                                <span class="right badge badge-primary rumahdev-bg"><i class="far fa-eye"></i></span>
+                              </a>
+                            </button>
+                            <button style="all: unset; cursor: pointer;">
+                              <a href="<?= base_url('kasir/users/edit?id=' . $user->id_user) ?>">
+                                <span class="right badge badge-warning"><i class="fas fa-edit"></i></span>
+                              </a>
+                            </button>
+                            <!-- <button style="all: unset; cursor: pointer;" class="deleteButton">
+                              <span class="right badge badge-danger"><i class="fas fa-trash"></i></span>
+                            </button>  -->
+                          </td>
+                        </tr>
+                      <?php endforeach; ?>
+                    <?php else: ?>
+                      <td colspan="6">No users found.</td>
+                    <?php endif; ?>
                   </tbody>
+
+                  
                   <tfoot>
                   <tr>
                     <th>#</th>

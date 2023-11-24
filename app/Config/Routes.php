@@ -17,12 +17,7 @@ $routes->post('/login/action', 'Home::loginAction');
 $routes->get('/logout', 'Home::logout');
 
 $routes->get('/daftar', 'Home::daftar');
-// $routes->get('/daftar/akun', 'Home::daftarAkun');
 $routes->get('/daftar/merchant', 'Home::daftarMerchant');
-
-// dashboard kosong (belum menjadi merchant/kasir)
-$routes->get('/home/dashboard0', 'Home::dashboard0');
-$routes->get('/home/profil0', 'Home::profil0');
 
 // merchant/superadmin
 $routes->get('/kasir', 'Merchant::index');
@@ -34,9 +29,7 @@ $routes->get('/kasir/profil/user', 'Merchant::profilUser');
 $routes->get('/kasir/settings/discount', 'Merchant::settingDiscount');
 $routes->get('/kasir/settings/payment', 'Merchant::settingPayment');
 
-// merchant/superadmin
 $routes->post('/kasir/order/add', 'Merchant::addOrderToDB');
-
 
 // tabel superadmin 
 $routes->get('/kasir/products', 'MerchantProducts::index');
