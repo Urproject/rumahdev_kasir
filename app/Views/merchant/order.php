@@ -116,10 +116,14 @@
             <a href="<?= base_url('kasir/profil/user') ?>" class="dropdown-item">
               <i class="mr-2 fas fa-user"></i> Profil Akun
             </a>
-            <div class="dropdown-divider"></div>
-            <a href="<?= base_url('kasir/profil/merchant') ?>" class="dropdown-item">
-              <i class="mr-2 fas fa-users"></i> Profil Merchant
-            </a>
+
+            <?php if ($level == 1): ?>
+              <div class="dropdown-divider"></div>
+              <a href="<?= base_url('kasir/profil/merchant') ?>" class="dropdown-item">
+                  <i class="mr-2 fas fa-users"></i> Profil Merchant
+              </a>
+            <?php endif; ?>
+
             <div class="dropdown-divider"></div>
             <a href="<?= base_url('logout') ?>" class="dropdown-item">
               <i class="mr-2 fas fa-sign-out-alt"></i> Logout
