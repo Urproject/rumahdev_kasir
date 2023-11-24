@@ -36,7 +36,7 @@ class MerchantTransactions extends BaseController {
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
-    echo view('partial/side_menu');
+    echo view('partial/side_menu', $data);
     echo view('transactions/index', ['transactions' => $transactions]);
     echo view('partial/footer');
   }
@@ -68,7 +68,7 @@ class MerchantTransactions extends BaseController {
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
-    echo view('partial/side_menu');
+    echo view('partial/side_menu', $data);
     echo view('transactions/detail', [
         'transactions' => $transactions,
         'total_harga' => $total_harga,
@@ -99,7 +99,7 @@ class MerchantTransactions extends BaseController {
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
-    echo view('partial/side_menu');
+    echo view('partial/side_menu', $data);
     echo view('merchant/confirm', ['transactions' => $transactions, 'total_harga' => $total_harga, 'userData' => $this->userData]);
     echo view('partial/footer');
   }

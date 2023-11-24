@@ -22,6 +22,14 @@ body {
   background-clip: text;
 }
 
+.rumahdev-color-link {
+  color: #005A70;
+}
+
+.rumahdev-color-link:hover {
+  color: #008F87;
+}
+
 .rumahdev-bg-biru {
   background: #005A70;
 }
@@ -35,10 +43,15 @@ body {
   background: linear-gradient(135deg, #005a70 0%, #008F87 100%);
 }
 
-/* .rumahdev-bg:hover {
+.rumahdev-bg-link {
   background: #005a70;
-  background: linear-gradient(135deg, #005A56 0%, #00736C 100%); /* Slightly darker gradient
-} */
+  background: linear-gradient(135deg, #005a70 0%, #008F87 100%);
+}
+
+.rumahdev-bg-link:hover {
+  background: #005a70;
+  background: linear-gradient(135deg, #005A56 0%, #00736C 100%); /* Slightly darker gradient */
+} 
 
 
 .rumahdev-btn { 

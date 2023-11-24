@@ -43,7 +43,7 @@ class MerchantUsers extends BaseController {
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
-    echo view('partial/side_menu');
+    echo view('partial/side_menu', $data);
     echo view('users/index', $user);
     echo view('partial/footer');
   }
@@ -66,7 +66,7 @@ class MerchantUsers extends BaseController {
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
-    echo view('partial/side_menu');
+    echo view('partial/side_menu', $data);
     echo view('users/detail', $user);
     echo view('partial/footer');
   }
@@ -81,7 +81,7 @@ class MerchantUsers extends BaseController {
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
-    echo view('partial/side_menu');
+    echo view('partial/side_menu', $data);
     echo view('users/add_user');
     echo view('partial/footer');
   }
@@ -98,7 +98,7 @@ class MerchantUsers extends BaseController {
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
-    echo view('partial/side_menu');
+    echo view('partial/side_menu', $data);
     echo view('users/edit_user', $user);
     echo view('partial/footer');
   }

@@ -41,7 +41,7 @@ class MerchantProducts extends BaseController {
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
-    echo view('partial/side_menu');
+    echo view('partial/side_menu', $data);
     echo view('products/index', $data);
     echo view('partial/footer');
   }
@@ -57,7 +57,7 @@ class MerchantProducts extends BaseController {
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
-    echo view('partial/side_menu');
+    echo view('partial/side_menu', $data);
     echo view('products/add_product');
     echo view('partial/footer');
   }
@@ -113,7 +113,7 @@ class MerchantProducts extends BaseController {
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
-    echo view('partial/side_menu');
+    echo view('partial/side_menu', $data);
     echo view('products/detail', $data);
     echo view('partial/footer');
   }
@@ -141,7 +141,7 @@ class MerchantProducts extends BaseController {
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
-    echo view('partial/side_menu');
+    echo view('partial/side_menu', $data);
     echo view('products/edit_product', $data);
     echo view('partial/footer');
   }

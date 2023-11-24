@@ -111,7 +111,7 @@ if ($successNotification) {
 
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   const deleteButtons = document.querySelectorAll('.deleteProductButton');
   deleteButtons.forEach(button => {
     button.addEventListener('click', function(event) {
@@ -133,4 +133,4 @@ if ($successNotification) {
       });
     });
   });
-</script>
+</script> -->
