@@ -19,4 +19,9 @@ class M_User extends Model {
   public function getUser($username, $password) {
     return $this->where(array('username' => $username, 'password' => $password))->get()->getRowArray();
   }
+
+  public function getUserByUsername($username) {
+    return $this->where('username', $username)->first();
+  }
+
 }

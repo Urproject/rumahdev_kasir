@@ -6,7 +6,7 @@
   <section class="content">
 
     <div class="container-fluid row mt-3">
-      <?php if (!empty($user)) { ?>
+      <?php if (!empty($userData)) { ?>
 
       <div class="col-md-12 bg-white mb-3">
         <h3 class="font-weight-bold">Profil Akun</h3>
@@ -16,40 +16,51 @@
 
         <div class="row mb-3">
           <div class="col-2 my-auto">
-            <img class="rounded w-100 border"
-            alt="<?php echo base_url('assets/images/user/' . $user->foto); ?>" 
-            src="<?php echo base_url('assets/images/user/' . $user->foto); ?>">
+            <?php
+            $profilePicture = 'assets/images/user/' . esc($userData['foto']);
+            $defaultPicture = 'assets/images/user/default-profile.jpg'; // Change the extension if needed
+
+            // Check if the profile picture exists, if not, use the default picture
+            if (file_exists($profilePicture)) {
+                $imgSrc = base_url($profilePicture);
+            } else {
+                $imgSrc = base_url($defaultPicture);
+            }
+            ?>
+            <img src="<?= $imgSrc ?>" class="rounded w-100 border" alt="User Image">
+
           </div>
           <div class="col-10 my-auto">
             <p>
-              <b><?php echo $user->nama; ?></b> <br> 
-              <?php echo $user->username; ?> <br>
+              <b><?= $userData['nama']; ?></b> <br> 
+              <?= $userData['username']; ?>
             </p>
           </div>
         </div>
 
         <div class="form-group">
           <label>Email</label>
-          <input type="text" class="form-control" value="<?php echo $user->email; ?>" disabled>
-        </div>
-        <div class="form-group">
-          <label>Nomor Handphone</label>
-          <input type="text" class="form-control" value="<?php echo $user->no_hp; ?>" disabled>
+          <input type="text" class="form-control" value="<?= $userData['email']; ?>" disabled>
         </div>
 
+        <div class="form-group">
+          <label>Nomor Handphone</label>
+          <input class="form-control" value="<?= $userData['no_hp']; ?>" disabled>
+        </div>
 
         <div class="form-group">
           <label>Jenis Kelamin</label>
-          <input type="text" class="form-control" value="<?php echo $user->gender; ?>" disabled>
-        </div>
-        <div class="form-group">
-          <label>Alamat Lengkap</label>
-          <textarea class="form-control" rows="3" disabled><?php echo $user->alamat; ?></textarea>
+          <input class="form-control" value="<?= $userData['gender']; ?>" disabled>
         </div>
 
-        <a href="<?= base_url('kasir/users/edit?id=1') ?>">
+        <div class="form-group">
+          <label>Alamat Lengkap</label>
+          <textarea class="form-control" disabled><?= $userData['alamat']; ?></textarea>
+        </div>
+
+        <!-- <a href="<?= base_url('kasir/users/edit?id=' . esc($userData['id_user'])) ?>">
           <button class="btn btn-primary rumahdev-bg my-3 text-white float-right">Edit Profil</button>
-        </a>
+        </a> -->
       </div>
 
       <div class="col-md-6">

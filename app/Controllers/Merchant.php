@@ -6,7 +6,7 @@ use App\Models\ProductModel;
 use App\Models\TransactionModel;
 use App\Models\TransactionSubModel;
 use App\Models\M_Merchant;
-// use CodeIgniter\Controller;
+use App\Models\M_User;
 
 class Merchant extends BaseController {
   private $userData;
@@ -16,20 +16,33 @@ class Merchant extends BaseController {
       session()->setFlashdata('gagal', 'Anda belum login');
       return redirect()->to(base_url('login'));
     }
+    $this->M_User = new M_User();  // Add this line to instantiate the M_User model
     $this->fetchUserData();
   }
 
   private function fetchUserData() {
-    $this->userData = [
-      'username' => session()->get('username'),
-      'nama' => session()->get('nama'),
-      'email' => session()->get('email'),
-      'foto' => session()->get('foto'),
-      'id_user' => session()->get('id_user'),
-      // Add other user data as needed
-    ];
-  }
+    $username = session()->get('username');
+    $user = $this->M_User->getUserByUsername($username);
 
+    if ($user) {
+      $this->userData = [
+        'username' => $user->username,
+        'nama' => $user->nama,
+        'email' => $user->email,
+        'foto' => $user->foto,
+        'id_user' => $user->id_user,
+        'no_hp' => $user->no_hp,
+        'gender' => $user->gender,
+        'alamat' => $user->alamat,
+        // Add other user data as needed
+      ];
+    } else {
+      // Handle the case where the user is not found in the database
+      // You might want to redirect the user to the login page or handle it in a different way
+      session()->setFlashdata('gagal', 'User not found in the database.');
+      return redirect()->to(base_url('login'));
+    }
+  }
 
   public function index() {
     if (session()->get('username') == '') {
@@ -179,13 +192,11 @@ class Merchant extends BaseController {
 		echo view('partial/footer');
   }
 
-  public function profilUser($id=1) {
-    // $id = $this->request->getGet('id');
-    $db = \Config\Database::connect();
-    $query = $db->query('SELECT * FROM user WHERE id_user = ?', [$id]);
-    $data['user'] = $query->getRow();
+  public function profilUser() {
+    $level = model('M_Employee')->getLevelByUserId($this->userData['id_user']);
+
     $data = [
-      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'level' => $level,
       'titleTab' => 'RumahDev Kasir App',
       'titlePage' => 'Profil Akun',
       'userData' => $this->userData,
@@ -193,10 +204,19 @@ class Merchant extends BaseController {
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
-		echo view('partial/side_menu', $data);
-		echo view('merchant/profil_user', $data);
-		echo view('partial/footer');
+    echo view('partial/side_menu', $data);
+
+    if ($level == 1) {
+      echo view('merchant/profil_user_v1', $data);
+    } elseif ($level == 2) {
+      echo view('merchant/profil_user_v2', $data);
+    } else {
+      echo view('merchant/profil_user_default', $data);
+    }
+
+    echo view('partial/footer');
   }
+
 
 public function confirm() {
 	$db = \Config\Database::connect();
@@ -260,7 +280,7 @@ public function confirm() {
     echo view('merchant/setting_discount');
     echo view('partial/footer');
   }
-  
+
   public function settingPayment() {
 
     $data = [
