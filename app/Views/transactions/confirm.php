@@ -195,7 +195,7 @@ $taxEnabled = $merchantData->pajak == 1;
             <i class="fas fa-check"></i>
             Selesaikan
           </button>
-          <a href="<?= base_url('kasir/order') ?>" class="btn btn-sm btn-warning text-white border-0">
+          <a href="<?= base_url('kasir/transactions/edit?id=' . esc($transactions[0]->id_transaction)) ?>" class="btn btn-sm btn-warning text-white border-0">
             <i class="fas fa-edit"></i>
             Ubah
           </a>

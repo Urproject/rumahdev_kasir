@@ -6,6 +6,7 @@ use App\Models\TransactionModel;
 use App\Models\ProductModel;
 use App\Models\TransactionSubModel;
 use App\Models\M_PaymentMethod;
+use App\Models\M_Merchant;
 use CodeIgniter\Controller;
 
 class MerchantTransactions extends BaseController {
@@ -77,6 +78,39 @@ class MerchantTransactions extends BaseController {
     echo view('partial/footer');
   }
 
+
+  public function editOrder($id = null) {
+    $id = $this->request->getGet('id');
+    if ($id === null) { return redirect()->to('/error-page'); }
+
+    $transactions = $this->fetchTransactionDetails($id);
+    if (empty($transactions)) { return redirect()->to('/error-page'); }
+    $total_harga = $this->calculateTotals($transactions);
+
+    $modelProduct = new ProductModel();
+    $merchantModel = new M_Merchant();
+    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+    $merchantData = $merchantModel->find($merchantId);
+
+    $data = [
+      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+      'titleTab' => 'RumahDev Kasir App',
+      'titlePage' => 'Edit Pesanan',
+      'userData' =>$this->userData,
+      'products' => $modelProduct->getProductsByMerchant($merchantId),
+      'merchantData' => $merchantData,
+      'transactions' => $transactions,
+      'total_harga' => $total_harga,
+    ];
+
+    echo view('partial/header', $data);
+    echo view('partial/wrapper', $data);
+    echo view('partial/side_menu', $data);
+    echo view('transactions/edit', $data);
+    echo view('partial/footer');
+  }
+
+
   public function confirm($id = null) {
     $id = $this->request->getGet('id');
     if ($id === null) {
@@ -116,7 +150,6 @@ class MerchantTransactions extends BaseController {
       'userData' => $this->userData,
       'transactions' => $transactions,
       'total_harga' => $total_harga,
-      'userData' => $this->userData,
       'paymentMethods' => $paymentMethods,
       'paymentTypes' => $paymentTypes,
     ];
@@ -124,7 +157,7 @@ class MerchantTransactions extends BaseController {
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
     echo view('partial/side_menu', $data);
-    echo view('merchant/confirm', $data);
+    echo view('transactions/confirm', $data);
     echo view('partial/footer');
   }
 

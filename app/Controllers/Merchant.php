@@ -220,45 +220,6 @@ class Merchant extends BaseController {
     echo view('partial/footer');
   }
 
-
-public function confirm() {
-	$db = \Config\Database::connect();
-
-	$builder = $db->table('transaction');
-	$builder->join('transaction_sub', 'transaction.id_transaction = transaction_sub.id_transaction', 'left');
-	$builder->where('transaction.id_transaction', 3);
-
-	$query = $builder->get();
-	$transactions = $query->getResult();
-
-	// Initialize total_harga
-	$total_harga = 0;
-
-	// Retrieve product information and calculate subtotal
-	foreach ($transactions as &$transaction) {
-		$transaction->subtotal = $transaction->jumlah * $transaction->id_product;
-		$total_harga += $transaction->subtotal;
-
-		// Fetch product information in the controller
-		$product_info = $this->getProductInfo($transaction->id_product);
-		$transaction->product_name = $product_info->nama;
-		$transaction->product_price = $product_info->harga;
-	}
-
-  $data = [
-    'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
-    'titleTab' => 'RumahDev Kasir App',
-    'titlePage' => 'Konfirmasi Pembayaran',
-    'userData' => $this->userData,
-  ];
-
-  echo view('partial/header', $data);
-  echo view('partial/top_menu', $data);
-	echo view('partial/side_menu', $data);
-	echo view('merchant/confirm', ['transactions' => $transactions, 'total_harga' => $total_harga]);
-	echo view('partial/footer');
-}
-
 	// Create this private function in your controller
 	private function getProductInfo($id_product) {
 		$db = \Config\Database::connect();
