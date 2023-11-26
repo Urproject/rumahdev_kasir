@@ -4,8 +4,8 @@
   	<div class="container-fluid my-3">
 
       <?php
-      $successNotification = session()->getFlashdata('failed');
-      if ($successNotification) { echo '<div class="alert alert-success">' . $successNotification . '</div>'; }
+      $failedNotification = session()->getFlashdata('failed');
+      if ($failedNotification) { echo '<div class="alert alert-danger">' . $failedNotification . '</div>'; }
       ?>
 
       <?php
@@ -17,19 +17,29 @@
         <div class="my-3">
           <h5 class="font-weight-bold">Aktifkan Diskon</h5>
         
-          <label class="switch">
+          <label class="switch-payment">
+            <input name="diskon" type="checkbox" <?= $settingData->diskon == 1 ? 'checked' : '' ?>>
+            <span class="slider-payment slider round"></span>
+          </label>
+
+          <!-- <label class="switch">
             <input name="diskon" type="checkbox" <?= $settingData->diskon == 1 ? 'checked' : '' ?>>
             <span class="slider round"></span>
-          </label>
+          </label> -->
           <br>
         </div>
 
         <div class="my-3">
           <h5 class="font-weight-bold">Aktifkan Pajak (11%)</h5>
 
-          <label class="switch">
+          <label class="switch-payment">
             <input name="pajak" type="checkbox" <?= $settingData->pajak == 1 ? 'checked' : '' ?>>
-            <span class="slider round"></span>
+            <span class="slider-payment slider round"></span>
+          </label>
+
+          <!-- <label class="switch">
+            <input name="pajak" type="checkbox" <?= $settingData->pajak == 1 ? 'checked' : '' ?>>
+            <span class="slider round"></span> -->
           </label>
         </div>
 

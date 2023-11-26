@@ -20,7 +20,6 @@ $routes->get('/daftar', 'Home::daftar');
 $routes->get('/daftar/merchant', 'Home::daftarMerchant');
 $routes->post('/daftar/action', 'Home::daftarAction');
 
-// merchant/superadmin
 $routes->get('/kasir', 'Merchant::index');
 $routes->get('/kasir/order', 'Merchant::index');
 
@@ -31,6 +30,7 @@ $routes->get('/kasir/settings', 'Merchant::settings');
 $routes->post('/kasir/settings/save', 'Merchant::saveSettings');
 
 $routes->get('/kasir/settings/payment', 'Merchant::settingPayment');
+$routes->post('/kasir/settings/save_payment', 'Merchant::saveSettingPayment');
 
 $routes->post('/kasir/order/add', 'Merchant::addOrderToDB');
 

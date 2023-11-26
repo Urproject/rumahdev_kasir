@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\M_user;
 use App\Models\M_Merchant;
 use App\Models\M_Employee;
+use App\Models\M_MerchantPayment;
 use CodeIgniter\Controller;
 
 
@@ -50,6 +51,7 @@ class Home extends BaseController {
     $mUser = new M_User();
     $mMerchant = new M_Merchant();
     $mEmployee = new M_Employee();
+    $mPayment = new M_MerchantPayment();
 
     // Retrieve user data from the session
     $userData = session()->get('temp_user_data') ?? [];
@@ -135,10 +137,38 @@ class Home extends BaseController {
         $employeeData = [
           'id_user' => $userId,
           'id_merchant' => $merchantId,
-          'level' => 1, // Set the appropriate level
+          'level' => 1, 
         ];
-
         $mEmployee->insert($employeeData);
+
+        // Insert data into the 'merchant_payment' table (multiple rows)
+        $paymentData = [
+          [
+            'id_merchant' => $merchantId,
+            'id_method' => 1, // cash
+            'data' => 1,
+          ],
+          [
+            'id_merchant' => $merchantId,
+            'id_method' => 2, // transfer
+            'data' => 0,
+          ],
+          [
+            'id_merchant' => $merchantId,
+            'id_method' => 3, // qris
+            'data' => 0,
+          ],
+          [
+            'id_merchant' => $merchantId,
+            'id_method' => 4, //virtual account
+            'data' => 0,
+          ],
+        ];
+        $mPayment->insertBatch($paymentData);
+
+
+
+
 
         $db->transCommit();
         session()->remove('temp_user_data');

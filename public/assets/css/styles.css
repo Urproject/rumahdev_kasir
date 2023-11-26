@@ -49,7 +49,7 @@ body {
 }
 
 .rumahdev-bg-link:hover {
-  background: #005a70;
+  background: #005A56;
   background: linear-gradient(135deg, #005A56 0%, #00736C 100%); /* Slightly darker gradient */
 } 
 

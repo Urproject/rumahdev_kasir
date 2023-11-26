@@ -6,6 +6,7 @@ use App\Models\ProductModel;
 use App\Models\TransactionModel;
 use App\Models\TransactionSubModel;
 use App\Models\M_Merchant;
+use App\Models\M_MerchantPayment;
 use App\Models\M_User;
 
 class Merchant extends BaseController {
@@ -309,21 +310,65 @@ public function confirm() {
   }
 
 
-
   public function settingPayment() {
 
+    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+    $merchantPaymentModel = new M_MerchantPayment();
+
+    $currentTunai = $merchantPaymentModel->where(['id_merchant' => $merchantId, 'id_method' => 1])->first();
+    $currentTransferBank = $merchantPaymentModel->where(['id_merchant' => $merchantId, 'id_method' => 2])->first();
+    $currentQris = $merchantPaymentModel->where(['id_merchant' => $merchantId, 'id_method' => 3])->first();
+    $currentVA = $merchantPaymentModel->where(['id_merchant' => $merchantId, 'id_method' => 4])->first();
+
     $data = [
-      'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
-      'titleTab' => 'RumahDev Kasir App',
-      'titlePage' => 'Setting Payment',
-      'userData' => $this->userData,
+        'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+        'titleTab' => 'RumahDev Kasir App',
+        'titlePage' => 'Setting Payment',
+        'userData' => $this->userData,
+        'currentTunai' => $currentTunai,
+        'currentQris' => $currentQris,
+        'currentTransferBank' => $currentTransferBank,
+        'currentVA' => $currentVA,
+        // Add other payment methods as needed
     ];
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
 		echo view('partial/side_menu', $data);
-		echo view('merchant/setting_payment');
+		echo view('merchant/setting_payment', $data);
 		echo view('partial/footer');
   }
+
+  public function saveSettingPayment() {
+    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+    $merchantPaymentModel = new M_MerchantPayment();
+
+    if ($this->request->getPost('transfer_bank') === 'on') {
+      $bankName = $this->request->getPost('bank_name');
+      $accountNumber = $this->request->getPost('account_number');
+      $ownerName = $this->request->getPost('owner_name');
+      if ($bankName != 0 && $accountNumber != '' && $ownerName != '') {
+        $formattedData = $bankName . '_' . $accountNumber . '_' . str_replace(' ', '-', $ownerName);
+        $merchantPaymentModel->update(['id_merchant' => $merchantId, 'id_method' => 2], 
+          ['data' => $formattedData]);
+      } else { 
+        session()->setFlashdata('failed', 'Jika mengaktifkan pembayaran transfer, data rekening tidak boleh kosong');
+        return redirect()->to(base_url('/kasir/settings/payment'));
+      }
+    } else {
+      $merchantPaymentModel->update(['id_merchant' => $merchantId, 'id_method' => 2], ['data' => 0]);
+    }
+
+    // $merchantPaymentModel->update(['id_merchant' => $merchantId, 'id_method' => 1], 
+      // ['data' => $this->request->getPost('tunai') === 'on' ? 1 : 0]);
+    $merchantPaymentModel->update(['id_merchant' => $merchantId, 'id_method' => 3], 
+      ['data' => $this->request->getPost('qris') === 'on' ? 1 : 0]);
+    // $merchantPaymentModel->update(['id_merchant' => $merchantId, 'id_method' => 4], 
+    //   ['data' => $this->request->getPost('virtual_account') === 'on' ? 1 : 0]);
+
+    session()->setFlashdata('success', 'Berhasil menyimpan pengaturan pembayaran');
+    return redirect()->to(base_url('/kasir/settings/payment'));
+  }
+
 
 }
