@@ -102,9 +102,6 @@ class Merchant extends BaseController {
     log_message('error', 'no_meja: ' . $no_meja);
     log_message('error', 'selectedProducts: ' . print_r($selectedProducts, true));
 
-
-
-
     // $jenis_pesanan = $this->request->getPost('jenis_pesanan');
     // $no_meja = $this->request->getPost('no_meja');
     // $selectedProducts = $this->request->getPost('selectedProducts');
@@ -174,22 +171,28 @@ class Merchant extends BaseController {
 
 	}
 
-
-
   public function profil() {
+    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+    $merchantModel = new M_Merchant();
+    $merchantData = $merchantModel->find($merchantId);
+
+    if (!$merchantData) {
+      return redirect()->to('/error-page');
+    }
 
     $data = [
       'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
       'titleTab' => 'RumahDev Kasir App',
       'titlePage' => 'Profil Merchant',
       'userData' => $this->userData,
+      'merchantData' => $merchantData, 
     ];
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
-		echo view('partial/side_menu', $data);
-		echo view('merchant/profil');
-		echo view('partial/footer');
+    echo view('partial/side_menu', $data);
+    echo view('merchant/profil');
+    echo view('partial/footer');
   }
 
   public function profilUser() {
