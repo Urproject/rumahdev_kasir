@@ -6,6 +6,17 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
+
+        <?php
+        $successNotification = session()->getFlashdata('success');
+        if ($successNotification) { echo '<div class="alert alert-success">' . $successNotification . '</div>'; }
+        ?>
+
+        <?php
+        $failedNotification = session()->getFlashdata('failed');
+        if ($failedNotification) { echo '<div class="alert alert-danger">' . $failedNotification . '</div>'; }
+        ?>
+
         <div class="row mb-2">
           <div class="col-sm-6">
             <a href="<?= base_url('kasir/users/add') ?>" class="btn btn-sm rumahdev-bg text-white" 

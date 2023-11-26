@@ -24,4 +24,8 @@ class M_User extends Model {
     return $this->where('username', $username)->first();
   }
 
+  public function isUsernameExists($username) {
+    return $this->where('username', $username)
+      ->countAllResults() > 0;
+  }
 }

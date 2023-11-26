@@ -104,22 +104,36 @@ class MerchantUsers extends BaseController {
   }
 
   public function addUserAction() {
-    $nama = $this->request->getPost('nama');
     $username = $this->request->getPost('username');
-    $password = $this->request->getPost('password');
-    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+    if ($this->userModel->isUsernameExists($username)) {
+      session()->setFlashdata('failed', 'Gagal menambahkan. Username sudah digunakan.');
+      return redirect()->to('kasir/users');
+    }
 
     $userData = [
-      'nama' => $nama,
+      'nama' => $this->request->getPost('nama'),
       'username' => $username,
-      'password' => $password,
+      'password' => $this->request->getPost('password'),
       'email' => '',
-      'no_hp' => '',
       'gender' => '',
       'alamat' => '',
-      'foto' => '',
       'google_id' => ''
     ];
+
+    $file = $this->request->getFile('foto_profil');
+    if ($file && $file->isValid() && !$file->hasMoved()) {
+      $newName = 'u-' . date('dmY-His') . '.' . $file->getClientExtension();
+      $file->move(ROOTPATH . 'public/assets/images/user/', $newName);
+      $userData['foto'] = $newName;
+    }
+
+    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+    $employeeCount = model('M_Employee')->countEmployeesByMerchantId($merchantId, 2); 
+
+    if ($employeeCount >= 3) {
+      session()->setFlashdata('failed', 'Gagal menambahkan. Sudah mencapai batas maksimum akun.');
+      return redirect()->to('kasir/users');
+    }
 
     $userId = $this->userModel->insert($userData);
 
@@ -130,7 +144,10 @@ class MerchantUsers extends BaseController {
     ];
 
     model('M_Employee')->insert($employeeData);
+    session()->setFlashdata('success', 'Berhasil menambahkan akun');
     return redirect()->to('kasir/users');
   }
+
+
 
 }

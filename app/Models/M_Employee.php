@@ -23,4 +23,9 @@ class M_Employee extends Model {
 	    ->getRow('level');
   }
 
+  public function countEmployeesByMerchantId($merchantId, $level) {
+    return $this->where('id_merchant', $merchantId)
+      ->where('level', $level)
+      ->countAllResults();
+  }
 }
