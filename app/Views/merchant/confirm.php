@@ -15,20 +15,27 @@ $taxEnabled = $merchantData->pajak == 1;
         <div class="col-md-6">
           <p>
             <b><?= esc($merchantData->nama_usaha); ?></b> <br>
-            Kasir: <?= esc($userData['nama']); ?> <br>
-            Waktu, Tanggal: <?= $transactions[0]->waktu ?>, <?= $transactions[0]->tanggal ?>
+            <span class="text-capitalize">Kasir: <?= esc($userData['nama']); ?> </span><br>
+            Waktu, Tanggal: <?= $transactions[0]->waktu ?>, <?= $transactions[0]->tanggal ?> <br>
+            <span class="text-capitalize">Jenis Pesanan: <?= $transactions[0]->jenis_pesanan ?></span>
+
+            <?php if ($transactions[0]->jenis_pesanan == 'dine-in') : ?>
+              <br>No.Meja: <?= esc($transactions[0]->no_meja); ?>
+            <?php endif; ?>
           </p>
         </div>
 
         <div class="col-md-2">
           <label for="paymentDropdown">Jenis Pembayaran</label>
           <select id="paymentDropdown" class="form-control">
-            <option value="Cash">Cash</option>
-            <option value="QRIS">QRIS</option>
-            <option value="Transfer">Transfer</option>
-            <option value="VA">Virtual Account</option>
+            <?php foreach ($paymentMethods as $paymentMethod) : ?>
+              <option value="<?= esc($paymentMethod->id_method); ?>">
+                <?= esc($paymentTypes[$paymentMethod->id_method]); ?>
+              </option>
+            <?php endforeach; ?>
           </select>
         </div>
+
 
         <div class="col-md-4 mb-3">
           <label for="nominal">Nominal Bayar</label>

@@ -359,12 +359,12 @@ public function confirm() {
       $merchantPaymentModel->update(['id_merchant' => $merchantId, 'id_method' => 2], ['data' => 0]);
     }
 
-    // $merchantPaymentModel->update(['id_merchant' => $merchantId, 'id_method' => 1], 
-      // ['data' => $this->request->getPost('tunai') === 'on' ? 1 : 0]);
     $merchantPaymentModel->update(['id_merchant' => $merchantId, 'id_method' => 3], 
       ['data' => $this->request->getPost('qris') === 'on' ? 1 : 0]);
     // $merchantPaymentModel->update(['id_merchant' => $merchantId, 'id_method' => 4], 
     //   ['data' => $this->request->getPost('virtual_account') === 'on' ? 1 : 0]);
+    $merchantPaymentModel->update(['id_merchant' => $merchantId, 'id_method' => 1], 
+      ['data' => 1]);
 
     session()->setFlashdata('success', 'Berhasil menyimpan pengaturan pembayaran');
     return redirect()->to(base_url('/kasir/settings/payment'));

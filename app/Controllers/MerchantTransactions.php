@@ -90,17 +90,41 @@ class MerchantTransactions extends BaseController {
     }
 
     $total_harga = $this->calculateTotals($transactions);
+
+
+    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+    $merchantPaymentModel = new \App\Models\M_MerchantPayment();
+    $paymentMethods = $merchantPaymentModel
+      ->where('data !=', 0)
+      ->where('id_merchant', $merchantId)
+      ->findAll();
+
+    $paymentMethodModel = new \App\Models\M_PaymentMethod();
+    $paymentTypes = [];
+
+    foreach ($paymentMethods as $paymentMethod) {
+      $paymentTypeObject = $paymentMethodModel->find($paymentMethod->id_method);
+      if ($paymentTypeObject) {
+        $paymentTypes[$paymentMethod->id_method] = $paymentTypeObject->payment_type;
+      }
+    }
+
     $data = [
       'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
       'titleTab' => 'RumahDev Kasir App',
       'titlePage' => 'Konfirmasi Pembayaran',
       'userData' => $this->userData,
+      'transactions' => $transactions,
+      'total_harga' => $total_harga,
+      'userData' => $this->userData,
+      'paymentMethods' => $paymentMethods,
+      'paymentTypes' => $paymentTypes,
     ];
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
     echo view('partial/side_menu', $data);
-    echo view('merchant/confirm', ['transactions' => $transactions, 'total_harga' => $total_harga, 'userData' => $this->userData]);
+    echo view('merchant/confirm', $data);
     echo view('partial/footer');
   }
 
