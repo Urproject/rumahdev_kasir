@@ -43,10 +43,10 @@
           <input type="text" class="form-control" value="<?= $userData['email']; ?>" disabled>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label>Nomor Handphone</label>
-          <input class="form-control" value="<?= $userData['no_hp']; ?>" disabled>
-        </div>
+          <input class="form-control" value="" disabled>
+        </div> -->
 
         <div class="form-group">
           <label>Jenis Kelamin</label>

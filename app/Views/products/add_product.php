@@ -4,8 +4,7 @@
   <section class="content-header">
     <div class="container-fluid">
       <form method="post" action="<?= base_url('/kasir/products/action') ?>" enctype="multipart/form-data">
-        <input type="hidden" name="id_merchant" value="1"> <!-- Replace with your merchant ID -->
-        <input type="hidden" name="notification" value="success">
+        <input type="hidden" name="id_merchant" value="1">
 
         <div class="row">
           <div class="col-md-6">

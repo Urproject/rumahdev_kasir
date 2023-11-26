@@ -31,7 +31,6 @@ class Merchant extends BaseController {
         'email' => $user->email,
         'foto' => $user->foto,
         'id_user' => $user->id_user,
-        'no_hp' => $user->no_hp,
         'gender' => $user->gender,
         'alamat' => $user->alamat,
         // Add other user data as needed

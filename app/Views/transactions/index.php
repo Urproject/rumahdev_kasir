@@ -96,7 +96,7 @@
                         <?php $counter++; ?>
                       <?php endforeach; ?>
                     <?php else: ?>
-                      <td colspan="6">Belum ada transaksi.</td>
+                      <td colspan="7" class="text-center">Belum ada transaksi.</td>
                     <?php endif; ?>
                   </tbody>
 

@@ -10,22 +10,28 @@
 
     <div class="row py-3">
       <div class="col-md-12 mx-auto text-center">
-        <form>
+        <form method="post" action="<?= base_url('daftar/action') ?>">
+          <input type="hidden" name="step" value="1">
 
           <div class="input-group mb-3 mx-auto" style="width:80%;">
-            <label for="nama" hidden>Password</label>
-            <input id="nama" class="form-control rounded" type="text" placeholder="Nama Lengkap" aria-label="nama">
+            <label for="nama" hidden>Nama Lengkap</label>
+            <input name="nama" id="nama" class="form-control rounded" type="text" placeholder="Nama Lengkap" aria-label="nama">
           </div>
 
           <div class="input-group my-3 mx-auto" style="width:80%;">
-            <label for="email" hidden>Password</label>
-            <input id="email" class="form-control rounded" type="text" placeholder="Email" aria-label="email">
+            <label for="username" hidden>Username</label>
+            <input name="username" id="username" class="form-control rounded" type="text" placeholder="Atur Username" aria-label="username">
+          </div>
+
+          <div class="input-group my-3 mx-auto" style="width:80%;">
+            <label for="email" hidden>Email</label>
+            <input name="email" id="email" class="form-control rounded" type="text" placeholder="Email" aria-label="email">
           </div>
 
           <div class="input-group my-3 mx-auto" style="width:80%;">
             <div class="input-group">
               <label for="password-field" hidden>Password</label>
-              <input id="password-field" type="password" class="form-control rounded-left" placeholder="Atur Password" aria-label="password">
+              <input name="password" id="password-field" type="password" class="form-control rounded-left" placeholder="Atur Password" aria-label="password">
                 <button class="btn btn-sm btn-secondary rounded-0" type="button" style="border-left: none; border-color: #d3d3d3; background-color: white;">
                   <span toggle="#password-field" class="fa fa-eye fa-lg show-hide" style="color: #808080;"></span>
                 </button>
@@ -35,7 +41,7 @@
           <div class="input-group my-3 mx-auto" style="width:80%;">
             <div class="input-group">
               <label for="password-field2" hidden>Konfirmasi Password</label>
-              <input id="password-field2" type="password" class="form-control rounded-left" placeholder="Konfirmasi Password" aria-label="password">
+              <input name="password2" id="password-field2" type="password" class="form-control rounded-left" placeholder="Konfirmasi Password" aria-label="password">
                 <button class="btn btn-sm btn-secondary rounded-0" type="button" style="border-left: none; border-color: #d3d3d3; background-color: white;">
                   <span toggle="#password-field2" class="fa fa-eye fa-lg show-hide" style="color: #808080;"></span>
                 </button>
@@ -43,26 +49,21 @@
           </div>
 
           <div class="input-group my-3 mx-auto" style="width:80%;">
-            <input class="form-control rounded" type="text" placeholder="Buat Username" aria-label="username">
+            <label for="gender" hidden>Jenis Kelamin</label>
+            <select name="gender" id="gender" class="form-control rounded text-secondary" aria-label="gender">
+              <option selected="true" hidden>Jenis Kelamin</option>
+              <option value="pria">Pria</option>
+              <option value="wanita">Wanita</option>
+            </select>
           </div>
 
           <div class="input-group my-3 mx-auto" style="width:80%;">
             <label for="alamat" hidden>Alamat</label>
-            <textarea class="form-control" id="alamat" rows="3" placeholder="Alamat"></textarea>
+            <textarea name="alamat" id="alamat" rows="3" class="form-control" placeholder="Alamat"></textarea>
           </div>
 
-          <div class="input-group my-3 mx-auto" style="width:80%;">
-            <label for="gender" hidden>Jenis Kelamin</label>
-            <select id="gender" class="form-control rounded text-secondary" aria-label="gender">
-              <option selected="true" hidden>Jenis Kelamin</option>
-              <option value="1">Pria</option>
-              <option value="2">Wanita</option>
-            </select>
-          </div>
-
-
-          <a href="<?= base_url('daftar/merchant') ?>" class="btn rumahdev-bg text-white my-3" style="width: 200px;">Selanjutnya
-          </a>
+          <button type="submit" class="btn rumahdev-bg text-white my-3" style="width: 200px;">Selanjutnya</button>
+          <!-- <a href="<?= base_url('daftar/merchant') ?>" class="btn rumahdev-bg text-white my-3" style="width: 200px;">Selanjutnya</a> -->
           <br>
 
         </form>

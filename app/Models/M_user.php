@@ -8,7 +8,7 @@ class M_User extends Model {
   protected $table = 'user';
   protected $primaryKey = 'id_user';
   protected $returnType = 'object';
-  protected $allowedFields = ['id_user', 'nama', 'username', 'email', 'no_hp', 'password', 'gender', 'alamat', 'foto', 'google_id'];
+  protected $allowedFields = ['id_user', 'nama', 'username', 'email', 'password', 'gender', 'alamat', 'foto', 'google_id'];
 
   public function getUsersByMerchant($merchantId) {
     return $this->join('merchant_employee', 'user.id_user = merchant_employee.id_user')

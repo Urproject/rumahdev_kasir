@@ -7,13 +7,12 @@
     <section class="content-header">
       <div class="container-fluid">
 
-<?php
-$successNotification = session()->getFlashdata('success');
-if ($successNotification) {
-  echo '<div class="alert alert-success">' . $successNotification . '</div>';
-}
-?>
-
+        <?php
+        $successNotification = session()->getFlashdata('success');
+        if ($successNotification) {
+          echo '<div class="alert alert-success">' . $successNotification . '</div>';
+        }
+        ?>
 
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -79,7 +78,7 @@ if ($successNotification) {
                           <?php $productNumber++; // Increment the counter for the next product ?>
                       <?php endforeach; ?>
                   <?php else: ?>
-                      <td colspan="6">No products found.</td>
+                      <td colspan="5" class="text-center">Belum ada produk.</td>
                   <?php endif; ?>
                   </tbody>
 

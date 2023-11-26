@@ -86,7 +86,6 @@ class MerchantProducts extends BaseController {
     }
 
     $modelProduct->insert($productData);
-    $notification = $this->request->getPost('notification');
     return redirect()->to(base_url('kasir/products'))->with('success', 'Product added successfully');
   }
 

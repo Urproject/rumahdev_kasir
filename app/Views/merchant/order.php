@@ -11,6 +11,13 @@
         <div class="container-fluid">
           <div class="row mb-2">
 
+            <?php
+            $successNotification = session()->getFlashdata('success');
+            if ($successNotification) {
+              echo '<div class="col-md-12 alert alert-success">' . $successNotification . '</div>';
+            }
+            ?>
+
             <div class="col-md-6 mb-3">
               <div class="input-group">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button">
@@ -37,7 +44,7 @@
                 }
                 ?>
               </select>
-            </div> <!-- col-md-12 dropdown kategori -->
+            </div> <!-- col-md-6 dropdown kategori -->
 
           </div>
         </div><!-- /.container-fluid -->

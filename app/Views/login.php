@@ -32,6 +32,12 @@
         </div>
       <?php } ?>
 
+      <?php if (!empty(session()->getFlashdata('success'))) { ?>
+        <div class="text-success my-2" style="font-size: 14px;">
+          <?php echo session()->getFlashdata('success') ?>
+        </div>
+      <?php } ?>
+
         <button class="btn rumahdev-bg text-white my-3" style="width: 200px;">Login</button>
       </form>
       

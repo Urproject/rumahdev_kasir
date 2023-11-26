@@ -18,6 +18,7 @@ $routes->get('/logout', 'Home::logout');
 
 $routes->get('/daftar', 'Home::daftar');
 $routes->get('/daftar/merchant', 'Home::daftarMerchant');
+$routes->post('/daftar/action', 'Home::daftarAction');
 
 // merchant/superadmin
 $routes->get('/kasir', 'Merchant::index');

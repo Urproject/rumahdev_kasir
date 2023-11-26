@@ -74,7 +74,7 @@
                         </tr>
                       <?php endforeach; ?>
                     <?php else: ?>
-                      <td colspan="6">No users found.</td>
+                      <td colspan="4" class="text-center">Belum ada akun.</td>
                     <?php endif; ?>
                   </tbody>
 
