@@ -157,8 +157,9 @@
               <select id="noMejaDropdown" class="form-control-sm">
                 <option value="<?= esc($transactions[0]->no_meja); ?>"><?= esc($transactions[0]->no_meja); ?></option>
                 <option value="No. Meja">No. Meja</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
+                <?php for ($i = 1; $i <= $merchantData->jlh_meja; $i++): ?>
+                  <option value="<?= $i ?>"><?= $i ?></option>
+                <?php endfor; ?>
               </select>
             </span>
           </div>
