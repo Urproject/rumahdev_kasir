@@ -84,10 +84,10 @@
 
               <li class="nav-item">
                 <?php if ($titlePage == 'Setting General'): ?>
-                <a href="<?= base_url('kasir/settings/discount') ?>" class="nav-link active text-white rumahdev-bg-link">
+                <a href="<?= base_url('kasir/settings') ?>" class="nav-link active text-white rumahdev-bg-link">
 
                 <?php else: ?>
-                <a href="<?= base_url('kasir/settings/discount') ?>" class="nav-link">
+                <a href="<?= base_url('kasir/settings') ?>" class="nav-link">
 
                 <?php endif; ?>
                   <i class="far fa-circle nav-icon"></i>

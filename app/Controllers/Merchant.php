@@ -265,20 +265,50 @@ public function confirm() {
 	}
 
 
-  public function settingDiscount() {
+  public function settings() {
+    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+    $merchantModel = new M_Merchant();
+    $settingData = $merchantModel->find($merchantId);
+
     $data = [
       'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
       'titleTab' => 'RumahDev Kasir App',
       'titlePage' => 'Setting General',
       'userData' => $this->userData,
+      'settingData' => $settingData, 
     ];
 
     echo view('partial/header', $data);
     echo view('partial/top_menu', $data);
     echo view('partial/side_menu', $data);
-    echo view('merchant/setting_discount');
+    echo view('merchant/settings', $data);
     echo view('partial/footer');
   }
+
+
+  public function saveSettings() {
+    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+    $merchantModel = new M_Merchant();
+
+    $diskon = $this->request->getPost('diskon') === 'on' ? 1 : 0;
+    $pajak = $this->request->getPost('pajak') === 'on' ? 1 : 0;
+    $jlh_meja = $this->request->getPost('jlh_meja');
+
+    $data = [
+      'diskon' => $diskon,
+      'pajak' => $pajak,
+      'jlh_meja' => $jlh_meja,
+    ];
+
+
+    $merchantModel->update(['id_merchant' => $merchantId], $data);
+
+    // Redirect back to the settings page with success message
+    session()->setFlashdata('success', 'Berhasil menyimpan pengaturan');
+    return redirect()->to(base_url('/kasir/settings'));
+  }
+
+
 
   public function settingPayment() {
 

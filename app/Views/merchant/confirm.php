@@ -176,8 +176,7 @@ $taxEnabled = $merchantData->pajak == 1;
       </div>
 
       <div class="actions row">
-        <br>
-        <div class="col-md-8 my-3">
+        <div class="col-md-8 mb-3">
           <a href="<?= base_url('kasir/order') ?>">
             <button class="btn btn-sm text-white rumahdev-bg-hijau border-0">
               Pesanan Baru
