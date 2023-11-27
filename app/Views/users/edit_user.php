@@ -7,7 +7,17 @@
     <div class="container-fluid">  
       <?php if (!empty($user)) { ?>
 
-        <from>
+      <?php
+      $failedNotification = session()->getFlashdata('failed');
+      if ($failedNotification) { echo '<div class="alert alert-danger">' . $failedNotification . '</div>'; }
+      ?>
+
+      <?php
+      $successNotification = session()->getFlashdata('success');
+      if ($successNotification) { echo '<div class="alert alert-success">' . $successNotification . '</div>'; }
+      ?>
+
+        <form method="post" action="<?= base_url('/kasir/users/editAction') ?>"enctype="multipart/form-data">
         <div class="row mt-3">
           <div class="col-md-6">
 
