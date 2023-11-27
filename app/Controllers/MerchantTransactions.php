@@ -174,40 +174,35 @@ class MerchantTransactions extends BaseController {
   }
 
   private function fetchTransactionDetails($id) {
-    $db = \Config\Database::connect();
-    $builder = $db->table('transaction');
-    $builder->join('transaction_sub', 'transaction.id_transaction = transaction_sub.id_transaction', 'left');
-    $builder->where('transaction.id_transaction', $id);
-
-    $query = $builder->get();
-    $transactions = $query->getResult();
+    $transactionModel = model('TransactionModel');
+    $transactions = $transactionModel
+      ->select('transaction.*, transaction_sub.jumlah, transaction_sub.id_product')
+      ->join('transaction_sub', 'transaction.id_transaction = transaction_sub.id_transaction', 'left')
+      ->where('transaction.id_transaction', $id)
+      ->findAll();
 
     // Fetch product details for each transaction
     foreach ($transactions as &$transaction) {
-        $transaction->product_info = $this->getProductInfo($transaction->id_product);
+      $transaction->product_info = $this->getProductInfo($transaction->id_product);
     }
 
     return $transactions;
   }
 
   private function getProductInfo($id_product) {
-    $db = \Config\Database::connect();
-    $builder = $db->table('product');
-    $builder->where('id_product', $id_product);
-    $query = $builder->get();
-    return $query->getRow();
+    $productModel = model('ProductModel');
+    return $productModel->find($id_product);
   }
 
   private function calculateTotals(array &$transactions) {
     $total_harga = 0;
 
     foreach ($transactions as &$transaction) {
-      $transaction->subtotal = $transaction->jumlah * $transaction->id_product;
+      $transaction->subtotal = $transaction->jumlah * $transaction->product_info->harga;
       $total_harga += $transaction->subtotal;
 
-      $product_info = $this->getProductInfo($transaction->id_product);
-      $transaction->product_name = $product_info->nama;
-      $transaction->product_price = $product_info->harga;
+      $transaction->product_name = $transaction->product_info->nama;
+      $transaction->product_price = $transaction->product_info->harga;
     }
 
     return $total_harga;
