@@ -1,5 +1,5 @@
 <?php
-  $merchantModel = new \App\Models\M_Merchant();
+  $merchantModel = model('M_Merchant');
   $merchantId = model('M_Employee')->getMerchantIdByUserId($userData['id_user']);
   $merchantData = $merchantModel->find($merchantId);
 ?>
@@ -9,15 +9,19 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid mt-3">
-      <div class="order-info">
-        <p>
+      <div class="order-info row">
+        <p class="col-8 mb-2">
           <b><?= esc($merchantData->nama_usaha); ?></b> <br>
           Kasir : <?= esc($userData['nama']); ?> <br>
           Waktu, Tanggal: <?= $transactions[0]->waktu ?>, <?= $transactions[0]->tanggal ?> 
         </p>
-        <p class="mb-1 text-capitalize">
-          Jenis Pembayaran: <?= esc($paymentMethod['payment_type']) ?><br>
+        <p class=" col-4 text-capitalize my-2">
+          Jenis Pembayaran: <?= esc($paymentMethod->payment_type) ?><br>
           Jenis Pesanan: <?= esc($transactions[0]->jenis_pesanan) ?>
+
+          <?php if ($transactions[0]->jenis_pesanan == 'dine-in') : ?>
+            <br>No.Meja: <?= esc($transactions[0]->no_meja); ?>
+          <?php endif; ?>
         </p>
       </div>
 
@@ -25,11 +29,12 @@
         <h5 class="font-weight-bold">Pesanan</h5>
         <hr class="m-1">
         <div class="row">
-          <div class="col-1 d-none mb-2 font-weight-bold">Jumlah</div>
-          <div class="col-5 d-none mb-2 font-weight-bold">Nama Produk</div> 
-          <div class="col-2 d-none mb-2 font-weight-bold">Harga Satuan</div> 
-          <div class="col-4 d-none mb-2 font-weight-bold">Subtotal</div> 
-          
+
+          <span class="col-sm-1 mb-2 font-weight-bold">Jumlah</span>
+          <span class="col-sm-5 mb-2 font-weight-bold">Nama Produk</span>
+          <span class="col-sm-2 mb-2 font-weight-bold">Harga Satuan</span>
+          <span class="col-sm-4 mb-2 font-weight-bold">Subtotal</span>
+
           <?php 
             $total_harga = 0; // Initialize total_harga
             foreach ($transactions as $transaction) : 
@@ -39,7 +44,10 @@
           ?>
           <div class="col-1">x<?= $transaction->jumlah ?></div>
           <div class="col-5"><?= $transaction->product_name ?></div>
-          <div class="col-sm-2 text-secondary font-italic">Rp <?= $transaction->product_price ?></div>
+          <div class="col-sm-2 text-secondary font-italic">
+            Rp <?= $transaction->product_price ?><br>
+            Rp <?= $transaction->product_price ?>
+          </div>
           <div class="col-sm-4">Rp <?= $subtotal ?></div> 
           <?php endforeach; ?>
 

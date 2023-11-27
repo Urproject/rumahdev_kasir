@@ -8,6 +8,7 @@ use App\Models\TransactionSubModel;
 use App\Models\M_Merchant;
 use App\Models\M_MerchantPayment;
 use App\Models\M_User;
+use App\Models\M_Employee;
 
 class Merchant extends BaseController {
   private $userData;
@@ -109,7 +110,7 @@ class Merchant extends BaseController {
     if (empty($jenis_pesanan) || empty($no_meja) || !is_array($selectedProducts)) {
         // Handle invalid or missing data
         // return $this->response->setStatusCode(400)->setJSON(['error' => 'Invalid data']);
-        return redirect()->to(base_url('login')); // Replace 'error-page' with your error page URL
+        return redirect()->to(base_url('kasir')); // Replace 'error-page' with your error page URL
     }
 
 
@@ -121,13 +122,14 @@ class Merchant extends BaseController {
       $total_harga += $product['price'] * $product['quantity'];
     }
 
+    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
     // Insert a record into the "transaction" table
     $transactionData = [
-      'id_user' => 1, // Replace with your user ID
-      'id_merchant' => 1, // Replace with the actual merchant ID
+      'id_user' => $this->userData['id_user'], 
+      'id_merchant' => $merchantId,
       'id_method' => 1, // temporary
-      'tanggal' => date('Y-m-d'), // Current date
-      'waktu' => date('H:i:s'), // Current time
+      'tanggal' => date('Y-m-d'),
+      'waktu' => date('H:i:s'),
       'total_harga' => $total_harga,
       'total_diskon' => 0, // Set diskon to 0 for now
       'no_meja' => $no_meja,
@@ -152,20 +154,10 @@ class Merchant extends BaseController {
     	$transactionSubModel->insertTransactionSub($transactionSubData);
     }
 
-    // Redirect to the confirmation page
-    // return redirect()->to(base_url('kasir/confirm'));
-    // Redirect to the confirmation page with the id_transaction parameter
-    // return redirect()->to(base_url('kasir/transactions/confirm?id=' . $id_transaction));
-
-
-    // Prepare the response
     $response = [
         'id_transaction' => $id_transaction,
-        'message' => 'Order added successfully',
-        // Add any other data you want to send back to the client
+        'message' => 'Berhasil menambahkan pesanan',
     ];
-
-    // Return the response
     return $this->response->setJSON($response);
     
 

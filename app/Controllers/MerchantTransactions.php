@@ -161,6 +161,7 @@ class MerchantTransactions extends BaseController {
     echo view('partial/footer');
   }
 
+
   private function fetchUserData() {
     $this->userData = [
       'username' => session()->get('username'),

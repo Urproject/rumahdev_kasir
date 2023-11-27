@@ -28,10 +28,6 @@
               <input type="text" class="form-control" value="<?php echo $user->email; ?>" style="width: 80%;">
             </div>
             <div class="form-group">
-              <label>Nomor Handphone</label>
-              <input type="text" class="form-control" value="<?php echo $user->no_hp; ?>" style="width: 80%;">
-            </div>
-            <div class="form-group">
               <label for="exampleFormControlSelect1">Jenis Kelamin</label>
               <select class="form-control" id="exampleFormControlSelect1" style="width: 80%;">
                 <option>Pria</option>

@@ -39,9 +39,11 @@ $routes->get('/kasir/users/detail', 'MerchantUsers::detail');
 $routes->get('/kasir/users/add', 'MerchantUsers::addUser');
 $routes->get('/kasir/users/edit', 'MerchantUsers::editUser');
 $routes->post('/kasir/users/action', 'MerchantUsers::addUserAction');
+$routes->post('/kasir/users/editAction', 'MerchantUsers::editUserAction');
 
 $routes->get('/kasir/transactions', 'MerchantTransactions::index');
 $routes->get('/kasir/transactions/detail', 'MerchantTransactions::detail');
 $routes->get('/kasir/transactions/detail/(:num)', 'MerchantTransactions::detail/$1');
 $routes->get('/kasir/transactions/confirm', 'MerchantTransactions::confirm');
 $routes->get('/kasir/transactions/edit', 'MerchantTransactions::editOrder');
+$routes->post('/kasir/transactions/add', 'MerchantTransactions::confirmAction');

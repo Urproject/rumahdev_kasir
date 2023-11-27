@@ -1,14 +1,20 @@
 <?php
-$merchantModel = new \App\Models\M_Merchant();
-$merchantId = model('M_Employee')->getMerchantIdByUserId($userData['id_user']);
-$merchantData = $merchantModel->find($merchantId);
-$discountEnabled = $merchantData->diskon == 1;
-$taxEnabled = $merchantData->pajak == 1;
+  $merchantModel = model('M_Merchant');
+  $merchantId = model('M_Employee')->getMerchantIdByUserId($userData['id_user']);
+  $merchantData = $merchantModel->find($merchantId);
+  $discountEnabled = $merchantData->diskon == 1;
+  $taxEnabled = $merchantData->pajak == 1;
 ?>
 
 <div class="content-wrapper bg-white">
   <section class="content">
     <div class="container-fluid my-3">
+    <form method="POST" action="/kasir/transactions/add">
+      <input hidden name="id_transaction" value="<?= $transactions[0]->id_transaction ?>">
+      <input hidden name="tanggal" value="<?= $transactions[0]->tanggal ?>">
+      <input hidden name="waktu" value="<?= $transactions[0]->waktu ?>">
+      <input hidden name="no_meja" value="<?= $transactions[0]->no_meja ?>">
+      <input hidden name="jenis_pesanan" value="<?= $transactions[0]->jenis_pesanan ?>">
 
       <div class="row">
 
@@ -20,14 +26,14 @@ $taxEnabled = $merchantData->pajak == 1;
             <span class="text-capitalize">Jenis Pesanan: <?= $transactions[0]->jenis_pesanan ?></span>
 
             <?php if ($transactions[0]->jenis_pesanan == 'dine-in') : ?>
-              <br>No.Meja: <?= esc($transactions[0]->no_meja); ?>
+            . No. Meja: <?= esc($transactions[0]->no_meja); ?>
             <?php endif; ?>
           </p>
         </div>
 
         <div class="col-md-2">
           <label for="paymentDropdown">Jenis Pembayaran</label>
-          <select id="paymentDropdown" class="form-control">
+          <select id="paymentDropdown" class="form-control" name="id_method">
             <?php foreach ($paymentMethods as $paymentMethod) : ?>
               <option value="<?= esc($paymentMethod->id_method); ?>">
                 <?= esc($paymentTypes[$paymentMethod->id_method]); ?>
@@ -114,15 +120,20 @@ $taxEnabled = $merchantData->pajak == 1;
           <div class="col-8 text-secondary mt-3">Subtotal</div>
           <div class="col-4 text-secondary mt-3">
             <?php if ($discountEnabled): ?>
+              <input hidden name="total_diskon" value="<?= $total_harga - $discountedTotal ?>">
               Rp <?= $total_harga - ($total_harga - $discountedTotal) ?>
             <?php else: ?>
+              <input hidden name="total_diskon" value="0">
               Rp <?= $total_harga ?> <!-- Set to total_harga if discount is off -->
             <?php endif; ?>
           </div>
 
           <?php if ($taxEnabled): ?>
             <div class="col-8 text-secondary">Pajak</div>
+            <input hidden name="total_pajak" value="<?= ($total_harga - ($total_harga - $discountedTotal)) * 11/100 ?>">
             <div class="col-4 text-secondary">Rp <?= ($total_harga - ($total_harga - $discountedTotal)) * 11/100 ?></div>
+            <?php else: ?>
+            <input hidden name="total_pajak" value="0">
           <?php endif; ?>
 
           <div class="col-12">
@@ -130,20 +141,15 @@ $taxEnabled = $merchantData->pajak == 1;
           </div>
 
           <div class="col-8 font-weight-bold">Total Harga</div>
-          <!-- <div class="col-4 font-weight-bold">Rp <?= ($total_harga - ($total_harga - $discountedTotal)) - (($total_harga - ($total_harga - $discountedTotal)) * 11/100) ?></div> -->
 
           <div class="col-4 font-weight-bold">
             <?php if ($discountEnabled): ?>
               <?php
-              $discountedTotal = 0; // Initialize discounted total
+              $discountedTotal = 0;
 
-              // Loop through transactions to calculate total harga with discount
               foreach ($transactions as $transaction) {
-                // Calculate subtotal
                 $subtotal = $transaction->jumlah * $transaction->product_price;
-
-                // Calculate discount
-                $discount = 0; // Initialize discount variable
+                $discount = 0;
 
                 // Retrieve discount information from product_info
                 if ($transaction->product_info->jenis_diskon == 'percent') {
@@ -154,23 +160,25 @@ $taxEnabled = $merchantData->pajak == 1;
 
                 // Calculate discounted price for each product
                 $discountedPrice = $subtotal - $discount;
-
-                // Add discounted price to the discounted total
                 $discountedTotal += $discountedPrice;
               }
               ?>
 
               <?php if ($taxEnabled): ?>
                 Rp <?= $discountedTotal + ($discountedTotal * 11/100) ?>
+                <input hidden name="total_harga" value="<?= $discountedTotal + ($discountedTotal * 11/100) ?>">
               <?php else: ?>
                 Rp <?= $discountedTotal ?>
+                <input hidden name="total_harga" value="<?= $discountedTotal ?>">
               <?php endif; ?>
 
             <?php else: ?>
               <?php if ($taxEnabled): ?>
                 Rp <?= $total_harga + ($total_harga * 11/100) ?> <!-- Include tax if discount is off and tax is on -->
+                <input hidden name="total_harga" value="<?= $total_harga + ($total_harga * 11/100) ?>">
               <?php else: ?>
                 Rp <?= $total_harga ?> <!-- No discount and tax, show the original total -->
+                <input hidden name="total_harga" value="<?= $total_harga ?>">
               <?php endif; ?>
             <?php endif; ?>
           </div>
@@ -206,6 +214,7 @@ $taxEnabled = $merchantData->pajak == 1;
         </div>
       </div>
 
+    </form>
     </div>
   </section>
 </div>

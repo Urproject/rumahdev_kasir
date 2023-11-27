@@ -148,6 +148,7 @@ class MerchantUsers extends BaseController {
     return redirect()->to('kasir/users');
   }
 
+  public function editUserAction() {  }
 
 
 }
