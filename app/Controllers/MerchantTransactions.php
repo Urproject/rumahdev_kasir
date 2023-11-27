@@ -129,7 +129,7 @@ class MerchantTransactions extends BaseController {
     $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
     $merchantPaymentModel = new \App\Models\M_MerchantPayment();
     $paymentMethods = $merchantPaymentModel
-      ->where('data !=', 0)
+      ->where('data !=', '0')
       ->where('id_merchant', $merchantId)
       ->findAll();
 
@@ -160,6 +160,59 @@ class MerchantTransactions extends BaseController {
     echo view('transactions/confirm', $data);
     echo view('partial/footer');
   }
+
+
+  public function confirmAction() {
+    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+    $id_transaction = $this->request->getPost('id_transaction');
+
+    $transactionData = [
+      'id_user'        => $this->userData['id_user'],
+      'id_merchant'    => $merchantId,
+      'id_method'      => $this->request->getPost('id_method'),
+      'tanggal'        => $this->request->getPost('tanggal'),
+      'waktu'          => $this->request->getPost('waktu'),
+      'total_harga'    => $this->request->getPost('total_harga'),
+      'total_diskon'   => $this->request->getPost('total_diskon'),
+      // 'total_pajak'    => $this->request->getPost('total_pajak'),
+      'no_meja'        => $this->request->getPost('no_meja'),
+      'jenis_pesanan'  => $this->request->getPost('jenis_pesanan'),
+      'status_pesanan' => 2,
+    ];
+
+    // Update table transaction (transactionData)
+    $transactionModel = new TransactionModel();
+    $transactionModel->update($id_transaction, $transactionData);
+
+    // Update table transaction_sub for each selected product
+    $selectedProducts = $this->request->getPost('products');
+
+    foreach ($selectedProducts as $productId => $productData) {
+      $subTransactionData = [
+        'id_transaction' => $id_transaction,
+        'id_product'     => $productData['id_product'],
+        'jumlah'         => $productData['jumlah'],
+        'subtotal'       => $productData['subtotal'],
+        'diskon'         => $productData['diskon'],
+      ];
+
+      $transactionSubModel = new TransactionSubModel();
+    // Use custom updateOrInsert method
+    $transactionSubModel->updateOrInsert(
+      ['id_transaction' => $id_transaction, 'id_product' => $productData['id_product']],
+      $subTransactionData
+    );
+    }
+
+    // Additional logic or redirection after the update
+
+    // Redirect to a success page or another action
+    session()->setFlashdata('success', 'Berhasil menyelesaikan pesanan.');
+    return redirect()->to(base_url('/kasir'));
+  }
+
+
+
 
 
   private function fetchUserData() {

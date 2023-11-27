@@ -66,7 +66,7 @@
               Rp 0
             <?php endif; ?>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-4 font-italic">
             <?php if ($subTransaction) : ?>
               Rp <?= $subTransaction->subtotal ?>
             <?php else : ?>
