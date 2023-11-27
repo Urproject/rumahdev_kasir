@@ -4,6 +4,8 @@
   $merchantData = $merchantModel->find($merchantId);
 ?>
 
+<!-- NILAI PAJAK BELUM SESUAI -->
+
 <div class="content-wrapper bg-white">
 
   <!-- Main content -->
@@ -28,8 +30,8 @@
       <div class="order-details">
         <h5 class="font-weight-bold">Pesanan</h5>
         <hr class="m-1">
-        <div class="row">
 
+        <div class="row">
           <span class="col-sm-1 mb-2 font-weight-bold">Jumlah</span>
           <span class="col-sm-5 mb-2 font-weight-bold">Nama Produk</span>
           <span class="col-sm-2 mb-2 font-weight-bold">Harga Satuan</span>
@@ -41,21 +43,56 @@
               // Calculate subtotal
               $subtotal = $transaction->jumlah * $transaction->product_price;
               $total_harga += $subtotal;
+
+              // Fetch corresponding discount and subtotal from TransactionSubModel
+              $transactionSubModel = model('TransactionSubModel');
+              $subTransaction = $transactionSubModel
+                ->where('id_transaction', $transaction->id_transaction)
+                ->where('id_product', $transaction->id_product)
+                ->first();
           ?>
           <div class="col-1">x<?= $transaction->jumlah ?></div>
           <div class="col-5"><?= $transaction->product_name ?></div>
           <div class="col-sm-2 text-secondary font-italic">
-            Rp <?= $transaction->product_price ?><br>
-            Rp <?= $transaction->product_price ?>
+            <?php if ($subTransaction) : ?>
+              Rp <?= $transaction->product_price ?>
+
+              <?php if ($subTransaction->diskon != 0) : ?>
+                <br>Rp -<?= $subTransaction->diskon ?> <!-- Assuming diskon is the discount amount -->
+              <?php endif; ?>
+
+            <?php else : ?>
+              Rp <?= $transaction->product_price ?><br>
+              Rp 0
+            <?php endif; ?>
           </div>
-          <div class="col-sm-4">Rp <?= $subtotal ?></div> 
+          <div class="col-sm-4">
+            <?php if ($subTransaction) : ?>
+              Rp <?= $subTransaction->subtotal ?>
+            <?php else : ?>
+              Rp <?= $subtotal ?>
+            <?php endif; ?>
+          </div>
           <?php endforeach; ?>
 
           <div class="col-8 text-secondary mt-3">Subtotal</div>
           <div class="col-4 text-secondary mt-3">Rp <?= $total_harga ?></div>
 
           <div class="col-8 text-secondary">Diskon</div>
-          <div class="col-4 text-secondary">Rp 0</div>
+          <div class="col-4 text-secondary">
+            <?php
+              $totalDiskon = 0;
+              foreach ($transactions as $transaction) {
+                $subTransaction = $transactionSubModel
+                  ->where('id_transaction', $transaction->id_transaction)
+                  ->where('id_product', $transaction->id_product)
+                  ->first();
+
+                if ($subTransaction) { $totalDiskon += $subTransaction->diskon; }
+              }
+              echo 'Rp ' . $totalDiskon;
+            ?>
+          </div>
 
           <div class="col-8 text-secondary">Pajak</div>
           <div class="col-4 text-secondary">Rp 0</div>
@@ -65,12 +102,10 @@
           </div>
 
           <div class="col-8 font-weight-bold">Total Harga</div>
-          <div class="col-4 font-weight-bold">Rp <?= $total_harga ?></div>
-          <div class="col-8 font-weight-bold">Nominal Bayar </div>
-          <div class="col-4 font-weight-bold">Rp 0</div>
-          <div class="col-8 font-weight-bold">Kembalian </div>
-          <div class="col-4 font-weight-bold">Rp 0</div>
+          <div class="col-4 font-weight-bold">Rp <?= $transactions[0]->total_harga ?></div>
         </div>
+
+
       </div> 
 
       <div class="actions row">
