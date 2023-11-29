@@ -111,6 +111,61 @@ class MerchantTransactions extends BaseController {
   }
 
 
+  public function editOrderToDB() {
+    // Load the necessary models
+    $transactionModel = new TransactionModel();
+    $transactionSubModel = new TransactionSubModel();
+    $jsonData = json_decode(file_get_contents('php://input'), true);
+
+    // Check if the variables are set
+    if (!isset($jsonData['id_transaction'], $jsonData['jenis_pesanan'], $jsonData['no_meja'], $jsonData['selectedProducts']) || !is_array($jsonData['selectedProducts'])) {
+        return $this->response->setStatusCode(400)->setJSON(['error' => 'Invalid data']);
+    }
+
+    // Extract data from JSON
+    $id_transaction = $jsonData['id_transaction'];
+    $jenis_pesanan = $jsonData['jenis_pesanan'];
+    $no_meja = $jsonData['no_meja'];
+    $selectedProducts = $jsonData['selectedProducts'];
+
+    // Update data in the transaction table
+    $dataToUpdateTransaction = [
+        'jenis_pesanan' => $jenis_pesanan,
+        'no_meja' => $no_meja,
+    ];
+    $transactionModel->update($id_transaction, $dataToUpdateTransaction);
+
+    // Update or insert data in the transaction_sub table
+    foreach ($selectedProducts as $product) {
+        $existingRecord = $transactionSubModel
+            ->where('id_transaction', $id_transaction)
+            ->where('id_product', $product['id_product'])
+            ->first();
+
+        if ($existingRecord) {
+            // Update existing record
+            $dataToUpdateTransactionSub = [
+                'harga' => $product['harga'],
+                'jumlah' => $product['jumlah'],
+            ];
+            $transactionSubModel->update($existingRecord->id_sub, $dataToUpdateTransactionSub);
+        } else {
+            // Insert new record
+            $dataToInsertTransactionSub = [
+                'id_transaction' => $id_transaction,
+                'id_product' => $product['id_product'],
+                'jumlah' => $product['jumlah'],
+                'harga' => $product['harga'],
+            ];
+            $transactionSubModel->insert($dataToInsertTransactionSub);
+        }
+    }
+
+    // Return the updated id_transaction
+    return $this->response->setJSON(['id_transaction' => $id_transaction]);
+  }
+
+
   public function confirm($id = null) {
     $id = $this->request->getGet('id');
     if ($id === null) {
@@ -212,9 +267,6 @@ class MerchantTransactions extends BaseController {
   }
 
 
-
-
-
   private function fetchUserData() {
     $this->userData = [
       'username' => session()->get('username'),
@@ -260,4 +312,5 @@ class MerchantTransactions extends BaseController {
 
     return $total_harga;
   }
+  
 }
