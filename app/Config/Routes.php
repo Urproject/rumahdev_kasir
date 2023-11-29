@@ -48,4 +48,5 @@ $routes->get('/kasir/transactions/detail/(:num)', 'MerchantTransactions::detail/
 $routes->get('/kasir/transactions/confirm', 'MerchantTransactions::confirm');
 $routes->get('/kasir/transactions/edit', 'MerchantTransactions::editOrder');
 $routes->get('/kasir/transactions/print', 'MerchantTransactions::print');
+$routes->get('/kasir/transactions/generatePDF', 'MerchantTransactions::generatePDF');
 $routes->post('/kasir/transactions/add', 'MerchantTransactions::confirmAction');
