@@ -148,51 +148,33 @@ class MerchantUsers extends BaseController {
     return redirect()->to('kasir/users');
   }
 
-  public function editUserAction() {  
-        
+  public function editUserAction() {
     $model = new M_user();
+
     if ($this->request->getMethod() !== 'post') {
-        return redirect()->to('kasir/user');
+      return redirect()->to('kasir/user');
     }
+
     $userId = $this->request->getPost('id_user');
-    $validation = $this->validate([
-        'file_upload' => 'uploaded[file_upload]|mime_in[file_upload,image/jpg,image/jpeg,image/gif,image/png]|max_size[file_upload,4096]'
-    ]);
 
-    if ($validation == FALSE) {
-    $userData = array(
-        'nama' => $this->request->getPost('nama'),
-        'username' => $this->request->getPost('username'),
-        'password' => $this->request->getPost('password'),
-        'email' => $this->request->getPost('email'),
-        'gender' => $this->request->getPost('gender'),
-        'alamat' => $this->request->getPost('alamat'),
-        'foto' => $this->request->getPost('foto'),
-    
-    );
-    } else {
-    $dt = $model->edit_data($userId)->getRow();
-    $gambar = $dt->gambar;
-    $path = '../public/assets/images/';
-    @unlink($path.$gambar);
-        $upload = $this->request->getFile('file_upload');
-        $upload->move(WRITEPATH . '../public/assets/images/');
-    $data = array(
-        'nama' => $this->request->getPost('nama'),
-        'username' => $this->request->getPost('username'),
-        'password' => $this->request->getPost('password'),
-        'email' => $this->request->getPost('email'),
-        'gender' => $this->request->getPost('gender'),
-        'alamat' => $this->request->getPost('alamat'),
-        'foto' => $upload->getName(),
-    );
+    $userData = [
+      'nama' => $this->request->getPost('nama'),
+      'username' => $this->request->getPost('username'),
+      'password' => $this->request->getPost('password'),
+    ];
+
+    $file = $this->request->getFile('foto');
+    if ($file && $file->isValid() && !$file->hasMoved()) {
+      $newName = 'u-' . date('dmY-His') . '.' . $file->getClientExtension();
+      $file->move(ROOTPATH . 'public/assets/images/user/', $newName);
+      $userData['foto'] = $newName;
     }
-    $model->edit_data($userId,$userData);
-    return redirect()->to('kasir/users')->with('berhasil', 'Data Berhasil di Ubah');
     
-  
+    $this->userModel->set($userData)->where('id_user', $userId)->update();
 
-    
-  } 
+    session()->setFlashdata('success', 'Berhasil mengubah data akun');
+    return redirect()->to('kasir/users');
+  }
+
 
 }

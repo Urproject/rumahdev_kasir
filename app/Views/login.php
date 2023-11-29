@@ -41,7 +41,7 @@
         <button class="btn rumahdev-bg text-white my-3" style="width: 200px;">Login</button>
       </form>
       
-      <a href="<?= base_url('login/lupa_password') ?>" class="text-center rumahdev-color mt-3"> Lupa password?</a>
+      <!-- <a href="<?= base_url('login/lupa_password') ?>" class="text-center rumahdev-color mt-3"> Lupa password?</a> -->
       <br>
       <a href="<?= base_url('daftar') ?>" class="text-center rumahdev-color">Belum punya akun? Daftar</a>
     </div>
