@@ -87,8 +87,11 @@
                                 </a>
                               </button>
                               <button style="all: unset; cursor: pointer;">
-                                <span class="right badge badge-success"><i class="fas fa-print"></i></span>
+                                  <a href="<?= base_url('kasir/transactions/print?id=' . $t->id_transaction) ?>">
+                                      <span class="right badge badge-success"><i class="fas fa-print"></i></span>
+                                  </a>
                               </button>
+
                             <?php endif; ?>
                           </td>
                         </tr>

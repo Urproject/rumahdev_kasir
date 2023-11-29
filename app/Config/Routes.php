@@ -47,4 +47,5 @@ $routes->get('/kasir/transactions/detail', 'MerchantTransactions::detail');
 $routes->get('/kasir/transactions/detail/(:num)', 'MerchantTransactions::detail/$1');
 $routes->get('/kasir/transactions/confirm', 'MerchantTransactions::confirm');
 $routes->get('/kasir/transactions/edit', 'MerchantTransactions::editOrder');
+$routes->get('/kasir/transactions/print', 'MerchantTransactions::print');
 $routes->post('/kasir/transactions/add', 'MerchantTransactions::confirmAction');
