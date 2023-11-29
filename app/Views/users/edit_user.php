@@ -59,13 +59,13 @@
               alt="<?php echo base_url('assets/images/user/' . $user->foto); ?>" 
               src="<?php echo base_url('assets/images/user/' . $user->foto); ?>">
               <div class="custom-file" style="width: 80%;">
-                <input type="file" class="custom-file-input" id="validatedCustomFile" required style="cursor: pointer;">
+                <input type="file" class="custom-file-input" id="validatedCustomFile" style="cursor: pointer;">
                 <label class="custom-file-label" for="validatedCustomFile">Ganti foto profil...</label>
                 <div class="invalid-feedback">Example invalid custom file feedback</div>
               </div>
             </div>
 
-            <button  type="submit" class="btn btn-sm rumahdev-bg border-0 text-white mr-2">Update</button>
+            <button  type="submit" class="btn btn-sm rumahdev-bg border-0 text-white mr-2">Simpan</button>
             <a href="<?= base_url('kasir/users') ?>" class="btn btn-sm btn-danger border-0">Batalkan</a>
 
           </div>

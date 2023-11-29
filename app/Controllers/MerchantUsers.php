@@ -148,7 +148,51 @@ class MerchantUsers extends BaseController {
     return redirect()->to('kasir/users');
   }
 
-  public function editUserAction() {  }
+  public function editUserAction() {  
+        
+    $model = new M_user();
+    if ($this->request->getMethod() !== 'post') {
+        return redirect()->to('kasir/user');
+    }
+    $userId = $this->request->getPost('id_user');
+    $validation = $this->validate([
+        'file_upload' => 'uploaded[file_upload]|mime_in[file_upload,image/jpg,image/jpeg,image/gif,image/png]|max_size[file_upload,4096]'
+    ]);
 
+    if ($validation == FALSE) {
+    $userData = array(
+        'nama' => $this->request->getPost('nama'),
+        'username' => $this->request->getPost('username'),
+        'password' => $this->request->getPost('password'),
+        'email' => $this->request->getPost('email'),
+        'gender' => $this->request->getPost('gender'),
+        'alamat' => $this->request->getPost('alamat'),
+        'foto' => $this->request->getPost('foto'),
+    
+    );
+    } else {
+    $dt = $model->edit_data($userId)->getRow();
+    $gambar = $dt->gambar;
+    $path = '../public/assets/images/';
+    @unlink($path.$gambar);
+        $upload = $this->request->getFile('file_upload');
+        $upload->move(WRITEPATH . '../public/assets/images/');
+    $data = array(
+        'nama' => $this->request->getPost('nama'),
+        'username' => $this->request->getPost('username'),
+        'password' => $this->request->getPost('password'),
+        'email' => $this->request->getPost('email'),
+        'gender' => $this->request->getPost('gender'),
+        'alamat' => $this->request->getPost('alamat'),
+        'foto' => $upload->getName(),
+    );
+    }
+    $model->edit_data($userId,$userData);
+    return redirect()->to('kasir/users')->with('berhasil', 'Data Berhasil di Ubah');
+    
+  
+
+    
+  } 
 
 }

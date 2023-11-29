@@ -28,4 +28,10 @@ class M_User extends Model {
     return $this->where('username', $username)
       ->countAllResults() > 0;
   }
+
+  public function edit_data($userId,$userData)
+  {
+      $query = $this->db->table($this->table)->update($userData, array('id_user' => $userId));
+      return $query;
+  }
 }
