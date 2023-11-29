@@ -141,35 +141,69 @@
         </div>
         <hr class="my-2 w-100">
 
-        <div class="order-menu flex-grow-1">
+<div class="order-menu flex-grow-1">
+    <input name="id_transaction" id="id_transaction" value="<?= esc($transactions[0]->id_transaction); ?>" hidden>
 
-          <div class="form-jenis-pesanan">
-            <label for="paymentDropdown">Jenis Pesanan :</label>
-            <select id="paymentDropdown" class="form-control-sm">
-              <option class="text-capitalize" value="<?= esc($transactions[0]->jenis_pesanan); ?>">
+    <div class="form-jenis-pesanan">
+        <label for="paymentDropdown">Jenis Pesanan :</label>
+        <select id="paymentDropdown" class="form-control-sm">
+            <option class="text-capitalize" value="<?= esc($transactions[0]->jenis_pesanan); ?>">
                 <span class="text-capitalize"><?= esc($transactions[0]->jenis_pesanan); ?></span>
-              </option>
-              <option value="dine-in">Dine In</option>
-              <option value="take-away">Take Away</option>
-            </select>
+            </option>
+            <option value="dine-in">Dine In</option>
+            <option value="take-away">Take Away</option>
+        </select>
 
-            <span id="noMejaDropdownContainer">
-              <select id="noMejaDropdown" class="form-control-sm">
+        <span id="noMejaDropdownContainer">
+            <select id="noMejaDropdown" class="form-control-sm">
                 <option value="<?= esc($transactions[0]->no_meja); ?>"><?= esc($transactions[0]->no_meja); ?></option>
                 <option value="No. Meja">No. Meja</option>
                 <?php for ($i = 1; $i <= $merchantData->jlh_meja; $i++): ?>
-                  <option value="<?= $i ?>"><?= $i ?></option>
+                    <option value="<?= $i ?>"><?= $i ?></option>
                 <?php endfor; ?>
-              </select>
-            </span>
-          </div>
+            </select>
+        </span>
+    </div>
 
-          <div id="order-list">
-            <!-- Selected products will be displayed here -->
-          </div>
+    <div id="order-list">
+        <?php if (!empty($transactions)): ?>
+            <?php foreach ($transactions as $transaction): ?>
+                <div class="row my-2">
+                    <div class="col-2 my-auto">
+                        <img class="rounded" src="<?= base_url('assets/images/produk/' . $transaction->product_info->gambar); ?>" style="width: 100%;">
+                    </div>
 
-          <p id="empty-message">Belum ada produk ditambahkan ke order.</p>
-        </div> <!-- order-menu -->
+                    <div class="col-7 my-auto">
+                        <p class="m-0 font-weight-bold"><?= esc($transaction->product_info->nama); ?></p>
+                        <p class="m-0">Rp <?= esc($transaction->product_info->harga); ?></p>
+                    </div>
+
+                    <div class="col-3 my-auto">
+                        <div class="row pr-2">
+                            <div class="col-4">
+                                <span class="right badge rounded text-white rumahdev-bg minus-qty" data-product-id="<?= esc($transaction->id_product); ?>" style="cursor: pointer;">
+                                    <i class="fas fa-minus"></i>
+                                </span>
+                            </div>
+                            <div class="col-4">
+                                <p class="text-center"><?= esc($transaction->jumlah); ?></p>
+                            </div>
+                            <div class="col-4">
+                                <span class="right badge rounded text-white rumahdev-bg plus-qty" data-product-id="<?= esc($transaction->id_product); ?>" style="cursor: pointer;">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                            </div>
+                        </div> <!-- row price+qty -->
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p id="belum-ada-data">Belum ada produk ditambahkan ke order.</p>
+        <?php endif; ?>
+    </div>
+
+    <!-- <p id="empty-message">Belum ada produk ditambahkan ke order.</p> -->
+</div> <!-- order-menu -->
 
         <button id="prosesPesananBtn" class="btn text-white rumahdev-bg border-0 mb-2" style="width: 100%;">
           Simpan Perubahan
@@ -219,35 +253,37 @@ $(document).ready(function () {
   });
 });
 
-// $(document).ready(function() {
-//   $('#searchInput').on('input', function() {
-//     var searchTerm = $(this).val().toLowerCase();
-//       $('.card-container').hide();
-//       $('.card-container').filter(function() {
-//       var productName = $(this).find('.font-weight-bold').text().toLowerCase();
-//       return productName.includes(searchTerm) || searchTerm === '';
-//     }).show();
-//   });
-// });
-
-
 
 var baseUrl = "<?php echo base_url(); ?>";
 
+
 $(document).ready(function () {
-  // Define an empty array to store the selected products
+  // Define an array to store the selected products
   const selectedProducts = [];
+
+  // Fetch existing transactions and update selectedProducts
+  <?php if (!empty($transactions)): ?>
+    <?php foreach ($transactions as $transaction): ?>
+      selectedProducts.push({
+        id_product: <?= esc($transaction->id_product); ?>,
+        nama: '<?= esc($transaction->product_info->nama); ?>',
+        gambar: '<?= esc($transaction->product_info->gambar); ?>',
+        harga: <?= esc($transaction->product_info->harga); ?>,
+        jumlah: <?= esc($transaction->jumlah); ?>
+      });
+    <?php endforeach; ?>
+  <?php endif; ?>
 
   // Handle the click event on the "Add to Order" button
   $(".add-to-order-btn").click(function () {
     const productId = $(this).data("product-id");
 
     // Check if the product is already in the order
-    const existingProduct = selectedProducts.find((product) => product.id === productId);
+    const existingProduct = selectedProducts.find((product) => product.id_product === productId);
 
     if (existingProduct) {
       // If the product already exists, increment the quantity
-      existingProduct.quantity++;
+      existingProduct.jumlah++;
     } else {
       // If it's a new product, add it to the array
       const productName = $(this).data("product-name");
@@ -255,11 +291,11 @@ $(document).ready(function () {
       const productImage = $(this).data("product-gambar");
 
       selectedProducts.push({
-        id: productId,
-        name: productName,
-        image: productImage,
-        price: productPrice,
-        quantity: 1,
+        id_product: productId,
+        nama: productName,
+        gambar: productImage,
+        harga: productPrice,
+        jumlah: 1,
       });
     }
 
@@ -267,10 +303,31 @@ $(document).ready(function () {
     updateOrderList();
   });
 
+  // Attach click events to the +/- buttons outside of the updateOrderList function
+  $("#order-list").on("click", ".minus-qty", function () {
+    const productId = $(this).data("product-id");
+    const product = selectedProducts.find((p) => p.id_product === productId);
+    if (product) {
+      product.jumlah--;
+      if (product.jumlah === 0) {
+        // Remove the product if the quantity is zero
+        selectedProducts.splice(selectedProducts.indexOf(product), 1);
+      }
+      updateOrderList();
+    }
+  });
+
+  $("#order-list").on("click", ".plus-qty", function () {
+    const productId = $(this).data("product-id");
+    const product = selectedProducts.find((p) => p.id_product === productId);
+    if (product) {
+      product.jumlah++;
+      updateOrderList();
+    }
+  });
+
   // Attach click event to the "Proses Pesanan" button
   $("#prosesPesananBtn").click(function () {
-
-   console.log("Button Clicked");
     // Call the function to send selected products data to the controller
     sendOrderDataToController(selectedProducts);
   });
@@ -289,100 +346,74 @@ $(document).ready(function () {
       orderList.empty();
 
       selectedProducts.forEach((product) => {
-        const imageUrl = baseUrl + 'assets/images/produk/' + product.image;
+        const imageUrl = baseUrl + 'assets/images/produk/' + product.gambar;
 
         orderList.append(`
-
-            <div class="row my-2">
-              <div class="col-2 my-auto">
-                <img class="rounded" src="${imageUrl}" style="width: 100%;">
-              </div>
-
-              <div class="col-7 my-auto">
-                <p class="m-0 font-weight-bold">${product.name}</p>
-                <p class="m-0">Rp ${product.price}</p>
-              </div>
-
-              <div class="col-3 my-auto">
-                <div class="row pr-2">
-                  <div class="col-4">
-                    <span class="right badge rounded text-white rumahdev-bg minus-qty" data-product-id="${product.id}" style="cursor: pointer;">
-                      <i class="fas fa-minus"></i>
-                    </span>
-                  </div>
-                  <div class="col-4">
-                    <p class="text-center">${product.quantity}</p>
-                  </div>
-                  <div class="col-4">
-                    <span class="right badge rounded text-white rumahdev-bg plus-qty" data-product-id="${product.id}" style="cursor: pointer;">
-                      <i class="fas fa-plus"></i>
-                    </span>
-                  </div>
-                </div> <!-- row price+qty -->
-              </div>
+          <div class="row my-2">
+            <div class="col-2 my-auto">
+              <img class="rounded" src="${imageUrl}" style="width: 100%;">
             </div>
 
+            <div class="col-7 my-auto">
+              <p class="m-0 font-weight-bold">${product.nama}</p>
+              <p class="m-0">Rp ${product.harga}</p>
+            </div>
+
+            <div class="col-3 my-auto">
+              <div class="row pr-2">
+                <div class="col-4">
+                  <span class="right badge rounded text-white rumahdev-bg minus-qty" data-product-id="${product.id_product}" style="cursor: pointer;">
+                    <i class="fas fa-minus"></i>
+                  </span>
+                </div>
+                <div class="col-4">
+                  <p class="text-center">${product.jumlah}</p>
+                </div>
+                <div class="col-4">
+                  <span class="right badge rounded text-white rumahdev-bg plus-qty" data-product-id="${product.id_product}" style="cursor: pointer;">
+                    <i class="fas fa-plus"></i>
+                  </span>
+                </div>
+              </div> <!-- row price+qty -->
+            </div>
+          </div>
         `);
       });
-
-      // Attach click events to the +/- buttons
-      $(".minus-qty").click(function () {
-        const productId = $(this).data("product-id");
-        const product = selectedProducts.find((p) => p.id === productId);
-        if (product) {
-          product.quantity--;
-          if (product.quantity === 0) {
-            // Remove the product if quantity is zero
-            selectedProducts.splice(selectedProducts.indexOf(product), 1);
-          }
-          updateOrderList();
-        }
-      });
-
-      $(".plus-qty").click(function () {
-        const productId = $(this).data("product-id");
-        const product = selectedProducts.find((p) => p.id === productId);
-        if (product) {
-          product.quantity++;
-          updateOrderList();
-        }
-      });
-
     }
   }
 
   function sendOrderDataToController(selectedProducts) {
-      var formData = {
-          jenis_pesanan: $("#paymentDropdown").val(),
-          no_meja: $("#noMejaDropdown").val(),
-          selectedProducts: selectedProducts,
-      };
+    var formData = {
+      id_transaction: $("#id_transaction").val(),
+      jenis_pesanan: $("#paymentDropdown").val(),
+      no_meja: $("#noMejaDropdown").val(),
+      selectedProducts: selectedProducts,
+    };
 
-      console.log("Sending order data to controller:", formData);
+    console.log("Sending order data to controller:", formData);
 
-      $.ajax({
-          type: "POST",
-          url: baseUrl + "kasir/order/add",
-          data: JSON.stringify(formData),
-          contentType: 'application/json',
-          success: function (response) {
-              console.log('Ajax Success:', response);
+    $.ajax({
+      type: "POST",
+      url: baseUrl + "kasir/order/edit",
+      data: JSON.stringify(formData),
+      contentType: 'application/json',
+      success: function (response) {
+        console.log('Ajax Success:', response);
 
-            // Check if the response contains id_transaction
-            if (response.id_transaction) {
-                // Redirect to the confirmation page with id_transaction
-                window.location.href = baseUrl + 'kasir/transactions/confirm?id=' + response.id_transaction;
-            } else {
-                console.error('id_transaction not found in the response');
-            }
-
-
-          },
-          error: function (error) {
-              console.error(error);
-          },
-      });
+        // Check if the response contains id_transaction
+        if (response.id_transaction) {
+          // Redirect to the confirmation page with id_transaction
+          window.location.href = baseUrl + 'kasir/transactions/confirm?id=' + response.id_transaction;
+        } else {
+          console.error('id_transaction not found in the response');
+        }
+      },
+      error: function (error) {
+        console.error(error);
+      },
+    });
   }
-
 });
+
+
 </script>

@@ -81,10 +81,6 @@ class Merchant extends BaseController {
     // Load the necessary models
     $transactionModel = new TransactionModel();
     $transactionSubModel = new TransactionSubModel();
-
-
-
-    // Retrieve JSON data from the view
     $jsonData = json_decode(file_get_contents('php://input'), true);
 
     // Check if the variables are set
@@ -98,15 +94,6 @@ class Merchant extends BaseController {
     $selectedProducts = $jsonData['selectedProducts'];
 
 
-    // Log the extracted variables
-    log_message('error', 'jenis_pesanan: ' . $jenis_pesanan);
-    log_message('error', 'no_meja: ' . $no_meja);
-    log_message('error', 'selectedProducts: ' . print_r($selectedProducts, true));
-
-    // $jenis_pesanan = $this->request->getPost('jenis_pesanan');
-    // $no_meja = $this->request->getPost('no_meja');
-    // $selectedProducts = $this->request->getPost('selectedProducts');
-
     if (empty($jenis_pesanan) || empty($no_meja) || !is_array($selectedProducts)) {
         // Handle invalid or missing data
         // return $this->response->setStatusCode(400)->setJSON(['error' => 'Invalid data']);
@@ -115,8 +102,6 @@ class Merchant extends BaseController {
 
 
     $jenis_pesanan = $jenis_pesanan ?? '';
-
-    // Calculate the total_harga by summing up prices and quantities from selectedProducts
     $total_harga = 0;
     foreach ($selectedProducts as $product) {
       $total_harga += $product['price'] * $product['quantity'];
@@ -135,8 +120,8 @@ class Merchant extends BaseController {
       'no_meja' => $no_meja,
       'jenis_pesanan' => $jenis_pesanan,
       'status_pesanan' => 1, // Set status_pesanan to 1
-      'keterangan' => '', // Leave keterangan empty for now
-      'bukti_bayar' => '' // Leave bukti_bayar empty for now
+      'keterangan' => '', // Leave keterangan empty
+      'bukti_bayar' => '' // Leave bukti_bayar empty
     ];
 
   	$id_transaction = $transactionModel->insertTransaction($transactionData);
@@ -160,8 +145,8 @@ class Merchant extends BaseController {
     ];
     return $this->response->setJSON($response);
     
-
 	}
+
 
   public function profil() {
     $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);

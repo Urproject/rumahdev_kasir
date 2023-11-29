@@ -26,6 +26,7 @@ $routes->get('/kasir/settings/payment', 'Merchant::settingPayment');
 $routes->post('/kasir/settings/save', 'Merchant::saveSettings');
 $routes->post('/kasir/settings/save_payment', 'Merchant::saveSettingPayment');
 $routes->post('/kasir/order/add', 'Merchant::addOrderToDB');
+$routes->post('/kasir/order/edit', 'MerchantTransactions::editOrderToDB');
 
 $routes->get('/kasir/products', 'MerchantProducts::index');
 $routes->get('/kasir/products/detail', 'MerchantProducts::detail');
