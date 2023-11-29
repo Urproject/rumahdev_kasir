@@ -350,6 +350,53 @@ public function print($id = null) {
     echo view('partial/footer');
 }
 
+public function generatePDF($id = null) {
+    $id = $this->request->getGet('id');
+
+    if ($id === null) {
+        return redirect()->to('/error-page');
+    }
+
+    $transactions = $this->fetchTransactionDetails($id);
+
+    if (empty($transactions)) {
+        return redirect()->to('/error-page');
+    }
+
+    $totalHarga = $this->calculateTotals($transactions);
+
+    $merchantId = model('M_Employee')->getMerchantIdByUserId($this->userData['id_user']);
+    $merchantData = (new M_Merchant())->find($merchantId);
+
+    // Fetch payment method information
+    $paymentMethod = (new M_PaymentMethod())->find($transactions[0]->id_method);
+
+    $data = [
+        'level' => model('M_Employee')->getLevelByUserId($this->userData['id_user']),
+        'titleTab' => 'RumahDev Kasir App',
+        'titlePage' => 'Detail Transaksi',
+        'userData' => $this->userData,
+        'merchantData' => $merchantData,
+        'transactions' => $transactions,
+        'totalHarga' => $totalHarga,
+        'paymentMethod' => $paymentMethod,
+    ];
+
+    $html = view('transactions/printPDF', $data);
+
+    // Generate PDF
+    $pdf = new TCPDF();
+    $pdf->AddPage();
+    $pdf->writeHTML($html);
+    $pdfContent = $pdf->Output('', 'S'); // Return the PDF content as a string
+
+    // Download the PDF
+    $pdfFilename = 'transaction_details.pdf';
+    header('Content-Type: application/pdf');
+    header('Content-Disposition: attachment; filename="' . $pdfFilename . '"');
+    echo $pdfContent;
+    exit();
+}
 
 
 

@@ -210,10 +210,10 @@ $taxEnabled = $merchantData->pajak == 1;
               <i class="fas fa-edit"></i>
               Ubah
             </a>
-            <a href="<?= base_url('kasir/order') ?>" class="btn btn-sm btn-danger text-white border-0">
+            <!-- <a href="<?= base_url('kasir/order') ?>" class="btn btn-sm btn-danger text-white border-0">
               <i class="fas fa-trash-alt"></i>
               Batalkan
-            </a>
+            </a> -->
           </div>
         </div>
       </form>
